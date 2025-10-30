@@ -1,0 +1,79 @@
+# vis.mac -- visualization macro tailored to your Detector names
+
+# open a viewer (choose OGL or OGLSX/VTK depending on your build)
+# try "OGL" or "OGLSX" if installed; change size if needed
+/vis/open OGL 800x600-0+0
+
+# quiet and avoid auto-refresh while setting scene
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+
+# OPTIONAL: list defined geometry volumes (useful for debugging names)
+/vis/geometry/list
+
+# Make sure the "World" is NOT drawn (try both phys and logic names)
+# If your world uses other names, uncomment /vis/geometry/list above to see them.
+# Try turning off solid/logic/physical names to be safe:
+#/vis/geometry/set/visibility solidWorld false
+#/vis/geometry/set/visibility logicWorld false
+#/vis/geometry/set/visibility physWorld false
+
+# Background color (black). Change to small gray if preferred.
+ /vis/viewer/set/background 0 0 0
+
+# Set colours and transparencies for the important logical volumes
+# Format: /vis/geometry/set/colour <volumeName> R G B Alpha   (values 0..1)
+
+# Steel tank: opaque light gray
+/vis/geometry/set/colour logicSteelTank 0.6 0.6 0.6 1.0
+
+# Pure water (inside tank): semi-transparent blue
+/vis/geometry/set/colour logicPureWater 0.0 0.2 1.0 0.25
+
+# PMMA vessel: semi-transparent green
+/vis/geometry/set/colour logicPMMAVessel 0.0 1.0 0.0 0.5
+
+# Water with Cd inside PMMA: cyanish, a bit transparent
+/vis/geometry/set/colour logicWaterCd 0.0 0.8 0.8 0.35
+
+# PMT glass: slightly glossy/opaque (adjust alpha to 0.7 if you want some transparency)
+/vis/geometry/set/colour logicPMT 0.85 0.85 0.85 1.0
+
+# If some volume still covers the scene, try making it fully transparent:
+# /vis/geometry/set/colour logicWorld 1 1 1 0.0
+
+# viewer style and hidden markers
+/vis/viewer/set/style surface
+/vis/viewer/set/hiddenMarker true
+
+# viewpoint (can be tuned)
+ /vis/viewer/set/viewpointThetaPhi 120 150
+ /vis/viewer/set/viewpointVector -1 0 0
+ /vis/viewer/set/lightsVector -1 0 0
+
+# draw geometry
+/vis/drawVolume
+
+# Add axes/scale/logo etc (optional)
+ /vis/scene/add/axes
+ /vis/scene/add/scale
+ /vis/scene/add/eventID
+ /vis/scene/add/date
+
+# Trajectories and hits (change if too heavy)
+ /vis/scene/add/trajectories smooth
+ /vis/modeling/trajectories/create/drawByCharge
+ /vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+ /vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 2
+#/vis/scene/add/hits
+
+# frame (optional)
+ /vis/set/colour red
+ /vis/set/lineWidth 2
+ /vis/scene/add/frame
+ /vis/set/colour
+ /vis/set/lineWidth
+
+# enable refresh and set verbosity back
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings

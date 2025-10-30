@@ -5,7 +5,7 @@
 #include "G4OpticalPhysics.hh"
 
 class PhysicsList : public G4VModularPhysicsList {
-public:
-    PhysicsList();
-    ~PhysicsList();
+    public:
+        PhysicsList();
+        ~PhysicsList();
 };

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 #include "G4VisManager.hh"
@@ -9,7 +8,7 @@
 #include "action.hh"
 
 int main(int argc, char** argv) {
-    
+
     G4RunManager *runManager = new G4RunManager();
     runManager->SetUserInitialization(new Detector());
     runManager->SetUserInitialization(new PhysicsList());
@@ -27,10 +26,11 @@ int main(int argc, char** argv) {
     UImanager->ApplyCommand("/vis/open OGL");
     UImanager->ApplyCommand("/vis/viewer/set/viewpointVector 1 1 1");
     UImanager->ApplyCommand("/vis/drawVolume");
-    UImanager->ApplyCommand("/vis/viewer/set/autoRefresh true");
+    UImanager->ApplyCommand("/vis/viewer/set/autoRefresh false");
     UImanager->ApplyCommand("/vis/scene/add/trajectories smooth");
 
-    ui->SessionStart();
+    // UImanager->ApplyCommand("/control/execute init_vis.mac");
 
-    return 0;   
+    ui->SessionStart();
+    return 0;
 }

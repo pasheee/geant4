@@ -5016,3 +5016,6 @@ CMakeFiles/sim.dir/source/physics.cc.o
  /usr/local/include/CLHEP/Vector/ThreeVector.icc
  /usr/local/include/CLHEP/Vector/defs.h
 
+CMakeFiles/sim.dir/source/tracking.cc.o
+ /Users/pavel/Geant/geant4/sim/source/tracking.cc
+

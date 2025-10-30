@@ -5011,6 +5011,10 @@ CMakeFiles/sim.dir/source/physics.cc.o: /Users/pavel/Geant/geant4/sim/source/phy
   /usr/local/include/CLHEP/Vector/ThreeVector.icc \
   /usr/local/include/CLHEP/Vector/defs.h
 
+CMakeFiles/sim.dir/source/tracking.cc.o: /Users/pavel/Geant/geant4/sim/source/tracking.cc
+
+
+/Users/pavel/Geant/geant4/sim/source/tracking.cc:
 
 /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SurfaceProperty.hh:
 

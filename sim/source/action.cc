@@ -7,6 +7,8 @@
 #include "G4Track.hh"
 #include "G4SystemOfUnits.hh"
 
+static std::ofstream outFile("chernkov_spectrum.txt", std::ios::app);
+
 RunAction::RunAction() : fPhotonCount(0) {}
 RunAction::~RunAction() {}
 
@@ -27,8 +29,20 @@ SteppingAction::~SteppingAction() {}
 
 void SteppingAction::UserSteppingAction(const G4Step* step) {
     auto track = step->GetTrack();
+
     if (track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()) {
-        fRunAction->AddPhoton();
+        if (track->GetCurrentStepNumber() == 1) {
+            const G4VProcess* creatorProc = track->GetCreatorProcess();
+            if (creatorProc) {
+                G4String procName = creatorProc->GetProcessName();
+                if (G4StrUtil::contains(procName, "Cerenkov")) {
+                    fRunAction->AddPhoton();
+
+                    G4double E = track->GetTotalEnergy() / eV;
+                    outFile << E << "\n";
+                }
+            }
+        }
     }
 }
 

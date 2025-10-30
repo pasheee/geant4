@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/sim.dir/source/generator.cc.o.d"
   "CMakeFiles/sim.dir/source/physics.cc.o"
   "CMakeFiles/sim.dir/source/physics.cc.o.d"
+  "CMakeFiles/sim.dir/source/tracking.cc.o"
+  "CMakeFiles/sim.dir/source/tracking.cc.o.d"
   "sim"
   "sim.pdb"
 )

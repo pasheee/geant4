@@ -142,10 +142,38 @@ CMakeFiles/sim.dir/source/physics.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/sim.dir/source/physics.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/pavel/Geant/geant4/sim/source/physics.cc -o CMakeFiles/sim.dir/source/physics.cc.s
 
+CMakeFiles/sim.dir/source/pmtSD.cc.o: CMakeFiles/sim.dir/flags.make
+CMakeFiles/sim.dir/source/pmtSD.cc.o: /Users/pavel/Geant/geant4/sim/source/pmtSD.cc
+CMakeFiles/sim.dir/source/pmtSD.cc.o: CMakeFiles/sim.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pavel/Geant/geant4/sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sim.dir/source/pmtSD.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sim.dir/source/pmtSD.cc.o -MF CMakeFiles/sim.dir/source/pmtSD.cc.o.d -o CMakeFiles/sim.dir/source/pmtSD.cc.o -c /Users/pavel/Geant/geant4/sim/source/pmtSD.cc
+
+CMakeFiles/sim.dir/source/pmtSD.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/sim.dir/source/pmtSD.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/pavel/Geant/geant4/sim/source/pmtSD.cc > CMakeFiles/sim.dir/source/pmtSD.cc.i
+
+CMakeFiles/sim.dir/source/pmtSD.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/sim.dir/source/pmtSD.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/pavel/Geant/geant4/sim/source/pmtSD.cc -o CMakeFiles/sim.dir/source/pmtSD.cc.s
+
+CMakeFiles/sim.dir/source/sensitive.cc.o: CMakeFiles/sim.dir/flags.make
+CMakeFiles/sim.dir/source/sensitive.cc.o: /Users/pavel/Geant/geant4/sim/source/sensitive.cc
+CMakeFiles/sim.dir/source/sensitive.cc.o: CMakeFiles/sim.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pavel/Geant/geant4/sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sim.dir/source/sensitive.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sim.dir/source/sensitive.cc.o -MF CMakeFiles/sim.dir/source/sensitive.cc.o.d -o CMakeFiles/sim.dir/source/sensitive.cc.o -c /Users/pavel/Geant/geant4/sim/source/sensitive.cc
+
+CMakeFiles/sim.dir/source/sensitive.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/sim.dir/source/sensitive.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/pavel/Geant/geant4/sim/source/sensitive.cc > CMakeFiles/sim.dir/source/sensitive.cc.i
+
+CMakeFiles/sim.dir/source/sensitive.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/sim.dir/source/sensitive.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/pavel/Geant/geant4/sim/source/sensitive.cc -o CMakeFiles/sim.dir/source/sensitive.cc.s
+
 CMakeFiles/sim.dir/source/tracking.cc.o: CMakeFiles/sim.dir/flags.make
 CMakeFiles/sim.dir/source/tracking.cc.o: /Users/pavel/Geant/geant4/sim/source/tracking.cc
 CMakeFiles/sim.dir/source/tracking.cc.o: CMakeFiles/sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pavel/Geant/geant4/sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sim.dir/source/tracking.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pavel/Geant/geant4/sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/sim.dir/source/tracking.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sim.dir/source/tracking.cc.o -MF CMakeFiles/sim.dir/source/tracking.cc.o.d -o CMakeFiles/sim.dir/source/tracking.cc.o -c /Users/pavel/Geant/geant4/sim/source/tracking.cc
 
 CMakeFiles/sim.dir/source/tracking.cc.i: cmake_force
@@ -163,6 +191,8 @@ sim_OBJECTS = \
 "CMakeFiles/sim.dir/source/construction.cc.o" \
 "CMakeFiles/sim.dir/source/generator.cc.o" \
 "CMakeFiles/sim.dir/source/physics.cc.o" \
+"CMakeFiles/sim.dir/source/pmtSD.cc.o" \
+"CMakeFiles/sim.dir/source/sensitive.cc.o" \
 "CMakeFiles/sim.dir/source/tracking.cc.o"
 
 # External object files for target sim
@@ -173,6 +203,8 @@ sim: CMakeFiles/sim.dir/source/action.cc.o
 sim: CMakeFiles/sim.dir/source/construction.cc.o
 sim: CMakeFiles/sim.dir/source/generator.cc.o
 sim: CMakeFiles/sim.dir/source/physics.cc.o
+sim: CMakeFiles/sim.dir/source/pmtSD.cc.o
+sim: CMakeFiles/sim.dir/source/sensitive.cc.o
 sim: CMakeFiles/sim.dir/source/tracking.cc.o
 sim: CMakeFiles/sim.dir/build.make
 sim: /Users/pavel/Geant/geant4-v11.3.2-install/lib/libG4Tree.dylib
@@ -214,7 +246,7 @@ sim: /Users/pavel/Geant/geant4-v11.3.2-install/lib/libG4global.dylib
 sim: /Users/pavel/Geant/geant4-v11.3.2-install/lib/libG4clhep.dylib
 sim: /Users/pavel/Geant/geant4-v11.3.2-install/lib/libG4ptl.3.0.0.dylib
 sim: CMakeFiles/sim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/pavel/Geant/geant4/sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable sim"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/pavel/Geant/geant4/sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable sim"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sim.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

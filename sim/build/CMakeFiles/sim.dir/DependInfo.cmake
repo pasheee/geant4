@@ -13,6 +13,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/pavel/Geant/geant4/sim/source/construction.cc" "CMakeFiles/sim.dir/source/construction.cc.o" "gcc" "CMakeFiles/sim.dir/source/construction.cc.o.d"
   "/Users/pavel/Geant/geant4/sim/source/generator.cc" "CMakeFiles/sim.dir/source/generator.cc.o" "gcc" "CMakeFiles/sim.dir/source/generator.cc.o.d"
   "/Users/pavel/Geant/geant4/sim/source/physics.cc" "CMakeFiles/sim.dir/source/physics.cc.o" "gcc" "CMakeFiles/sim.dir/source/physics.cc.o.d"
+  "/Users/pavel/Geant/geant4/sim/source/pmtSD.cc" "CMakeFiles/sim.dir/source/pmtSD.cc.o" "gcc" "CMakeFiles/sim.dir/source/pmtSD.cc.o.d"
+  "/Users/pavel/Geant/geant4/sim/source/sensitive.cc" "CMakeFiles/sim.dir/source/sensitive.cc.o" "gcc" "CMakeFiles/sim.dir/source/sensitive.cc.o.d"
   "/Users/pavel/Geant/geant4/sim/source/tracking.cc" "CMakeFiles/sim.dir/source/tracking.cc.o" "gcc" "CMakeFiles/sim.dir/source/tracking.cc.o.d"
   )
 

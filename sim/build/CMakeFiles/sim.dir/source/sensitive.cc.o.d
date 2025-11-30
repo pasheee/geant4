@@ -1,10 +1,8 @@
-CMakeFiles/sim.dir/source/construction.cc.o: \
-  /Users/pavel/Geant/geant4/sim/source/construction.cc \
-  /Users/pavel/Geant/geant4/sim/include/construction.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SystemOfUnits.hh \
-  /usr/local/include/CLHEP/Units/SystemOfUnits.h \
-  /usr/local/include/CLHEP/Units/defs.h \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VUserDetectorConstruction.hh \
+CMakeFiles/sim.dir/source/sensitive.cc.o: \
+  /Users/pavel/Geant/geant4/sim/source/sensitive.cc \
+  /Users/pavel/Geant/geant4/sim/include/sensitive.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSensitiveDetector.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4CollectionNameVector.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/globals.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ios.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Types.hh \
@@ -812,13 +810,18 @@ CMakeFiles/sim.dir/source/construction.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iomanip \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VPhysicalVolume.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/geomdefs.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4RotationMatrix.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4HCofThisEvent.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Allocator.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4AllocatorPool.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VHitsCollection.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Step.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ThreeVector.hh \
   /usr/local/include/CLHEP/Vector/ThreeVector.h \
   /usr/local/include/CLHEP/Vector/defs.h \
   /usr/local/include/CLHEP/Vector/ThreeVector.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VPhysicalVolume.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/geomdefs.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4RotationMatrix.hh \
   /usr/local/include/CLHEP/Vector/Rotation.h \
   /usr/local/include/CLHEP/Vector/RotationInterfaces.h \
   /usr/local/include/CLHEP/Vector/LorentzVector.h \
@@ -830,6 +833,8 @@ CMakeFiles/sim.dir/source/construction.cc.o: \
   /usr/local/include/CLHEP/Vector/RotationX.h \
   /usr/local/include/CLHEP/Vector/RotationX.icc \
   /usr/local/include/CLHEP/Units/PhysicalConstants.h \
+  /usr/local/include/CLHEP/Units/defs.h \
+  /usr/local/include/CLHEP/Units/SystemOfUnits.h \
   /usr/local/include/CLHEP/Vector/RotationY.h \
   /usr/local/include/CLHEP/Vector/RotationY.icc \
   /usr/local/include/CLHEP/Vector/RotationZ.h \
@@ -854,37 +859,38 @@ CMakeFiles/sim.dir/source/construction.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/thread \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/this_thread.h \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VPhysicalVolume.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4StepPoint.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SteppingControl.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4StepStatus.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TouchableHandle.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VTouchable.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TouchableHistory.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationHistory.hh \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_assert.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4AffineTransform.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Transform3D.hh \
+  /usr/local/include/CLHEP/Geometry/Transform3D.h \
+  /usr/local/include/CLHEP/Geometry/defs.h \
+  /usr/local/include/CLHEP/Geometry/Transform3D.icc \
+  /usr/local/include/CLHEP/Geometry/Point3D.h \
+  /usr/local/include/CLHEP/Geometry/BasicVector3D.h \
+  /usr/local/include/CLHEP/Geometry/Vector3D.h \
+  /usr/local/include/CLHEP/Geometry/Normal3D.h \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4AffineTransform.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevel.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevelRep.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevelRep.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevel.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationHistoryPool.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationHistory.icc \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalVolume.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Region.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Region.icc \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalVolume.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Box.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4GeomTypes.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4GeomConfig.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4CSGSolid.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSolid.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSolid.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Polyhedron.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/HepPolyhedron.h \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TwoVector.hh \
-  /usr/local/include/CLHEP/Vector/TwoVector.h \
-  /usr/local/include/CLHEP/Vector/TwoVector.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Point3D.hh \
-  /usr/local/include/CLHEP/Geometry/Point3D.h \
-  /usr/local/include/CLHEP/Geometry/defs.h \
-  /usr/local/include/CLHEP/Geometry/BasicVector3D.h \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Normal3D.hh \
-  /usr/local/include/CLHEP/Geometry/Normal3D.h \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Transform3D.hh \
-  /usr/local/include/CLHEP/Geometry/Transform3D.h \
-  /usr/local/include/CLHEP/Geometry/Transform3D.icc \
-  /usr/local/include/CLHEP/Geometry/Vector3D.h \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Visible.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Visible.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Box.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4PVPlacement.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NistManager.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ICRU90StoppingData.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TouchableHistory.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ReferenceCountedHandle.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Material.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Element.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ElementTable.hh \
@@ -925,40 +931,6 @@ CMakeFiles/sim.dir/source/construction.cc.o: \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4OrderedTable.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4DataVector.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4DataVector.icc \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_assert.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NistElementBuilder.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NistMaterialBuilder.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Pow.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Exp.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SDManager.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4HCtable.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SDStructure.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSensitiveDetector.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4CollectionNameVector.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4HCofThisEvent.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Allocator.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4AllocatorPool.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VHitsCollection.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Step.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4StepPoint.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SteppingControl.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4StepStatus.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TouchableHandle.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VTouchable.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TouchableHistory.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationHistory.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4AffineTransform.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4AffineTransform.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevel.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevelRep.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevelRep.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationLevel.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationHistoryPool.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NavigationHistory.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TouchableHistory.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ReferenceCountedHandle.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4StepPoint.icc \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4TrackVector.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Step.icc \
@@ -981,23 +953,80 @@ CMakeFiles/sim.dir/source/construction.cc.o: \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VReadOutGeometry.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SensitiveVolumeList.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSDFilter.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Tubs.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Tubs.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VisAttributes.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/graphics_reps_defs.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Colour.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Color.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VisAttributes.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSkinSurface.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSurface.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSurface.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSkinSurface.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4OpticalSurface.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Physics2DVector.hh \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Physics2DVector.icc \
-  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SurfaceProperty.hh \
-  /Users/pavel/Geant/geant4/sim/include/sensitive.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SystemOfUnits.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4UnitsTable.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4UnitsTable.icc \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
-  /Users/pavel/Geant/geant4/sim/include/pmtSD.hh
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4OpticalPhoton.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VProcess.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/Randomize.hh \
+  /usr/local/include/CLHEP/Random/Randomize.h \
+  /usr/local/include/CLHEP/Random/defs.h \
+  /usr/local/include/CLHEP/Random/DRand48Engine.h \
+  /usr/local/include/CLHEP/Random/RandomEngine.h \
+  /usr/local/include/CLHEP/Random/RandomEngine.icc \
+  /usr/local/include/CLHEP/Utility/noncopyable.h \
+  /usr/local/include/CLHEP/Utility/defs.h \
+  /usr/local/include/CLHEP/Random/DualRand.h \
+  /usr/local/include/CLHEP/Random/Hurd160Engine.h \
+  /usr/local/include/CLHEP/Random/Hurd288Engine.h \
+  /usr/local/include/CLHEP/Random/JamesRandom.h \
+  /usr/local/include/CLHEP/Random/MixMaxRng.h \
+  /usr/local/include/CLHEP/Random/MTwistEngine.h \
+  /usr/local/include/CLHEP/Random/RandEngine.h \
+  /usr/local/include/CLHEP/Random/RanecuEngine.h \
+  /usr/local/include/CLHEP/Random/RanluxEngine.h \
+  /usr/local/include/CLHEP/Random/Ranlux64Engine.h \
+  /usr/local/include/CLHEP/Random/RanluxppEngine.h \
+  /usr/local/include/CLHEP/Random/RanshiEngine.h \
+  /usr/local/include/CLHEP/Random/TripleRand.h \
+  /usr/local/include/CLHEP/Random/RandBinomial.h \
+  /usr/local/include/CLHEP/Random/Random.h \
+  /usr/local/include/CLHEP/Random/Random.icc \
+  /usr/local/include/CLHEP/Utility/memory.h \
+  /usr/local/include/CLHEP/Random/RandBinomial.icc \
+  /usr/local/include/CLHEP/Random/RandBreitWigner.h \
+  /usr/local/include/CLHEP/Random/RandFlat.h \
+  /usr/local/include/CLHEP/Utility/thread_local.h \
+  /usr/local/include/CLHEP/Random/RandFlat.icc \
+  /usr/local/include/CLHEP/Random/RandBreitWigner.icc \
+  /usr/local/include/CLHEP/Random/RandChiSquare.h \
+  /usr/local/include/CLHEP/Random/RandChiSquare.icc \
+  /usr/local/include/CLHEP/Random/RandExponential.h \
+  /usr/local/include/CLHEP/Random/RandExponential.icc \
+  /usr/local/include/CLHEP/Random/RandExpZiggurat.h \
+  /usr/local/include/CLHEP/Random/RandBit.h \
+  /usr/local/include/CLHEP/Random/RandBit.icc \
+  /usr/local/include/CLHEP/Random/RandGamma.h \
+  /usr/local/include/CLHEP/Random/RandGamma.icc \
+  /usr/local/include/CLHEP/Random/RandGauss.h \
+  /usr/local/include/CLHEP/Random/RandGauss.icc \
+  /usr/local/include/CLHEP/Random/RandGaussQ.h \
+  /usr/local/include/CLHEP/Random/RandGaussQ.icc \
+  /usr/local/include/CLHEP/Random/RandGaussT.h \
+  /usr/local/include/CLHEP/Random/Stat.h \
+  /usr/local/include/CLHEP/Random/RandGaussT.icc \
+  /usr/local/include/CLHEP/Random/RandGaussZiggurat.h \
+  /usr/local/include/CLHEP/Random/RandGeneral.h \
+  /usr/local/include/CLHEP/Random/RandGeneral.icc \
+  /usr/local/include/CLHEP/Random/RandLandau.h \
+  /usr/local/include/CLHEP/Random/RandLandau.icc \
+  /usr/local/include/CLHEP/Random/RandPoissonQ.h \
+  /usr/local/include/CLHEP/Random/RandPoisson.h \
+  /usr/local/include/CLHEP/Random/RandPoisson.icc \
+  /usr/local/include/CLHEP/Random/RandPoissonQ.icc \
+  /usr/local/include/CLHEP/Random/RandPoissonT.h \
+  /usr/local/include/CLHEP/Random/RandPoissonT.icc \
+  /usr/local/include/CLHEP/Random/RandSkewNormal.h \
+  /usr/local/include/CLHEP/Random/RandSkewNormal.icc \
+  /usr/local/include/CLHEP/Random/RandStudentT.h \
+  /usr/local/include/CLHEP/Random/RandStudentT.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4PhysicsTable.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4PhysicsTable.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VParticleChange.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VParticleChange.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ForceCondition.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4GPILSelection.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ParticleChange.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ParticleChange.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4ProcessType.hh

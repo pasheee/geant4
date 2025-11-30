@@ -1225,6 +1225,22 @@ CMakeFiles/sim.dir/sim.cc.o: /Users/pavel/Geant/geant4/sim/sim.cc \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4NistMaterialBuilder.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Pow.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Exp.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SDManager.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4HCtable.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SDStructure.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSensitiveDetector.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4CollectionNameVector.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VReadOutGeometry.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SensitiveVolumeList.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VSDFilter.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSkinSurface.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSurface.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSurface.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4LogicalSkinSurface.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4OpticalSurface.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Physics2DVector.hh \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4Physics2DVector.icc \
+  /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4SurfaceProperty.hh \
   /Users/pavel/Geant/geant4/sim/include/physics.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VModularPhysicsList.hh \
   /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4/G4VPhysicsConstructor.hh \

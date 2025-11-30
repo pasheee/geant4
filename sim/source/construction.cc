@@ -1,15 +1,9 @@
 #include "construction.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4NistManager.hh"
-#include "G4Box.hh"
-#include "G4Tubs.hh"
-#include "G4LogicalVolume.hh"
-#include "G4PVPlacement.hh"
-#include "G4RotationMatrix.hh"
-#include "G4Transform3D.hh"
-#include "G4VisAttributes.hh"
-#include "G4LogicalSkinSurface.hh"
-#include "G4OpticalSurface.hh"
+#include "sensitive.hh"
+#include "pmtSD.hh"
+#include "G4SDManager.hh"
+
+
 
 Detector::Detector(){}
 Detector::~Detector(){}
@@ -106,6 +100,13 @@ G4VPhysicalVolume *Detector::Construct() {
     G4Tubs* solidWaterCd = new G4Tubs("solidWaterCd", 0, pmmaVessel_innerRadius - 0.001*mm, 
                                      pmmaVessel_halfHeight - 0.001*mm, 0, 360*deg);
     G4LogicalVolume* logicWaterCd = new G4LogicalVolume(solidWaterCd, waterWithCd, "logicWaterCd");
+
+    // === SENSITIVE DETECTOR ATTACHMENT === //
+    auto sdMan = G4SDManager::GetSDMpointer();
+    auto waterSD = new SensitiveDetector("WaterCdSD");
+    sdMan->AddNewDetector(waterSD);
+    logicWaterCd->SetSensitiveDetector(waterSD);
+
     logicWaterCd->SetVisAttributes(cdColor);
     new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWaterCd, "physWaterCd", 
                       logicPureWater, false, 0, true);
@@ -121,6 +122,13 @@ G4VPhysicalVolume *Detector::Construct() {
     G4double pmtHeight = 200*mm;
     G4Tubs* solidPMT = new G4Tubs("solidPMT", 0, pmtRadius, pmtHeight/2, 0, 360*deg);
     G4LogicalVolume* logicPMT = new G4LogicalVolume(solidPMT, pmtMaterial, "logicPMT");
+
+    // === PMT SENSITIVE DETECTOR ===
+    auto pmtsdMan = G4SDManager::GetSDMpointer();
+    auto pmtSD = new PMTSD("PMTSD");
+    pmtsdMan->AddNewDetector(pmtSD);
+    logicPMT->SetSensitiveDetector(pmtSD);
+
 
     G4double pmtRingRadius = 500*mm;
     G4double pmtZpos = pureWater_halfHeight - pmtHeight/2 - 0.1*mm;

@@ -249,6 +249,54 @@ source/physics.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/physics.cc.s
 .PHONY : source/physics.cc.s
 
+source/pmtSD.o: source/pmtSD.cc.o
+.PHONY : source/pmtSD.o
+
+# target to build an object file
+source/pmtSD.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/pmtSD.cc.o
+.PHONY : source/pmtSD.cc.o
+
+source/pmtSD.i: source/pmtSD.cc.i
+.PHONY : source/pmtSD.i
+
+# target to preprocess a source file
+source/pmtSD.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/pmtSD.cc.i
+.PHONY : source/pmtSD.cc.i
+
+source/pmtSD.s: source/pmtSD.cc.s
+.PHONY : source/pmtSD.s
+
+# target to generate assembly for a file
+source/pmtSD.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/pmtSD.cc.s
+.PHONY : source/pmtSD.cc.s
+
+source/sensitive.o: source/sensitive.cc.o
+.PHONY : source/sensitive.o
+
+# target to build an object file
+source/sensitive.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/sensitive.cc.o
+.PHONY : source/sensitive.cc.o
+
+source/sensitive.i: source/sensitive.cc.i
+.PHONY : source/sensitive.i
+
+# target to preprocess a source file
+source/sensitive.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/sensitive.cc.i
+.PHONY : source/sensitive.cc.i
+
+source/sensitive.s: source/sensitive.cc.s
+.PHONY : source/sensitive.s
+
+# target to generate assembly for a file
+source/sensitive.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/sensitive.cc.s
+.PHONY : source/sensitive.cc.s
+
 source/tracking.o: source/tracking.cc.o
 .PHONY : source/tracking.o
 
@@ -297,6 +345,12 @@ help:
 	@echo "... source/physics.o"
 	@echo "... source/physics.i"
 	@echo "... source/physics.s"
+	@echo "... source/pmtSD.o"
+	@echo "... source/pmtSD.i"
+	@echo "... source/pmtSD.s"
+	@echo "... source/sensitive.o"
+	@echo "... source/sensitive.i"
+	@echo "... source/sensitive.s"
 	@echo "... source/tracking.o"
 	@echo "... source/tracking.i"
 	@echo "... source/tracking.s"

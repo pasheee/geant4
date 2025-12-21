@@ -2,6 +2,8 @@
 #include "sensitive.hh"
 #include "pmtSD.hh"
 #include "G4SDManager.hh"
+#include "G4PhysicalConstants.hh"
+#include <cmath>
 
 
 
@@ -65,7 +67,9 @@ G4VPhysicalVolume *Detector::Construct() {
     mirrorSurface->SetModel(unified);
 
     const G4int nEntriesMirror = 2;
-    G4double photonEnergyMirror[nEntriesMirror] = {2.0*eV, 7.0*eV};
+    // Cover the full optical range used below (200–800 nm)
+    G4double photonEnergyMirror[nEntriesMirror] = {(h_Planck * c_light) / (800. * nm),
+                                                   (h_Planck * c_light) / (200. * nm)};
     G4double reflectivity[nEntriesMirror] = {0.9, 0.9};
 
     auto mirrorMPT = new G4MaterialPropertiesTable();
@@ -147,33 +151,97 @@ G4VPhysicalVolume *Detector::Construct() {
     }
 
 
-    const G4int nEntries = 2;
-    G4double photonEnergy[nEntries] = {2.0*eV, 7.0*eV};
+    // =====================================================================
+    // Optical properties
+    // =====================================================================
+    //
+    // 1) Water dispersion n(λ)
+    // Source: Hale & Querry (1973), "Optical constants of water..."
+    // Data via refractiveindex.info database (public domain, CC0).
+    //
+    // Note: Geant4 expects optical properties as a function of photon ENERGY
+    // in strictly increasing order. We define wavelengths from long->short
+    // so that energy is increasing.
+    const G4int nWaterEntries = 25;
+    G4double waterWavelength[nWaterEntries] = {
+        800. * nm, 775. * nm, 750. * nm, 725. * nm, 700. * nm, 675. * nm, 650. * nm,
+        625. * nm, 600. * nm, 575. * nm, 550. * nm, 525. * nm, 500. * nm, 475. * nm,
+        450. * nm, 425. * nm, 400. * nm, 375. * nm, 350. * nm, 325. * nm, 300. * nm,
+        275. * nm, 250. * nm, 225. * nm, 200. * nm};
 
-    G4double refractiveIndex[nEntries] = {1.33, 1.33};
+    // n(λ) for liquid water at ~25 °C
+    G4double rindexWater[nWaterEntries] = {
+        1.329000, 1.330000, 1.330000, 1.330000, 1.331000, 1.331000, 1.331000, 1.332000,
+        1.332000, 1.333000, 1.333000, 1.334000, 1.335000, 1.336000, 1.337000, 1.338000,
+        1.339000, 1.341000, 1.343000, 1.346000, 1.349000, 1.354000, 1.362000, 1.373000,
+        1.396000};
 
-    G4double absorption_pureWater[nEntries] = {15.*m, 15.*m};
-    G4double absorption_waterCd[nEntries] = {6.*m, 6.*m};
+    G4double photonEnergyWater[nWaterEntries];
+    for (int i = 0; i < nWaterEntries; ++i) {
+        photonEnergyWater[i] = (h_Planck * c_light) / waterWavelength[i];
+    }
+
+    // 2) Absorption length L_abs(λ)
+    // From the same Hale & Querry dataset: use extinction coefficient k(λ)
+    // and convert to absorption length via:
+    //   alpha = 4*pi*k / lambda,   L_abs = 1/alpha = lambda / (4*pi*k)
+    //
+    // NOTE: This is *absorption* (no scattering). Real detector attenuation can be shorter.
+    G4double kWater[nWaterEntries] = {
+        1.250e-07, 1.480e-07, 1.560e-07, 9.150e-08, 3.350e-08, 2.230e-08, 1.640e-08,
+        1.390e-08, 1.090e-08, 3.600e-09, 1.960e-09, 1.320e-09, 1.000e-09, 9.350e-10,
+        1.020e-09, 1.300e-09, 1.860e-09, 3.500e-09, 6.500e-09, 1.080e-08, 1.600e-08,
+        2.350e-08, 3.350e-08, 4.900e-08, 1.100e-07};
+
+    G4double absorption_pureWater[nWaterEntries];
+    G4double absorption_waterCd[nWaterEntries];
+    const G4double cdScale = (6.0 / 15.0); // keep previous relative transparency as a simple approximation
+    for (int i = 0; i < nWaterEntries; ++i) {
+        const G4double k = kWater[i];
+        if (k > 0.) {
+            absorption_pureWater[i] = waterWavelength[i] / (4.0 * pi * k);
+        } else {
+            absorption_pureWater[i] = 1e6 * m; // effectively transparent if k=0
+        }
+        absorption_waterCd[i] = absorption_pureWater[i] * cdScale;
+    }
 
     auto waterMPT = new G4MaterialPropertiesTable();
-    waterMPT->AddProperty("RINDEX", photonEnergy, refractiveIndex, nEntries);
-    waterMPT->AddProperty("ABSLENGTH", photonEnergy, absorption_pureWater, nEntries);
+    waterMPT->AddProperty("RINDEX", photonEnergyWater, rindexWater, nWaterEntries);
+    waterMPT->AddProperty("ABSLENGTH", photonEnergyWater, absorption_pureWater, nWaterEntries);
     pureWater->SetMaterialPropertiesTable(waterMPT);
 
     auto waterCdMPT = new G4MaterialPropertiesTable();
-    waterCdMPT->AddProperty("RINDEX", photonEnergy, refractiveIndex, nEntries);
-    waterCdMPT->AddProperty("ABSLENGTH", photonEnergy, absorption_waterCd, nEntries);
+    waterCdMPT->AddProperty("RINDEX", photonEnergyWater, rindexWater, nWaterEntries);
+    waterCdMPT->AddProperty("ABSLENGTH", photonEnergyWater, absorption_waterCd, nWaterEntries);
     waterWithCd->SetMaterialPropertiesTable(waterCdMPT);
 
-    G4double refractiveIndexGlass[nEntries] = {1.52, 1.52};
     auto glassMPT = new G4MaterialPropertiesTable();
-    glassMPT->AddProperty("RINDEX", photonEnergy, refractiveIndexGlass, nEntries);
-    pmtMaterial->SetMaterialPropertiesTable(glassMPT);
 
-    G4double quantumEfficiency[nEntries] = {0.28, 0.28};
-    G4MaterialPropertiesTable* pmtMPT = new G4MaterialPropertiesTable();
-    pmtMPT->AddProperty("EFFICIENCY", photonEnergy, quantumEfficiency, nEntries);
-    pmtMaterial->SetMaterialPropertiesTable(pmtMPT);
+    // PMT window (borosilicate glass) refractive index: keep constant but defined over full range.
+    G4double rindexGlass[nWaterEntries];
+    for (int i = 0; i < nWaterEntries; ++i) rindexGlass[i] = 1.52;
+    glassMPT->AddProperty("RINDEX", photonEnergyWater, rindexGlass, nWaterEntries);
+
+    // 3) PMT quantum efficiency QE(λ) -> used by PMTSD as "EFFICIENCY"
+    // Source: WCSim (MIT) QE curve (10-inch HQE PMT), tabulated vs wavelength.
+    // https://github.com/WCSim/WCSim  (see src/WCSimPMTObject.cc, PMT10inchHQE::GetQE)
+    const G4int nQE = 20;
+    G4double qeWavelength[nQE] = {660. * nm, 640. * nm, 620. * nm, 600. * nm, 580. * nm, 560. * nm,
+                                  540. * nm, 520. * nm, 500. * nm, 480. * nm, 460. * nm, 440. * nm,
+                                  420. * nm, 400. * nm, 380. * nm, 360. * nm, 340. * nm, 320. * nm,
+                                  300. * nm, 280. * nm};
+    // QE in fraction (0..1), reversed order to match qeWavelength (660->280 nm)
+    G4double quantumEfficiency[nQE] = {0.00, 0.0061, 0.0178, 0.0323, 0.0499, 0.0727, 0.1102, 0.1641,
+                                       0.1971, 0.2268, 0.2655, 0.2915, 0.3168, 0.3320, 0.3396, 0.3306,
+                                       0.2933, 0.2017, 0.0502, 0.00};
+    G4double photonEnergyQE[nQE];
+    for (int i = 0; i < nQE; ++i) {
+        photonEnergyQE[i] = (h_Planck * c_light) / qeWavelength[i];
+    }
+    glassMPT->AddProperty("EFFICIENCY", photonEnergyQE, quantumEfficiency, nQE);
+    
+    pmtMaterial->SetMaterialPropertiesTable(glassMPT);
     
     return physWorld;
 }

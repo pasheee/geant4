@@ -1,0 +1,19 @@
+# Batch-тест для асимметрии на электроне (моноэнергетический пучок)
+# Запуск:
+#   ./sim /Users/pavel/Geant/geant4/sim/macros/batch_test_mono_electron.mac
+#
+# Результат:
+#   pe_asymmetry.txt (в build/)
+
+/run/initialize
+
+/gen/mode mono
+/gen/particle e-
+/gen/monoEnergy 6 MeV
+/gen/isotropic false
+/gen/dir 0 0 1
+
+/run/beamOn 100
+
+
+

@@ -18,17 +18,16 @@ public:
     virtual void EndOfEvent(G4HCofThisEvent*) override;
 
 private:
-    // Суммарная энергия по всем PMT
     G4double fEnergySum;
 
-    // Суммарное число фотонов по всем PMT
-    G4int fPhotonCount;
+    G4int fPhotoElectronCount;
 
-    // Для пометки уже учтённых треков (чтобы не считать трек много раз)
+    G4int fPhotoElectronCountTop;
+    G4int fPhotoElectronCountBottom;
+
     std::set<G4int> fSeenTracks;
 
-    // Опционально: статистика по каждой PMT (copy number -> значение)
-    std::map<G4int, G4int> fPhotonsPerPMT;
+    std::map<G4int, G4int> fPhotoElectronsPerPMT;
     std::map<G4int, G4double> fEnergyPerPMT;
 };
 

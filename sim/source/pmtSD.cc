@@ -8,11 +8,26 @@
 #include "G4StepStatus.hh"
 #include "G4UnitsTable.hh"
 #include "G4ios.hh"
+#include "G4RunManager.hh"
+#include "G4Material.hh"
+#include "G4MaterialPropertiesTable.hh"
+#include "Randomize.hh"
+#include <fstream>
+#include <iomanip>
+
+namespace {
+// Пишем по событиям: Npe_top, Npe_bottom, асимметрия.
+// Файл создаётся в текущей рабочей директории (обычно build/).
+std::ofstream gAsymFile("pe_asymmetry.txt"); // trunc по умолчанию
+bool gHeaderWritten = false;
+}
 
 PMTSD::PMTSD(const G4String& name)
     : G4VSensitiveDetector(name),
       fEnergySum(0.0),
-      fPhotonCount(0)
+      fPhotoElectronCount(0),
+      fPhotoElectronCountTop(0),
+      fPhotoElectronCountBottom(0)
 {}
 
 PMTSD::~PMTSD() {}
@@ -20,9 +35,11 @@ PMTSD::~PMTSD() {}
 void PMTSD::Initialize(G4HCofThisEvent*)
 {
     fEnergySum = 0.0;
-    fPhotonCount = 0;
+    fPhotoElectronCount = 0;
+    fPhotoElectronCountTop = 0;
+    fPhotoElectronCountBottom = 0;
     fSeenTracks.clear();
-    fPhotonsPerPMT.clear();
+    fPhotoElectronsPerPMT.clear();
     fEnergyPerPMT.clear();
 }
 
@@ -43,7 +60,7 @@ G4bool PMTSD::ProcessHits(G4Step* step, G4TouchableHistory*)
         }
     }
 
-    // 2) Только оптические фотоны для счетчика
+    // 2) Только оптические фотоны для счётчика фотоэлектронов
     if (track->GetDefinition() != G4OpticalPhoton::OpticalPhotonDefinition()) {
         return true;
     }
@@ -55,43 +72,104 @@ G4bool PMTSD::ProcessHits(G4Step* step, G4TouchableHistory*)
         return true;
     }
 
-    // --- НОВАЯ ПРОСТАЯ ЛОГИКА: 
-    // Если ProcessHits вызван для оптического фотона внутри этого чувствительного объёма,
-    // считаем его 1 раз (без проверки pre->GetStepStatus()).
-    fSeenTracks.insert(trackID);
-    fPhotonCount++;
-
-    // Получаем copy number для статистики по PMT (post preferred, then pre)
-    G4int copyNumber = -1;
-    const G4StepPoint* post = step->GetPostStepPoint();
     const G4StepPoint* pre  = step->GetPreStepPoint();
-    if (post && post->GetTouchableHandle()) {
-        copyNumber = post->GetTouchableHandle()->GetCopyNumber();
-    } else if (pre && pre->GetTouchableHandle()) {
+    if (!pre) return true;
+
+    // Считаем попадание фотона в PMT один раз — в момент входа в чувствительный объём.
+    // Это ближе к "фотон дошёл до фотокатода", чем подсчёт всех шагов в стекле.
+    const bool entered = (pre->GetStepStatus() == fGeomBoundary);
+    const bool createdInside = (track->GetCurrentStepNumber() == 1);
+    if (!entered && !createdInside) {
+        return true;
+    }
+
+    // Получаем copy number для статистики по PMT.
+    G4int copyNumber = -1;
+    if (pre->GetTouchableHandle()) {
         copyNumber = pre->GetTouchableHandle()->GetCopyNumber();
     }
-    if (copyNumber >= 0) fPhotonsPerPMT[copyNumber] += 1;
+    if (copyNumber < 0) return true;
+
+    // Квантовая эффективность (QE): пробуем взять из MaterialPropertiesTable ("EFFICIENCY"),
+    // иначе используем дефолт 0.28.
+    G4double qe = 0.28;
+    if (const auto* mat = pre->GetMaterial()) {
+        if (auto* mpt = mat->GetMaterialPropertiesTable()) {
+            if (auto* eff = mpt->GetProperty("EFFICIENCY")) {
+                qe = eff->Value(track->GetTotalEnergy());
+            }
+        }
+    }
+    if (qe < 0.) qe = 0.;
+    if (qe > 1.) qe = 1.;
+
+    const bool detected = (G4UniformRand() < qe);
+
+    // Считаем фотон обработанным и поглощаем его в PMT (детектирован или потерян).
+    fSeenTracks.insert(trackID);
+    track->SetTrackStatus(fStopAndKill);
+
+    if (detected) {
+        fPhotoElectronCount++;
+        fPhotoElectronsPerPMT[copyNumber] += 1;
+
+        // В вашей геометрии: top copy = 0..11, bottom copy = 12..23
+        if (copyNumber < 12) {
+            fPhotoElectronCountTop++;
+        } else {
+            fPhotoElectronCountBottom++;
+        }
+    }
 
     return true;
 }
 
 void PMTSD::EndOfEvent(G4HCofThisEvent*)
 {
-    G4cout << "=== PMT Sensitive Detector Summary (" << GetName() << ") ===\n";
-    G4cout << "Total energy deposited: " << G4BestUnit(fEnergySum, "Energy") << G4endl;
-    G4cout << "Optical photons detected: " << fPhotonCount << G4endl;
-
-    if (!fPhotonsPerPMT.empty()) {
-        G4cout << "Photons per PMT (copy -> count):\n";
-        for (const auto& kv : fPhotonsPerPMT) {
-            G4cout << "  PMT " << kv.first << " : " << kv.second << G4endl;
+    G4int eventID = -1;
+    if (auto* rm = G4RunManager::GetRunManager()) {
+        if (const auto* evt = rm->GetCurrentEvent()) {
+            eventID = evt->GetEventID();
         }
     }
 
-    if (!fEnergyPerPMT.empty()) {
-        G4cout << "Energy per PMT (copy -> energy):\n";
-        for (const auto& kv : fEnergyPerPMT) {
-            G4cout << "  PMT " << kv.first << " : " << G4BestUnit(kv.second, "Energy") << G4endl;
+    const G4int nTop = fPhotoElectronCountTop;
+    const G4int nBottom = fPhotoElectronCountBottom;
+    const G4int nTot = fPhotoElectronCount;
+
+    G4double asym = 0.;
+    if ((nTop + nBottom) > 0) {
+        asym = (static_cast<G4double>(nTop) - static_cast<G4double>(nBottom)) /
+               (static_cast<G4double>(nTop) + static_cast<G4double>(nBottom));
+    }
+
+    // Пишем строку в файл для последующей обработки (python/ROOT).
+    if (gAsymFile) {
+        if (!gHeaderWritten) {
+            gAsymFile << "# event_id  Npe_top  Npe_bottom  Npe_total  asym=(top-bottom)/(top+bottom)\n";
+            gHeaderWritten = true;
+        }
+        gAsymFile << eventID << " " << nTop << " " << nBottom << " " << nTot << " "
+                  << std::setprecision(6) << asym << "\n";
+        // Avoid flushing every event (slow for large statistics).
+        if (eventID >= 0 && (eventID % 5000) == 0) {
+            gAsymFile.flush();
+        }
+    }
+
+    // Чтобы не заспамить консоль при больших статистиках, печатаем только первые события.
+    if (eventID >= 0 && eventID < 5) {
+        G4cout << "=== PMT Summary (" << GetName() << "), event " << eventID << " ===\n";
+    G4cout << "Total energy deposited: " << G4BestUnit(fEnergySum, "Energy") << G4endl;
+        G4cout << "Photoelectrons (QE applied): total=" << nTot
+               << " top=" << nTop << " bottom=" << nBottom
+               << " asym=" << asym << G4endl;
+
+        if (!fPhotoElectronsPerPMT.empty()) {
+            G4cout << "Photoelectrons per PMT (copy -> count):\n";
+            for (const auto& kv : fPhotoElectronsPerPMT) {
+                G4cout << "  PMT " << kv.first << " : " << kv.second << G4endl;
+            }
         }
     }
 }

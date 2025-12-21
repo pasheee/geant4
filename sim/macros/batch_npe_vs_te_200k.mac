@@ -1,0 +1,32 @@
+# Большая статистика для графика <Npe> от энергии позитрона
+#
+# Запуск (из build/):
+#   SIM_SEED=20241214 ./sim /Users/pavel/Geant/geant4/sim/macros/batch_npe_vs_te_200k.mac
+#
+# Выход (в build/):
+#   - pe_asymmetry.txt              (Npe_top/Npe_bottom/Npe_total/asym по событиям)
+#   - ibd_positron_spectrum.txt     (Enu и Te+ по событиям)
+#
+# Затем построить профиль <Npe>(Te+):
+#   cd /Users/pavel/Geant/geant4
+#   python3 NIRS/make_plots_data.py --skip-cherenkov
+
+/run/initialize
+
+# Печать прогресса раз в N событий (иначе в консоли долго "тишина")
+/run/printProgress 1000
+
+# Не пишем chernkov_spectrum.txt (очень большой файл на больших статистиках)
+/analysis/writeCherenkovSpectrum false
+
+# --- генератор ---
+/gen/mode ibd
+/gen/particle e+
+/gen/isotropic false
+# Позитрон летит сверху вниз вдоль -z
+/gen/dir 0 0 -1
+
+# Статистика
+/run/beamOn 2000000
+
+

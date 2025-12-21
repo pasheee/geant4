@@ -1,0 +1,26 @@
+# Быстрый batch-тест (без интерактивного UI)
+# Запуск:
+#   ./sim /Users/pavel/Geant/geant4/sim/macros/batch_test.mac
+#
+# Результаты:
+#   - pe_asymmetry.txt            (Npe top/bottom + асимметрия по событиям)
+#   - ibd_positron_spectrum.txt   (Enu и Te+ по событиям, если mode=ibd)
+
+/run/initialize
+
+# --- генератор ---
+/gen/mode ibd
+/gen/particle e+
+/gen/isotropic true
+
+# Можно переключить на электрон/моноэнергию (для проверки асимметрии):
+#/gen/mode mono
+#/gen/particle e-
+#/gen/monoEnergy 6 MeV
+#/gen/isotropic false
+#/gen/dir 0 0 1
+
+/run/beamOn 100
+
+
+

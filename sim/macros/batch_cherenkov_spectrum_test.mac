@@ -1,0 +1,22 @@
+# Small test: enable Cherenkov spectrum output
+#
+# Run from build/:
+#   ./sim /Users/pavel/Geant/geant4/sim/macros/batch_cherenkov_spectrum_test.mac
+#
+# Output:
+#   - chernkov_spectrum.txt (energies in eV)
+
+/run/initialize
+
+/analysis/writeCherenkovSpectrum true
+
+/gen/mode mono
+/gen/particle e-
+/gen/monoEnergy 6 MeV
+/gen/isotropic false
+/gen/dir 0 0 -1
+
+/run/beamOn 5
+
+
+

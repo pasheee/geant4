@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/sim.cc.o -c /Users/pavel/Geant/geant4/sim/sim.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/sim.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/sim.cc.o"
+},
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/source/action.cc.o -c /Users/pavel/Geant/geant4/sim/source/action.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/source/action.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/source/action.cc.o"
+},
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/source/construction.cc.o -c /Users/pavel/Geant/geant4/sim/source/construction.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/source/construction.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/source/construction.cc.o"
+},
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/source/generator.cc.o -c /Users/pavel/Geant/geant4/sim/source/generator.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/source/generator.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/source/generator.cc.o"
+},
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/source/physics.cc.o -c /Users/pavel/Geant/geant4/sim/source/physics.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/source/physics.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/source/physics.cc.o"
+},
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/source/pmtSD.cc.o -c /Users/pavel/Geant/geant4/sim/source/pmtSD.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/source/pmtSD.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/source/pmtSD.cc.o"
+},
+{
+  "directory": "/Users/pavel/Geant/geant4/sim/build",
+  "command": "/usr/bin/clang++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_RAYTRACERX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/pavel/Geant/geant4/sim/include -isystem /Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4 -iframework /usr/local/opt/qt@5/lib -isystem /usr/local/opt/qt@5/lib/QtCore.framework/Headers -isystem /usr/local/opt/qt@5/./mkspecs/macx-clang -isystem /usr/local/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /usr/local/opt/qt@5/lib/QtWidgets.framework/Headers -g -std=gnu++17 -fPIC -o CMakeFiles/sim.dir/source/sensitive.cc.o -c /Users/pavel/Geant/geant4/sim/source/sensitive.cc",
+  "file": "/Users/pavel/Geant/geant4/sim/source/sensitive.cc",
+  "output": "/Users/pavel/Geant/geant4/sim/build/CMakeFiles/sim.dir/source/sensitive.cc.o"
+}
+]

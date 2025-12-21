@@ -1,16 +1,39 @@
 {
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Mac",
             "includePath": [
+                "${workspaceFolder}/include",
                 "${workspaceFolder}/**",
-                "/Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4"
+                "/Users/pavel/Geant/geant4-v11.3.2-install/include/Geant4",
+                "/usr/local/opt/qt@5/lib/QtCore.framework/Headers",
+                "/usr/local/opt/qt@5/lib/QtGui.framework/Headers",
+                "/usr/local/opt/qt@5/lib/QtWidgets.framework/Headers",
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers"
             ],
-            "defines": [],
-            "compilerPath": "/usr/bin/gcc",
+            "defines": [
+                "G4LIB_BUILD_DLL",
+                "G4UI_USE_QT",
+                "G4VIS_USE_OPENGLQT",
+                "G4VIS_USE_QT3D",
+                "G4VIS_USE_RAYTRACERX",
+                "G4VIS_USE_TOOLSSG_QT_GLES",
+                "G4VIS_USE_TOOLSSG_QT_ZB",
+                "PTL_BUILD_DLL",
+                "QT_CORE_LIB",
+                "QT_GUI_LIB",
+                "QT_NO_DEBUG",
+                "QT_WIDGETS_LIB"
+            ],
+            "macFrameworkPath": [
+                "/usr/local/opt/qt@5/lib"
+            ],
+            "compilerPath": "/usr/bin/c++",
             "cStandard": "c17",
-            "cppStandard": "gnu++17",
-            "intelliSenseMode": "linux-gcc-x64"
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-x64",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

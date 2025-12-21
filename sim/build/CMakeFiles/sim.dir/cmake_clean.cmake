@@ -13,8 +13,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/sim.dir/source/pmtSD.cc.o.d"
   "CMakeFiles/sim.dir/source/sensitive.cc.o"
   "CMakeFiles/sim.dir/source/sensitive.cc.o.d"
-  "CMakeFiles/sim.dir/source/tracking.cc.o"
-  "CMakeFiles/sim.dir/source/tracking.cc.o.d"
   "sim"
   "sim.pdb"
 )

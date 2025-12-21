@@ -1,0 +1,23 @@
+# Batch run for NIRS figures (IBD positrons)
+# Run from build/:
+#   SIM_SEED=20241214 ./sim /Users/pavel/Geant/geant4/sim/macros/batch_nirs.mac
+#
+# Output (in build/):
+#   - pe_asymmetry.txt
+#   - ibd_positron_spectrum.txt
+
+/run/initialize
+
+# Для рисунка спектра черенковских фотонов в НИРС:
+# (на больших статистиках выключать, файл становится огромным)
+/analysis/writeCherenkovSpectrum true
+
+/gen/mode ibd
+/gen/particle e+
+/gen/isotropic false
+/gen/dir 0 0 -1
+
+# Statistics for plots (adjust if you need smoother histograms)
+/run/beamOn 2000
+
+

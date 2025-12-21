@@ -1,0 +1,334 @@
+\documentclass[12pt]{extarticle}
+\usepackage{graphicx} 
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ tipa }
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{tensor}
+\usepackage{esdiff}
+\usepackage{mathrsfs}
+\usepackage[english, main = russian]{babel}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{dcolumn}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{textcase}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \begin{scshape}
+            Министерство науки и высшего образования Российской Федерации
+            \smallskip
+            Федеральное государственное автономное образовательное учреждение высшего образования <<Национальный исследовательский ядерный университет <<МИФИ>>
+        \end{scshape}
+        \vspace{1\baselineskip}
+        \begin{flushleft}
+            УДК 539.1
+        \end{flushleft}
+
+        \Large
+
+        \vspace{2\baselineskip}
+
+        \MakeTextUppercase{Отчет} \\
+        \MakeTextUppercase{о научно-исследовательской работе}
+        \\
+        \begin{bfseries}
+            \MakeTextUppercase{Регистрация реакторных антинейтрино с помощью черенковского детектора}
+        \end{bfseries}
+
+        \normalsize
+
+        \vspace{2\baselineskip}
+
+        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
+         Научный руководитель
+         (старший преподаватель)
+        \end{minipage}
+        \hfill
+        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
+         \underline{\hspace{2cm}}~И. Н. Мачулин
+        \end{minipage}
+        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
+         Научный консультант
+         (к.ф.-м.н.)
+        \end{minipage}
+        \hfill
+        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
+         \underline{\hspace{2cm}}~Г.Д. Долганов
+        \end{minipage}
+        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
+         Студент
+        \end{minipage}
+        \hfill
+        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
+         \underline{\hspace{2cm}}~П. А. Панфилов
+        \end{minipage}
+        \vfill
+        Москва 2025
+    \end{center}
+\end{titlepage}
+
+\section*{Введение}
+
+Реакторные антинейтрино $\bar{\nu}_e$ являются одним из наиболее интенсивных искусственных источников нейтрино. Они рождаются в $\beta$-распадах осколков деления ядер $^{235}$U, $^{238}$U, $^{239}$Pu и $^{241}$Pu. Спектр антинейтрино зависит от набора изотопов и режима работы реактора, поэтому его изучение важно как для задач фундаментальной физики (прецизионные измерения осцилляций нейтрино), так и для прикладных задач (мониторинг реакторов)~\cite{huber2011,mueller2011}.
+
+Классическим каналом регистрации реакторных антинейтрино является реакция обратного бета-распада (inverse beta decay, IBD) на свободном протоне:
+\begin{equation}
+    \bar{\nu}_e + p \rightarrow e^+ + n.
+\end{equation}
+Данная реакция имеет порог по энергии $E^{thr}_{\bar{\nu}}\approx 1.806$ MeV, а энергия позитрона в первом приближении связана с энергией антинейтрино соотношением $T_{e^+}\approx E_{\bar{\nu}}-1.806$ MeV~\cite{vogel1999}.
+
+Для регистрации продуктов реакции IBD традиционно используются жидкосцинтилляционные детекторы, однако большой интерес представляют и водные черенковские детекторы, обладающие масштабируемостью по объёму и направленной информацией. Основная сложность черенковского подхода заключается в сравнительно малом числе фотонов и необходимости надёжного выделения нейтронного сигнала (delayed-компоненты). Для повышения вероятности захвата нейтрона вода может легироваться элементами с большим сечением захвата (например, Gd, Cd), что приводит к излучению каскада $\gamma$-квантов и появлению вторичных электронов, способных порождать черенковский свет.
+
+\par\textbf{Цель} данной работы заключается в разработке Geant4-модели черенковского детектора для регистрации реакторных антинейтрино.
+
+\newpage
+
+\section{Реакторные антинейтрино и реакция обратного бета-распада}
+
+\subsection{Спектр реакторных антинейтрино}
+В активной зоне реактора непрерывно происходят деления тяжёлых ядер. Образующиеся осколки деления являются нейтроноизбыточными и распадаются через цепочки $\beta^-$-распадов, испуская электрон и антинейтрино. В результате возникает суммарный поток $\bar{\nu}_e$ с энергиями порядка нескольких MeV. Для описания формы спектра широко используются параметризации, основанные на реконструкции $\beta$-спектров и на учёте вкладов основных делящихся изотопов~\cite{huber2011,mueller2011}.
+
+\subsection{Кинематика IBD и связь $E_{\bar{\nu}}$ и $T_{e^+}$}
+Порог реакции IBD обусловлен необходимостью рождения позитрона и превращения протона в нейтрон. Точное значение порога определяется кинематикой двухчастичного финального состояния:
+\begin{equation}
+    E^{thr}_{\bar{\nu}}=\frac{(m_n+m_e)^2-m_p^2}{2m_p}\approx 1.806~\text{MeV}.
+\end{equation}
+В первом приближении (без учёта отдачи нейтрона) полная энергия позитрона выражается как
+\begin{equation}
+    E_{e^+}\approx E_{\bar{\nu}}-\Delta,\qquad \Delta=m_n-m_p\approx 1.293~\text{MeV},
+\end{equation}
+а кинетическая энергия равна
+\begin{equation}
+    T_{e^+}=E_{e^+}-m_e\approx E_{\bar{\nu}}-(\Delta+m_e)\approx E_{\bar{\nu}}-1.806~\text{MeV}.
+\end{equation}
+Сечение реакции IBD в области нескольких MeV быстро растёт с энергией и в простейшей аппроксимации пропорционально $p_eE_e$~\cite{vogel1999}. Именно поэтому при моделировании событий целесообразно разыгрывать сначала $E_{\bar{\nu}}$ по распределению $\phi(E_{\bar{\nu}})\cdot\sigma(E_{\bar{\nu}})$, а затем вычислять $T_{e^+}$.
+
+\subsection{Сигнал ``prompt + delayed''}
+В реакции IBD возникает две компоненты сигнала. \textit{Prompt}-сигнал формируется позитроном (и продуктами его аннигиляции), а \textit{delayed}-сигнал связан с захватом нейтрона на ядрах среды. В водной среде захват на водороде сопровождается $\gamma$-квантом 2.2 MeV, а при легировании элементами с большим сечением захвата (например, Cd) возможен более энергичный $\gamma$-каскад. В данной работе основной акцент сделан на prompt-компоненте (позитрон и черенковский свет).
+
+\section{Черенковское излучение и регистрация света}
+
+\subsection{Условие возникновения и угол Черенкова}
+Черенковское излучение возникает, когда скорость заряженной частицы в среде превышает фазовую скорость света:
+\begin{equation}
+    v>\frac{c}{n(\lambda)}\quad \Leftrightarrow\quad \beta n(\lambda)>1.
+\end{equation}
+Излучение испускается в виде конуса с углом
+\begin{equation}
+    \cos\theta_C(\lambda)=\frac{1}{\beta n(\lambda)}.
+\end{equation}
+
+\subsection{Спектральное распределение фотонов}
+Число черенковских фотонов, испускаемых на единицу пути частицы, описывается формулой Франка–Тамма~\cite{jelley1958}:
+\begin{equation}
+    \frac{d^2N}{dx\,d\lambda}=2\pi\alpha\left(1-\frac{1}{\beta^2 n^2(\lambda)}\right)\frac{1}{\lambda^2},
+\end{equation}
+где $\alpha$ — постоянная тонкой структуры.
+\subsection{Показатель преломления и поглощение воды}
+Оптические свойства воды задаются комплексным показателем преломления $\tilde{n}=n+ik$. Реальная часть $n(\lambda)$ определяет преломление и порог/угол черенковского излучения, а мнимая часть $k(\lambda)$ отвечает за поглощение. Интенсивность света в среде убывает экспоненциально:
+\begin{equation}
+    I(x,\lambda)=I_0(\lambda)\exp\left(-\alpha(\lambda)x\right),\qquad L_{abs}(\lambda)=\frac{1}{\alpha(\lambda)}.
+\end{equation}
+Связь между $k(\lambda)$ и длиной поглощения имеет вид
+\begin{equation}
+    \alpha(\lambda)=\frac{4\pi k(\lambda)}{\lambda},\qquad L_{abs}(\lambda)=\frac{\lambda}{4\pi k(\lambda)}.
+\end{equation}
+В модели использованы табличные данные $n(\lambda)$ и $k(\lambda)$ для воды в диапазоне 200–800 nm~\cite{hale1973}.
+
+\subsection{Квантовая эффективность фотоумножителей и фотоэлектроны}
+Регистрация света осуществляется фотоумножителями (ФЭУ). Ключевой параметр ФЭУ — квантовая эффективность $QE(\lambda)$, то есть вероятность преобразования фотона с длиной волны $\lambda$ в фотоэлектрон. В работе число фотоэлектронов в каждом ФЭУ моделировалось статистически: для каждого фотона, попавшего в чувствительный объём ФЭУ, выполнялся бросок с вероятностью $QE(\lambda)$. Спектральная кривая $QE(\lambda)$ взята из открытого проекта WCSim~\cite{wcsim}.
+
+\section{Моделирование в Geant4}
+
+\subsection{Геометрия детектора}
+Модель представляет собой цилиндрический бак, заполненный водой, внутри которого расположен сосуд из PMMA с водой, легированной кадмием. В верхней и нижней частях установлены фотоумножители, регистрирующие черенковский свет. Основные параметры геометрии приведены в таблице~\ref{tab:geom}.
+
+\begin{table}[h]
+\centering
+\caption{Основные параметры геометрии Geant4-модели}
+\label{tab:geom}
+\begin{tabular}{|c|c|}
+\hline
+Параметр & Значение \\
+\hline
+Внутренний радиус стального бака & 630 mm \\
+\hline
+Высота бака & 1300 mm \\
+\hline
+Внутренний радиус PMMA-сосуда & 590 mm \\
+\hline
+Высота PMMA-сосуда & 700 mm \\
+\hline
+Число ФЭУ & 24 (12 сверху + 12 снизу) \\
+\hline
+Радиус ФЭУ & 100 mm \\
+\hline
+Отражательная способность стенок бака & 0.9 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Физические процессы}
+В расчётах использованы стандартные электромагнитные процессы (\texttt{G4EmStandardPhysics}) и оптическая физика (\texttt{G4OpticalPhysics})~\cite{geant4_2003,geant4_2016}. Для воды задан показатель преломления $n(\lambda)$ и длина поглощения $L_{abs}(\lambda)$, что определяет генерацию и транспорт черенковских фотонов. Для стекла ФЭУ задана спектральная квантовая эффективность $QE(\lambda)$, используемая при подсчёте фотоэлектронов.
+
+\subsection{Генерация позитронов от IBD}
+Первичный генератор реализует два режима: моноэнергетический пучок и режим IBD. В режиме IBD энергия антинейтрино $E_{\bar{\nu}}$ разыгрывается по распределению $\phi(E_{\bar{\nu}})\cdot\sigma(E_{\bar{\nu}})$, где $\phi$ задаётся параметризацией Huber–Mueller, а $\sigma$ в первом приближении пропорциональна $p_eE_e$~\cite{huber2011,mueller2011,vogel1999}. Далее вычисляется кинетическая энергия позитрона $T_{e^+}\approx E_{\bar{\nu}}-1.806$ MeV и запускается первичный позитрон.
+
+\subsection{Сбор статистики и выходные файлы}
+В модели реализованы следующие выходные данные:
+
+1. \texttt{ibd\_positron\_spectrum.txt} — значения $E_{\bar{\nu}}$ и $T_{e^+}$ для каждого события (контроль разыгрываемого спектра).
+
+2. \texttt{chernkov\_spectrum.txt} — энергии черенковских фотонов, рождённых процессом Черенкова (для построения спектра длин волн).
+
+3. \texttt{pe\_asymmetry.txt} — числа фотоэлектронов в верхних и нижних ФЭУ и асимметрия $asym$.
+
+\newpage
+\section{Результаты моделирования}
+
+\subsection{Спектр кинетической энергии позитронов}
+На рисунке~\ref{fig:pos_spectrum} показан спектр кинетической энергии позитронов $T_{e^+}$, разыгранный для реакции IBD. Для набора из 2000 событий получено среднее значение $ \langle T_{e^+} \rangle \approx 2.38$ MeV.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.95\textwidth,
+    height=0.55\textwidth,
+    ybar,
+    bar width=0.09,
+    xlabel={$T_{e^+}$, MeV},
+    ylabel={Counts},
+    xmin=0, xmax=8,
+    grid=both,
+    minor grid style={gray!15},
+    major grid style={gray!30},
+]
+\addplot[fill=blue!55, draw=blue!80]
+table[x index=0, y index=1] {data/positron_Te_hist.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Спектр кинетической энергии позитронов в реакции IBD, разыгранный генератором событий.}
+\label{fig:pos_spectrum}
+\end{figure}
+
+\newpage
+
+\subsection{Спектр черенковских фотонов}
+На рисунке~\ref{fig:cher_spectrum} представлен спектр длин волн $\lambda$ черенковских фотонов, полученный в Geant4-моделировании. Спектральная форма определяется как формулой Франка–Тамма ($\propto 1/\lambda^2$), так и оптическими свойствами среды (поглощение) и границами диапазона, заданными в модели.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.95\textwidth,
+    height=0.55\textwidth,
+    ybar,
+    bar width=4.0,
+    xlabel={$\lambda$, nm},
+    ylabel={Counts},
+    xmin=200, xmax=650,
+    grid=both,
+    minor grid style={gray!15},
+    major grid style={gray!30},
+]
+\addplot[fill=cyan!45, draw=cyan!70]
+table[x index=0, y index=1] {data/cherenkov_lambda_hist.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Спектр длин волн черенковских фотонов (200–650 nm), полученный в моделировании.}
+\label{fig:cher_spectrum}
+\end{figure}
+
+\subsection{Среднее число фотоэлектронов}
+Число фотоэлектронов (PE), зарегистрированных фотоумножителями, определяется не только числом рождённых черенковских фотонов, но и потерями при транспортировке (поглощение в воде и отражения на границах) и спектральной квантовой эффективностью $QE(\lambda)$.
+
+Для набора из 2000 событий (режим IBD, направление позитрона сверху вниз: $\vec{p}\parallel -z$) получено среднее число фотоэлектронов:
+\begin{equation}
+    \langle N^{tot}_{pe}\rangle \approx 20.7,
+\end{equation}
+при этом ненулевой сигнал ($N^{tot}_{pe}>0$) наблюдается примерно в $93\%$ событий. Средние значения для верхней и нижней групп фотоумножителей составляют $\langle N_{pe}^{top}\rangle \approx 0.79$ и $\langle N_{pe}^{bottom}\rangle \approx 19.93$ соответственно, что отражает направленность черенковского излучения при фиксированном направлении трека.
+
+\subsection{Зависимость $\langle N_{pe}\rangle$ от энергии позитрона}
+Для построения зависимости среднего числа фотоэлектронов от энергии позитрона события были разбиты на бины по кинетической энергии $T_{e^+}$, после чего в каждом бине вычислялось среднее значение $N^{tot}_{pe}$. Полученная зависимость $\langle N_{pe}\rangle(T_{e^+})$ приведена на рисунке~\ref{fig:npe_vs_te}.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.95\textwidth,
+    height=0.55\textwidth,
+    xlabel={$T_{e^+}$, MeV},
+    ylabel={$\langle N_{pe}^{tot}\rangle$},
+    xmin=0, xmax=8,
+    grid=both,
+    minor grid style={gray!15},
+    major grid style={gray!30},
+]
+\addplot+[mark=*, mark size=1.2pt, line width=0.8pt, blue,
+    error bars/.cd,
+    y dir=both,
+    y explicit
+]
+table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Зависимость среднего числа фотоэлектронов $\langle N_{pe}^{tot}\rangle$ от кинетической энергии позитрона.}
+\label{fig:npe_vs_te}
+\end{figure}
+
+\section{Вывод}
+\subsection{Результаты работы}
+1) Реализована и дополнена Geant4-модель черенковского детектора, ориентированная на регистрацию реакторных антинейтрино в канале IBD.
+
+2) Реализовано разыгрывание спектра позитронов от реакции IBD, получен спектр $T_{e^+}$ (рис.~\ref{fig:pos_spectrum}).
+
+3) Выполнён учёт спектральных оптических свойств воды ($n(\lambda)$, $L_{abs}(\lambda)$) и спектральной квантовой эффективности фотоумножителей $QE(\lambda)$.
+
+\subsection{Дальнейшая работа}
+1) Добавление нейтрона в финальное состояние IBD и моделирование delayed-компоненты (захват нейтрона на Cd и последующий $\gamma$-каскад).
+
+2) Учёт углового распределения позитронов в модели.
+
+3) Оптимизация геометрии и конфигурации ФЭУ для повышения числа фотоэлектронов и улучшения разделения сигнал/фон.
+
+\begin{thebibliography}{99}
+
+\bibitem{geant4_2003} Agostinelli, S., et al. Geant4---a simulation toolkit. \textit{Nucl. Instrum. Meth. A} \textbf{506} (2003) 250--303.
+
+\bibitem{geant4_2016} Allison, J., et al. Recent developments in Geant4. \textit{Nucl. Instrum. Meth. A} \textbf{835} (2016) 186--225.
+
+\bibitem{vogel1999} Vogel, P., Beacom, J. F. The angular distribution of the reaction $\bar{\nu}_e + p \rightarrow e^+ + n$. \textit{Phys. Rev. D} \textbf{60} (1999) 053003.
+
+\bibitem{huber2011} Huber, P. Determination of antineutrino spectra from nuclear reactors. \textit{Phys. Rev. C} \textbf{84} (2011) 024617.
+
+\bibitem{mueller2011} Mueller, T. A., et al. Improved predictions of reactor antineutrino spectra. \textit{Phys. Rev. C} \textbf{83} (2011) 054615.
+
+\bibitem{hale1973} Hale, G. M., Querry, M. R. Optical constants of water in the 200-nm to 200-$\mu$m wavelength region. \textit{Applied Optics} \textbf{12} (1973) 555--563.
+
+\bibitem{jelley1958} Jelley, J. V. \textit{Cherenkov Radiation and its Applications}. Pergamon Press (1958).
+
+\bibitem{wcsim} WCSim collaboration. WCSim --- The Water Cherenkov Simulator (software). GitHub: \texttt{https://github.com/WCSim/WCSim}
+
+\end{thebibliography}
+
+
+
+
+\end{document}

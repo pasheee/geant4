@@ -3,6 +3,7 @@
 #include "G4Track.hh"
 #include "G4StepPoint.hh"
 #include "G4VProcess.hh"
+#include "G4RunManager.hh"
 #include "G4SystemOfUnits.hh"
 
 SensitiveDetector::SensitiveDetector(const G4String& name)
@@ -59,9 +60,19 @@ G4bool SensitiveDetector::ProcessHits(G4Step* step, G4TouchableHistory*) {
 }
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
-    G4cout << "Total energy deposited in " << GetName()
-           << ": " << G4BestUnit(fTotalEnergyDeposed, "Energy") << G4endl;
+    // Avoid spamming output for large statistics runs: print only for first few events.
+    G4int eventID = -1;
+    if (auto* rm = G4RunManager::GetRunManager()) {
+        if (const auto* evt = rm->GetCurrentEvent()) {
+            eventID = evt->GetEventID();
+        }
+    }
 
-    G4cout << "Optical photons detected in " << GetName()
-           << ": " << fPhotonCount << G4endl;
+    if (eventID >= 0 && eventID < 5) {
+        G4cout << "Total energy deposited in " << GetName()
+               << ": " << G4BestUnit(fTotalEnergyDeposed, "Energy") << G4endl;
+
+        G4cout << "Optical photons detected in " << GetName()
+               << ": " << fPhotonCount << G4endl;
+    }
 }

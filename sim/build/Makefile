@@ -297,30 +297,6 @@ source/sensitive.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/sensitive.cc.s
 .PHONY : source/sensitive.cc.s
 
-source/tracking.o: source/tracking.cc.o
-.PHONY : source/tracking.o
-
-# target to build an object file
-source/tracking.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/tracking.cc.o
-.PHONY : source/tracking.cc.o
-
-source/tracking.i: source/tracking.cc.i
-.PHONY : source/tracking.i
-
-# target to preprocess a source file
-source/tracking.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/tracking.cc.i
-.PHONY : source/tracking.cc.i
-
-source/tracking.s: source/tracking.cc.s
-.PHONY : source/tracking.s
-
-# target to generate assembly for a file
-source/tracking.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/source/tracking.cc.s
-.PHONY : source/tracking.cc.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -351,9 +327,6 @@ help:
 	@echo "... source/sensitive.o"
 	@echo "... source/sensitive.i"
 	@echo "... source/sensitive.s"
-	@echo "... source/tracking.o"
-	@echo "... source/tracking.i"
-	@echo "... source/tracking.s"
 .PHONY : help
 
 

@@ -4,6 +4,7 @@
 #include "G4VUserActionInitialization.hh"
 #include "G4UserRunAction.hh"
 #include "G4UserSteppingAction.hh"
+#include "G4UserEventAction.hh"
 #include "globals.hh"
 #include <fstream>
 
@@ -22,6 +23,9 @@ public:
     void WriteCherenkovPhotonEnergyEV(G4double energyEV);
     G4bool IsCherenkovSpectrumWritingEnabled() const { return fWriteCherenkovSpectrum; }
 
+    void WriteNeutronLifetime(G4double timeNS);
+    void WritePhotonsPerEvent(G4int eventID, G4int nPhotons);
+
 private:
     G4int fPhotonCount;
 
@@ -29,18 +33,41 @@ private:
     G4bool fWriteCherenkovSpectrum;
     G4String fCherenkovSpectrumFile;
     std::ofstream fCherenkovOut;
+    
+    G4String fNeutronLifetimeFile;
+    std::ofstream fNeutronLifetimeOut;
+    
+    G4String fPhotonsPerEventFile;
+    std::ofstream fPhotonsPerEventOut;
+
     G4GenericMessenger* fMessenger;
+};
+
+class EventAction : public G4UserEventAction {
+public:
+    EventAction(RunAction* runAction);
+    ~EventAction();
+
+    void BeginOfEventAction(const G4Event*) override;
+    void EndOfEventAction(const G4Event*) override;
+
+    void AddPhoton() { fPhotonsPerEvent++; }
+
+private:
+    RunAction* fRunAction;
+    G4int fPhotonsPerEvent;
 };
 
 class SteppingAction : public G4UserSteppingAction {
 public:
-    SteppingAction(RunAction* runAction);
+    SteppingAction(RunAction* runAction, EventAction* eventAction);
     ~SteppingAction();
 
     void UserSteppingAction(const G4Step*);
 
 private:
     RunAction* fRunAction;
+    EventAction* fEventAction;
 };
 
 class ActionInitialization : public G4VUserActionInitialization {

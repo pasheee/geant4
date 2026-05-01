@@ -113,8 +113,8 @@ G4bool PMTSD::ProcessHits(G4Step* step, G4TouchableHistory*)
         fPhotoElectronCount++;
         fPhotoElectronsPerPMT[copyNumber] += 1;
 
-        // В вашей геометрии: top copy = 0..11, bottom copy = 12..23
-        if (copyNumber < 12) {
+        // В вашей геометрии: top copy = 0..18, bottom copy = 19..37
+        if (copyNumber < 19) {
             fPhotoElectronCountTop++;
         } else {
             fPhotoElectronCountBottom++;
@@ -143,14 +143,16 @@ void PMTSD::EndOfEvent(G4HCofThisEvent*)
                (static_cast<G4double>(nTop) + static_cast<G4double>(nBottom));
     }
 
+    const G4int nFiredPMTs = fPhotoElectronsPerPMT.size();
+
     // Пишем строку в файл для последующей обработки (python/ROOT).
     if (gAsymFile) {
         if (!gHeaderWritten) {
-            gAsymFile << "# event_id  Npe_top  Npe_bottom  Npe_total  asym=(top-bottom)/(top+bottom)\n";
+            gAsymFile << "# event_id  Npe_top  Npe_bottom  Npe_total  asym  N_fired_PMTs\n";
             gHeaderWritten = true;
         }
         gAsymFile << eventID << " " << nTop << " " << nBottom << " " << nTot << " "
-                  << std::setprecision(6) << asym << "\n";
+                  << std::setprecision(6) << asym << " " << nFiredPMTs << "\n";
         // Avoid flushing every event (slow for large statistics).
         if (eventID >= 0 && (eventID % 5000) == 0) {
             gAsymFile.flush();

@@ -22,7 +22,8 @@ class PrimaryGenerator : public G4VUserPrimaryGeneratorAction {
         G4double fMonoKineticEnergy;    
         G4ThreeVector fPosition;        
         G4bool fIsotropicDirection;     
-        G4ThreeVector fDirection;       
+        G4ThreeVector fDirection;
+        G4bool fRandomizePos;       
 
         G4double fNuEmin;               
         G4double fNuEmax;

@@ -7,19 +7,26 @@
 
 
 
-Detector::Detector(){}
-Detector::~Detector(){}
+#include "G4GenericMessenger.hh"
+
+Detector::Detector() : fDopant("Cd") {
+    fMessenger = new G4GenericMessenger(this, "/det/", "Detector geometry control");
+    fMessenger->DeclareProperty("dopant", fDopant, "Dopant material in central vessel (Cd, Gd, None)");
+}
+Detector::~Detector() {
+    delete fMessenger;
+}
 
 G4VPhysicalVolume *Detector::Construct() {
     G4NistManager *nist = G4NistManager::Instance();
 
-    auto tankColor = new G4VisAttributes(G4Color(255, 0, 0, 1));
-    tankColor -> SetForceSolid(true);
-    auto waterColor = new G4VisAttributes(G4Color(0, 0, 100, 0.5));
-    waterColor -> SetForceSolid(true);
-    auto pmmaColor = new G4VisAttributes(G4Color(0, 255, 0, 1.));
+    auto tankColor = new G4VisAttributes(G4Color(0.6, 0.6, 0.6, 0.2));
+    tankColor->SetForceWireframe(true);
+    auto waterColor = new G4VisAttributes(G4Color(0.0, 0.0, 1.0, 0.1));
+    waterColor->SetForceSolid(true);
+    auto pmmaColor = new G4VisAttributes(G4Color(0.0, 1.0, 0.0, 0.2));
     pmmaColor->SetForceSolid(true);
-    auto cdColor = new G4VisAttributes(G4Color(0, 255, 255, 0.3));
+    auto cdColor = new G4VisAttributes(G4Color(0.0, 1.0, 1.0, 0.3));
     cdColor->SetForceSolid(true);
 
     G4Material *worldMat = nist->FindOrBuildMaterial("G4_AIR");
@@ -31,18 +38,30 @@ G4VPhysicalVolume *Detector::Construct() {
     G4Element* O = nist->FindOrBuildElement("O"); 
     G4Element* Cd = nist->FindOrBuildElement("Cd");
 
-    G4Material* waterWithCd = new G4Material("WaterWithCd", 1.001*g/cm3, 3);
-    G4double massH = 0.1119;
-    G4double massO = 0.8881;
-    G4double massCd = 0.0010;
-    G4double total = massH + massO + massCd;
+    G4Material* waterWithCd = nullptr;
+    if (fDopant == "Gd" || fDopant == "Cd") {
+        waterWithCd = new G4Material("WaterDoped", 1.001*g/cm3, 3);
+        G4double massH = 0.1119;
+        G4double massO = 0.8881;
+        G4double massDopant = 0.0010;
+        G4double total = massH + massO + massDopant;
 
-    waterWithCd->AddElement(H, massH / total);
-    waterWithCd->AddElement(O, massO / total);
-    waterWithCd->AddElement(Cd, massCd / total);
+        waterWithCd->AddElement(H, massH / total);
+        waterWithCd->AddElement(O, massO / total);
+        
+        if (fDopant == "Gd") {
+            G4Element* Gd = nist->FindOrBuildElement("Gd");
+            waterWithCd->AddElement(Gd, massDopant / total);
+        } else {
+            waterWithCd->AddElement(Cd, massDopant / total);
+        }
+    } else {
+        waterWithCd = pureWater;
+    }
 
     G4Box *solidWorld = new G4Box("solidWorld", 2*m, 2*m, 2*m);
     G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMat, "logicWorld");
+    logicWorld->SetVisAttributes(G4VisAttributes::GetInvisible());
     G4VPhysicalVolume *physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), 
                                                    logicWorld, "physWorld", 0, false, 0, true);
 
@@ -133,21 +152,41 @@ G4VPhysicalVolume *Detector::Construct() {
     pmtsdMan->AddNewDetector(pmtSD);
     logicPMT->SetSensitiveDetector(pmtSD);
 
-
-    G4double pmtRingRadius = 500*mm;
     G4double pmtZpos = pureWater_halfHeight - pmtHeight/2 - 0.1*mm;
     if (pmtZpos < 0) pmtZpos = 0;
 
-    for (int i = 0; i < 12; i++) {
-        G4double angle = i * 30*deg;
-        G4double x = pmtRingRadius * std::cos(angle);
-        G4double y = pmtRingRadius * std::sin(angle);
+    // 1 ФЭУ в центре
+    new G4PVPlacement(0, G4ThreeVector(0, 0, pmtZpos), 
+                     logicPMT, "physPMT_top_center", logicPureWater, false, 0, true);
+    new G4PVPlacement(0, G4ThreeVector(0, 0, -pmtZpos), 
+                     logicPMT, "physPMT_bottom_center", logicPureWater, false, 19, true);
+
+    // 6 ФЭУ на среднем кольце (радиус 250 мм)
+    G4double pmtMiddleRingRadius = 250*mm;
+    for (int i = 0; i < 6; i++) {
+        G4double angle = i * 60*deg;
+        G4double x = pmtMiddleRingRadius * std::cos(angle);
+        G4double y = pmtMiddleRingRadius * std::sin(angle);
         
         new G4PVPlacement(0, G4ThreeVector(x, y, pmtZpos), 
-                         logicPMT, "physPMT_top", logicPureWater, false, i, true);
+                         logicPMT, "physPMT_top_mid", logicPureWater, false, i + 1, true);
         
         new G4PVPlacement(0, G4ThreeVector(x, y, -pmtZpos), 
-                         logicPMT, "physPMT_bottom", logicPureWater, false, i+12, true);
+                         logicPMT, "physPMT_bottom_mid", logicPureWater, false, i + 20, true);
+    }
+
+    // 12 ФЭУ на внешнем кольце (радиус 500 мм)
+    G4double pmtOuterRingRadius = 500*mm;
+    for (int i = 0; i < 12; i++) {
+        G4double angle = i * 30*deg;
+        G4double x = pmtOuterRingRadius * std::cos(angle);
+        G4double y = pmtOuterRingRadius * std::sin(angle);
+        
+        new G4PVPlacement(0, G4ThreeVector(x, y, pmtZpos), 
+                         logicPMT, "physPMT_top_out", logicPureWater, false, i + 7, true);
+        
+        new G4PVPlacement(0, G4ThreeVector(x, y, -pmtZpos), 
+                         logicPMT, "physPMT_bottom_out", logicPureWater, false, i + 26, true);
     }
 
 

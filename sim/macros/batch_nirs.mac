@@ -10,14 +10,14 @@
 
 # Для рисунка спектра черенковских фотонов в НИРС:
 # (на больших статистиках выключать, файл становится огромным)
-/analysis/writeCherenkovSpectrum true
+/analysis/writeCherenkovSpectrum false
 
 /gen/mode ibd
 /gen/particle e+
-/gen/isotropic false
+/gen/isotropic true
 /gen/dir 0 0 -1
 
 # Statistics for plots (adjust if you need smoother histograms)
-/run/beamOn 2000
+/run/beamOn 100000
 
 

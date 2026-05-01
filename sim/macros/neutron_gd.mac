@@ -1,0 +1,16 @@
+/control/verbose 0
+/run/verbose 0
+/tracking/verbose 0
+
+/det/dopant Gd
+/run/initialize
+
+/gen/mode mono
+/gen/particle neutron
+/gen/monoEnergy 10 keV
+/gen/isotropic true
+/gen/randomizePos true
+
+/analysis/neutronLifetimeFile neutron_lifetime_Gd.txt
+
+/run/beamOn 100000

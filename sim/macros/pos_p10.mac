@@ -1,0 +1,15 @@
+/control/verbose 0
+/run/verbose 0
+/tracking/verbose 0
+
+/run/initialize
+
+/gen/mode mono
+/gen/particle e+
+/gen/monoEnergy 0.845 MeV
+/gen/isotropic true
+/gen/randomizePos true
+
+/analysis/photonsPerEventFile photons_p10.txt
+
+/run/beamOn 100000

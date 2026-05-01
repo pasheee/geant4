@@ -17,10 +17,16 @@
 
 
 
+class G4GenericMessenger;
+
 class Detector : public G4VUserDetectorConstruction {
     public:
         Detector();
-        ~Detector();
+        ~Detector() override;
 
         G4VPhysicalVolume *Construct() override;
+        
+    private:
+        G4String fDopant;
+        G4GenericMessenger* fMessenger;
 };

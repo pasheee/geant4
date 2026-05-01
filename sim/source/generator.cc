@@ -32,6 +32,7 @@ PrimaryGenerator::PrimaryGenerator()
       fPosition(0., 0., 0.),
       fIsotropicDirection(true),
       fDirection(0., 0., 1.),
+      fRandomizePos(true),
       fNuEmin(1.806 * MeV),
       fNuEmax(10.0 * MeV),
       fFrac235U(0.56),
@@ -67,7 +68,18 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
     }
 
     // Position
-    fParticleGun->SetParticlePosition(fPosition);
+    G4ThreeVector pos = fPosition;
+    if (fMode == "ibd" || fRandomizePos) {
+        // Равномерный сэмплинг внутри центральной колбы (PMMA vessel: inner R=590mm, half-height=350mm)
+        // Берём чуть меньше, чтобы точно не вылезти за границу
+        G4double rMax = 589.0 * mm;
+        G4double zMax = 349.0 * mm;
+        G4double r = rMax * std::sqrt(G4UniformRand());
+        G4double phi = 2.0 * pi * G4UniformRand();
+        G4double z = (2.0 * G4UniformRand() - 1.0) * zMax;
+        pos = G4ThreeVector(r * std::cos(phi), r * std::sin(phi), z);
+    }
+    fParticleGun->SetParticlePosition(pos);
 
     // Direction
     G4ThreeVector dir = fDirection;
@@ -122,6 +134,8 @@ void PrimaryGenerator::SetupMessenger()
                                         "Mono-energetic kinetic energy (used when mode=mono)");
     fMessenger->DeclareProperty("isotropic", fIsotropicDirection,
                                "If true: isotropic momentum direction");
+    fMessenger->DeclareProperty("randomizePos", fRandomizePos,
+                               "If true: uniform position sampling inside PMMA vessel");
     fMessenger->DeclareProperty("dir", fDirection,
                                "Momentum direction vector (used when isotropic=false)");
 

@@ -5,6 +5,7 @@
 #include "G4PhysicalConstants.hh"
 #include "G4ios.hh"
 #include "Randomize.hh"
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <fstream>
@@ -14,6 +15,8 @@ namespace {
 // Для проверки разыгрываемого спектра IBD: пишем Enu и T(e+) по событиям.
 std::ofstream gIbdFile("ibd_positron_spectrum.txt"); // trunc по умолчанию
 bool gIbdHeaderWritten = false;
+std::ofstream gIbdKinematicsFile("ibd_kinematics.txt");
+bool gIbdKinematicsHeaderWritten = false;
 
 G4ThreeVector SampleIsotropicDirection()
 {
@@ -22,6 +25,22 @@ G4ThreeVector SampleIsotropicDirection()
     const G4double s2 = 1.0 - u * u;
     const G4double s = (s2 > 0.) ? std::sqrt(s2) : 0.;
     return {s * std::cos(phi), s * std::sin(phi), u};
+}
+
+G4ThreeVector DirectionFromAxis(G4ThreeVector axis, G4double cosTheta, G4double phi)
+{
+    if (axis.mag2() <= 0.) axis = G4ThreeVector(0., 0., 1.);
+    axis = axis.unit();
+    cosTheta = std::max(-1.0, std::min(1.0, cosTheta));
+    const G4double sinTheta2 = 1.0 - cosTheta * cosTheta;
+    const G4double sinTheta = (sinTheta2 > 0.) ? std::sqrt(sinTheta2) : 0.;
+
+    const G4ThreeVector ref = (std::abs(axis.z()) < 0.9)
+                                  ? G4ThreeVector(0., 0., 1.)
+                                  : G4ThreeVector(0., 1., 0.);
+    const G4ThreeVector u = ref.cross(axis).unit();
+    const G4ThreeVector v = axis.cross(u).unit();
+    return (cosTheta * axis + sinTheta * (std::cos(phi) * u + std::sin(phi) * v)).unit();
 }
 } // namespace
 
@@ -39,6 +58,9 @@ PrimaryGenerator::PrimaryGenerator()
       fFrac238U(0.08),
       fFrac239Pu(0.30),
       fFrac241Pu(0.06),
+      fIbdAngularModel("isotropic"),
+      fIbdNuDir(0., 0., -1.),
+      fIbdEmitNeutron(false),
       fParticleGun(new G4ParticleGun(1)),
       fMessenger(nullptr),
       fIbdWmax(0.0),
@@ -96,12 +118,44 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
 
     if (fMode == "ibd") {
         const G4double Enu = SampleIbdNuEnergy();
+        G4ThreeVector nuDir = fIbdNuDir;
+        if (nuDir.mag2() > 0.) nuDir = nuDir.unit();
+        else nuDir = G4ThreeVector(0., 0., -1.);
 
-        // IBD kinematics (нулевой порядок по отдаче): Ee = Enu - (mn-mp), T = Ee - me
         const G4double delta = neutron_mass_c2 - proton_mass_c2;
-        const G4double Ee = Enu - delta;                // total e+ energy
-        kineticEnergy = Ee - electron_mass_c2;          // kinetic
+        const G4double Ee0 = Enu - delta;               // total e+ energy at O(1)
+        G4double Ee = Ee0;
+        G4double cosThetaE = nuDir.dot(dir);
+
+        if (fIbdAngularModel == "vogelBeacomTable") {
+            cosThetaE = SampleIbdCosTheta(Enu);
+            const G4double phi = 2.0 * pi * G4UniformRand();
+            dir = DirectionFromAxis(nuDir, cosThetaE, phi);
+
+            const G4double pe02 = Ee0 * Ee0 - electron_mass_c2 * electron_mass_c2;
+            if (pe02 > 0.) {
+                const G4double pe0 = std::sqrt(pe02);
+                const G4double ve0 = pe0 / Ee0;
+                const G4double avgNucleonMass = 0.5 * (proton_mass_c2 + neutron_mass_c2);
+                const G4double y2 = 0.5 * (delta * delta - electron_mass_c2 * electron_mass_c2);
+                Ee = Ee0 * (1.0 - (Enu / avgNucleonMass) * (1.0 - ve0 * cosThetaE))
+                     - y2 / avgNucleonMass;
+            }
+        } else if (fIbdAngularModel != "isotropic") {
+            G4cerr << "[PrimaryGenerator] Unknown IBD angular model '" << fIbdAngularModel
+                   << "'. Fallback to isotropic/fixed generator direction." << G4endl;
+        }
+
+        if (Ee < electron_mass_c2) Ee = electron_mass_c2;
+        kineticEnergy = Ee - electron_mass_c2;
         if (kineticEnergy < 0.) kineticEnergy = 0.;
+
+        const G4double pe2 = Ee * Ee - electron_mass_c2 * electron_mass_c2;
+        const G4double pe = (pe2 > 0.) ? std::sqrt(pe2) : 0.;
+        G4ThreeVector neutronMomentum = Enu * nuDir - pe * dir;
+        G4ThreeVector neutronDir = neutronMomentum.mag2() > 0. ? neutronMomentum.unit() : nuDir;
+        const G4double neutronKineticEnergy = std::max(0.0, Enu - delta - Ee);
+        const G4double cosThetaN = nuDir.dot(neutronDir);
 
         // Запишем разыгранные значения для контроля спектра
         if (gIbdFile) {
@@ -117,6 +171,48 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
                 gIbdFile.flush();
             }
         }
+
+        if (gIbdKinematicsFile) {
+            if (!gIbdKinematicsHeaderWritten) {
+                gIbdKinematicsFile
+                    << "# event_id Enu_MeV Ee_MeV Te_MeV cosThetaE thetaE_deg "
+                    << "eDirX eDirY eDirZ Tn_keV cosThetaN thetaN_deg nDirX nDirY nDirZ\n";
+                gIbdKinematicsHeaderWritten = true;
+            }
+            const G4double thetaE = std::acos(std::max(-1.0, std::min(1.0, cosThetaE)));
+            const G4double thetaN = std::acos(std::max(-1.0, std::min(1.0, cosThetaN)));
+            gIbdKinematicsFile << anEvent->GetEventID() << " "
+                               << std::setprecision(8)
+                               << (Enu / MeV) << " "
+                               << (Ee / MeV) << " "
+                               << (kineticEnergy / MeV) << " "
+                               << cosThetaE << " "
+                               << (thetaE / deg) << " "
+                               << dir.x() << " " << dir.y() << " " << dir.z() << " "
+                               << (neutronKineticEnergy / keV) << " "
+                               << cosThetaN << " "
+                               << (thetaN / deg) << " "
+                               << neutronDir.x() << " " << neutronDir.y() << " " << neutronDir.z()
+                               << "\n";
+            if ((anEvent->GetEventID() % 5000) == 0) {
+                gIbdKinematicsFile.flush();
+            }
+        }
+
+        fParticleGun->SetParticleMomentumDirection(dir);
+        fParticleGun->SetParticleEnergy(kineticEnergy);
+        fParticleGun->SetParticleDefinition(particleTable->FindParticle("e+"));
+        fParticleGun->GeneratePrimaryVertex(anEvent);
+
+        if (fIbdEmitNeutron) {
+            if (auto* neutron = particleTable->FindParticle("neutron")) {
+                fParticleGun->SetParticleMomentumDirection(neutronDir);
+                fParticleGun->SetParticleEnergy(neutronKineticEnergy);
+                fParticleGun->SetParticleDefinition(neutron);
+                fParticleGun->GeneratePrimaryVertex(anEvent);
+            }
+        }
+        return;
     }
 
     fParticleGun->SetParticleEnergy(kineticEnergy);
@@ -148,6 +244,13 @@ void PrimaryGenerator::SetupMessenger()
     fMessenger->DeclareProperty("frac238U", fFrac238U, "Fission fraction weight for 238U");
     fMessenger->DeclareProperty("frac239Pu", fFrac239Pu, "Fission fraction weight for 239Pu");
     fMessenger->DeclareProperty("frac241Pu", fFrac241Pu, "Fission fraction weight for 241Pu");
+
+    fMessenger->DeclareProperty("ibdAngularModel", fIbdAngularModel,
+                                "IBD angular model: isotropic | vogelBeacomTable");
+    fMessenger->DeclareProperty("ibdNuDir", fIbdNuDir,
+                                "Incoming antineutrino direction for IBD angular sampling");
+    fMessenger->DeclareProperty("ibdEmitNeutron", fIbdEmitNeutron,
+                                "If true: generate the correlated IBD neutron primary");
 }
 
 void PrimaryGenerator::NormalizeFissionFractions()
@@ -281,4 +384,82 @@ G4double PrimaryGenerator::SampleIbdNuEnergy()
 
     // fallback (не должно происходить при нормальных параметрах)
     return fNuEmin;
+}
+
+G4double PrimaryGenerator::IbdAngularWeight(G4double Enu, G4double cosTheta) const
+{
+    cosTheta = std::max(-1.0, std::min(1.0, cosTheta));
+
+    // Vogel & Beacom, Phys. Rev. D 60, 053003 (1999), Eqs. 13-15.
+    // Overall constants cancel in the CDF, so only the positive relative shape is used.
+    static constexpr G4double f = 1.0;
+    static constexpr G4double g = 1.26;
+    static constexpr G4double f2 = 3.706;
+
+    const G4double delta = neutron_mass_c2 - proton_mass_c2;
+    const G4double Ee0 = Enu - delta;
+    if (Ee0 <= electron_mass_c2) return 0.0;
+
+    const G4double pe02 = Ee0 * Ee0 - electron_mass_c2 * electron_mass_c2;
+    if (pe02 <= 0.) return 0.0;
+    const G4double pe0 = std::sqrt(pe02);
+    const G4double ve0 = pe0 / Ee0;
+    if (ve0 <= 0.) return 0.0;
+
+    const G4double avgNucleonMass = 0.5 * (proton_mass_c2 + neutron_mass_c2);
+    const G4double y2 = 0.5 * (delta * delta - electron_mass_c2 * electron_mass_c2);
+    const G4double Ee1 = Ee0 * (1.0 - (Enu / avgNucleonMass) * (1.0 - ve0 * cosTheta))
+                       - y2 / avgNucleonMass;
+    if (Ee1 <= electron_mass_c2) return 0.0;
+
+    const G4double pe12 = Ee1 * Ee1 - electron_mass_c2 * electron_mass_c2;
+    if (pe12 <= 0.) return 0.0;
+    const G4double pe1 = std::sqrt(pe12);
+    const G4double ve1 = pe1 / Ee1;
+
+    const G4double me2 = electron_mass_c2 * electron_mass_c2;
+    const G4double gamma =
+        2.0 * (f + f2) * g *
+            ((2.0 * Ee0 + delta) * (1.0 - ve0 * cosTheta) - me2 / Ee0) +
+        (f * f + g * g) *
+            (delta * (1.0 + ve0 * cosTheta) + me2 / Ee0) +
+        (f * f + 3.0 * g * g) *
+            ((Ee0 + delta) * (1.0 - cosTheta / ve0) - delta) +
+        (f * f - g * g) *
+            ((Ee0 + delta) * (1.0 - cosTheta / ve0) - delta) * ve0 * cosTheta;
+
+    const G4double leading =
+        ((f * f + 3.0 * g * g) + (f * f - g * g) * ve1 * cosTheta) * Ee1 * pe1;
+    const G4double recoil = (gamma / avgNucleonMass) * Ee0 * pe0;
+    const G4double weight = leading - recoil;
+    return std::max(0.0, weight);
+}
+
+G4double PrimaryGenerator::SampleIbdCosTheta(G4double Enu) const
+{
+    static constexpr int nBins = 512;
+    const G4double cMin = -1.0;
+    const G4double cMax = 1.0;
+    const G4double dc = (cMax - cMin) / nBins;
+
+    G4double cumulative[nBins];
+    G4double total = 0.0;
+    for (int i = 0; i < nBins; ++i) {
+        const G4double cMid = cMin + (i + 0.5) * dc;
+        total += IbdAngularWeight(Enu, cMid) * dc;
+        cumulative[i] = total;
+    }
+
+    if (total <= 0.) {
+        return 2.0 * G4UniformRand() - 1.0;
+    }
+
+    const G4double target = G4UniformRand() * total;
+    for (int i = 0; i < nBins; ++i) {
+        if (target <= cumulative[i]) {
+            const G4double c0 = cMin + i * dc;
+            return c0 + G4UniformRand() * dc;
+        }
+    }
+    return cMax;
 }

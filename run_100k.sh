@@ -46,6 +46,7 @@ echo "Copying output files back to build directory..."
 mkdir -p sim/build
 cp sim/run_nirs/pe_asymmetry.txt sim/build/pe_asymmetry.txt
 cp sim/run_nirs/ibd_positron_spectrum.txt sim/build/ibd_positron_spectrum.txt || true
+cp sim/run_nirs/ibd_kinematics.txt sim/build/ibd_kinematics.txt || true
 cp sim/run_cd/pe_asymmetry.txt sim/build/pe_cd.txt
 cp sim/run_cd/neutron_lifetime_Cd.txt sim/build/neutron_lifetime_Cd.txt
 cp sim/run_gd/pe_asymmetry.txt sim/build/pe_gd.txt

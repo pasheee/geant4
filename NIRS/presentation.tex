@@ -15,7 +15,7 @@
 \pgfplotsset{
   nirsaxis/.style={
     width=0.85\textwidth,
-    height=0.48\textwidth,
+    height=0.40\textwidth,
     tick label style={font=\scriptsize},
     label style={font=\small},
     xlabel style={yshift=-2pt},
@@ -51,9 +51,6 @@
 
 % -------------------------------------------------------------------------
 \begin{frame}{Цель и задачи работы}
-Реакторные антинейтрино $\bar{\nu}_e$ — интенсивный источник частиц с энергиями порядка нескольких MeV. Регистрация $\bar{\nu}_e$ в водных черенковских детекторах требует выделения как prompt-сигнала позитрона, так и delayed-сигнала захвата нейтрона.
-
-\medskip
 \textbf{Цель}: разработать Geant4-модель черенковского детектора для регистрации реакторных $\bar{\nu}_e$ и изучить отклик по свету для prompt- и delayed-компонент.
 
 \medskip
@@ -77,7 +74,7 @@
 Сигнал состоит из двух компонент:
 \begin{itemize}
     \item \textit{prompt}: позитрон + аннигиляция $\gamma\gamma$ $\Rightarrow$ прямой черенковский свет;
-    \item \textit{delayed}: термализация нейтрона ($\sim 1$–$10\,\mu$s) + захват на H, Cd или Gd $\Rightarrow$ $\gamma$-каскад $\Rightarrow$ комптоновские электроны $\Rightarrow$ вторичный черенковский свет.
+    \item \textit{delayed}: термализация нейтрона + захват на H, Cd или Gd $\Rightarrow$ $\gamma$-каскад $\Rightarrow$ комптоновские электроны $\Rightarrow$ вторичный черенковский свет.
 \end{itemize}
 
 \smallskip
@@ -115,7 +112,7 @@ $\gamma$-каскад на $^{157}$Gd & $\approx 8$ MeV & $\bar M_\gamma \approx
 \end{equation}
 
 \smallskip
-\textbf{Ожидание}: $\sigma_\text{Gd} \gg \sigma_\text{Cd}$ при той же массовой доле $\Rightarrow$ Gd должен давать значимо более короткое $\tau_{cap}$ и более узкое coincidence-окно для выделения IBD.
+\textbf{Ожидание}: $\sigma_\text{Gd} > \sigma_\text{Cd}$ при той же массовой доле $\Rightarrow$ Gd должен давать значимо более короткое $\tau_{cap}$ и более узкое coincidence-окно для выделения IBD.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -160,31 +157,11 @@ $\gamma$-каскад на $^{157}$Gd & $\approx 8$ MeV & $\bar M_\gamma \approx
     \item схема концентрических колец $1+6+12$;
     \item радиус ФЭУ $100$ мм.
 \end{itemize}
-
-\medskip
-\textbf{Переключение допанта}:\\ \texttt{/det/dopant Cd|Gd}.
 \end{column}
 \end{columns}
 
-\smallskip
-\textbf{Измеряемая величина}: суммарное число фотоэлектронов $N^{tot}_{pe}$ во всех ФЭУ за событие.
-\end{frame}
-
-% -------------------------------------------------------------------------
-\begin{frame}{Geant4-модель: физика и генерация частиц}
-\textbf{Подключённые конструкторы физики:}
-\begin{itemize}
-    \item \texttt{G4EmStandardPhysics} + \texttt{G4OpticalPhysics} (ЭМ и черенковский свет);
-    \item \texttt{G4HadronPhysicsFTFP\_BERT\_HP}, \texttt{G4HadronElasticPhysicsHP},\\ \texttt{G4IonPhysics}, \texttt{G4DecayPhysics};
-    \item опция \texttt{HP} (High Precision) использует данные G4NDL/ENDF-B — корректные тепловые сечения и резонансы $^{113}$Cd, $^{157}$Gd.
-\end{itemize}
-
 \medskip
-\textbf{Два режима генерации первичных частиц:}
-\begin{itemize}
-    \item \texttt{/gen/mode ibd} — позитроны от IBD-спектра, изотропное направление, равномерное разыгрывание точки рождения по объёму мишени;
-    \item \texttt{/gen/mode mono} \texttt{/gen/particle neutron} \texttt{/gen/monoEnergy 10 keV} — тепловые нейтроны, изотропно и равномерно по объёму, для исследования delayed-компоненты.
-\end{itemize}
+\textbf{Измеряемая величина}: суммарное число фотоэлектронов $N^{tot}_{pe}$ во всех ФЭУ за событие.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -208,7 +185,7 @@ table[x index=0, y index=1] {data/positron_Te_hist_trig3.dat};
 \end{tikzpicture}
 \end{center}
 \vspace{-0.4em}
-\small Разыгрывание $E_{\bar{\nu}}$ по $\phi(E_{\bar{\nu}})\cdot\sigma_{\text{IBD}}(E_{\bar{\nu}})$, далее $T_{e^+}\approx E_{\bar{\nu}}-1.806$ MeV. $10^5$ событий, условие $N_{fired}\ge 3$: проходит $76.1\%$, $\langle T_{e^+}\rangle \approx 2{.}72$ MeV.
+\small Зарегистрированный спектр позитронов IBD (условие $N_{fired}\ge 3$, $76.1\%$ от $10^5$ событий). Среднее $\langle T_{e^+}\rangle \approx 2{.}72$ MeV.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -252,12 +229,12 @@ table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean_trig3.dat};
     legend pos=north east,
     legend style={font=\scriptsize},
 ]
-\addplot+[const plot, draw=blue, fill=blue!20, fill opacity=0.5, mark=none]
+\addplot+[const plot, draw=blue, fill=none, mark=none, line width=0.9pt]
 table[x index=0, y index=1] {data/lifetime_hist_Cd_trig3.dat};
-\addlegendentry{Cd (0.1\%)}
-\addplot+[const plot, draw=red, fill=red!20, fill opacity=0.5, mark=none]
+\addlegendentry{Cd (1~г/л)}
+\addplot+[const plot, draw=red, fill=none, mark=none, line width=0.9pt]
 table[x index=0, y index=1] {data/lifetime_hist_Gd_trig3.dat};
-\addlegendentry{Gd (0.1\%)}
+\addlegendentry{Gd (1~г/л)}
 \end{axis}
 \end{tikzpicture}
 \end{center}
@@ -333,49 +310,51 @@ table[x index=0, y index=1] {data/npe_survival_Gd_trig3.dat};
 \end{frame}
 
 % -------------------------------------------------------------------------
-\begin{frame}{Условие регистрации: $N_{fired}\ge 3$}
+\begin{frame}{Результат 5: ожидаемая скорость счёта на Калинской АЭС}
 \small
-Тёмновые токи фотоумножителей ($r_{dark}\approx 1$~кГц/ФЭУ) дают суммарный фоновый поток $N_{PMT}\cdot r_{dark}=38$~кГц при одиночном пороге. При требовании $N_{fired}\ge k$ в окне $\tau_w$ частота случайных совпадений тёмновых токов:
-\begin{equation*}
-    R_{dark}^{(\ge k)}\approx\binom{N_{PMT}}{k}\,r_{dark}^{k}\,\tau_w^{k-1}
-\end{equation*}
-При $k=3$, $\tau_w=100$~нс: $R_{dark}^{(\ge 3)}\approx 0.08$~Гц. Все результаты выше получены с этим условием.
+Реперная точка --- эксперимент iDREAM\footnote{\scriptsize Abramov et al., \textit{JINST}~\textbf{17} (2022) P09001; \textit{Phys.~Atom.~Nucl.}~\textbf{86} (2023) 1389.} (Калинская АЭС, 3-й энергоблок, ВВЭР-1000): $R^{IBD}_{iDREAM}\approx 1.5\cdot 10^{3}$~соб./сутки, $V=1$~м$^3$ Gd-LAB, $r=20$~м. При одинаковом расстоянии масштабирование сводится к $N_p$:
 
-\medskip
+\vspace{-0.2em}
 \begin{center}
-\begin{tabular}{lccc}
+\scriptsize
+\begin{tabular}{lcccc}
 \toprule
-Порог $N_{fired,thr}$ & IBD prompt & delayed Cd ($0.1\%$) & delayed Gd ($0.1\%$) \\
+Среда & $\rho$, г/см$^3$ & $w_H$ & $n_p$, см$^{-3}$ & $V$, л \\
 \midrule
-$\ge 1$  & $90.0\%$ & $75.8\%$ & $87.5\%$ \\
-$\ge 3$  & $76.1\%$ & $56.8\%$ & $74.0\%$ \\
-$\ge 5$  & $61.6\%$ & $43.4\%$ & $61.6\%$ \\
-$\ge 10$ & $28.5\%$ & $22.2\%$ & $34.3\%$ \\
+LAB (C$_{18}$H$_{30}$), iDREAM & $0.863$ & $0.122$ & $6.33\cdot 10^{22}$ & $1000$ \\
+H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{22}$ & $765.5$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\medskip
-{\small Кривые выживания $P(N_{fired}\ge N_{fired,thr})$ приведены в приложении.}
+\vspace{-0.4em}
+$\dfrac{N_p^{our}}{N_p^{iDREAM}}\approx 0.81 \;\Rightarrow\; R^{IBD}_{our}\approx 1.2\cdot 10^{3}$~соб./сутки.
+
+\smallskip
+Эффективность регистрации coincidence prompt+delayed ($N_{fired}\ge 3$, $\varepsilon_{tot}=\varepsilon_{prompt}\cdot\varepsilon_{delayed}$):
+\begin{itemize}\setlength{\itemsep}{-1pt}
+    \item Gd: $\varepsilon_{tot}=0.76\cdot 0.74\approx 0.56\;\Rightarrow\; R^{reg}_{Gd}\approx 0.7\cdot 10^{3}$~соб./сутки;
+    \item Cd: $\varepsilon_{tot}=0.76\cdot 0.57\approx 0.43\;\Rightarrow\; R^{reg}_{Cd}\approx 0.5\cdot 10^{3}$~соб./сутки.
+\end{itemize}
 \end{frame}
 
 % -------------------------------------------------------------------------
 \begin{frame}{Выводы и дальнейшая работа}
+\small
 \textbf{Итоги}:
-\begin{itemize}\setlength{\itemsep}{1pt}
-    \item реализована Geant4-модель черенковского детектора с prompt- и delayed-компонентами IBD;
-    \item учтены спектральные свойства воды ($n(\lambda)$, $L_{abs}(\lambda)$) и $QE(\lambda)$ ФЭУ;
-    \item prompt ($N_{fired}\ge 3$, $76.1\%$ событий): $\langle N^{tot}_{pe}\rangle\approx 23{.}4$, $\langle T_{e^+}\rangle\approx 2{.}72$ MeV;
-    \item delayed ($N_{fired}\ge 3$): \textbf{Gd предпочтительнее Cd} по всем параметрам --- $t_{cap}$ в $3.5\times$ короче ($31.6$ vs $112.2\,\mu$s), $\langle N_{pe}\rangle$ выше ($42.8$ vs $40.6$), $\varepsilon_{trig}$ выше ($74\%$ vs $57\%$);
-    \item тёмновые совпадения при $N_{fired}\ge 3$ и $\tau_w=100$~нс: $\approx 0.08$~Гц.
+\begin{itemize}\setlength{\itemsep}{0pt}
+    \item реализована Geant4-модель водного черенковского детектора с prompt+delayed-компонентами IBD; учтены $n(\lambda)$, $L_{abs}(\lambda)$, $QE(\lambda)$;
+    \item prompt ($N_{fired}\ge 3$, $76\%$): $\langle N^{tot}_{pe}\rangle\approx 23$, $\langle T_{e^+}\rangle\approx 2{.}7$ MeV;
+    \item delayed: \textbf{Gd $\succ$ Cd} --- $t_{cap}$ короче ($31.6$ vs $112.2\,\mu$s), $\langle N_{pe}\rangle$ ($42.8$ vs $40.6$), $\varepsilon_{trig}$ ($74\%$ vs $57\%$);
+    \item ожидаемая скорость регистрации на Калинской АЭС: $R^{reg}_{Gd}\approx 0.7\cdot 10^3$, $R^{reg}_{Cd}\approx 0.5\cdot 10^3$ соб./сутки.
 \end{itemize}
 
 \smallskip
 \textbf{Дальнейшая работа}:
-\begin{itemize}\setlength{\itemsep}{1pt}
-    \item учёт угловой корреляции позитрона с $\bar{\nu}_e$ (формализм Vogel–Beacom);
-    \item объединение prompt+delayed в IBD-цепочку с триггером совпадений;
-    \item оценка ожидаемой скорости счёта на Калинской АЭС.
+\begin{itemize}\setlength{\itemsep}{0pt}
+    \item учёт углового распределения продуктов реакции IBD (формализм Vogel--Beacom);
+    \item учёт фонов
+    \item оптимизация числа и расположения ФЭУ.
 \end{itemize}
 \end{frame}
 

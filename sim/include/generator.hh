@@ -31,6 +31,9 @@ class PrimaryGenerator : public G4VUserPrimaryGeneratorAction {
         G4double fFrac238U;
         G4double fFrac239Pu;
         G4double fFrac241Pu;
+        G4String fIbdAngularModel;
+        G4ThreeVector fIbdNuDir;
+        G4bool fIbdEmitNeutron;
 
         G4ParticleGun* fParticleGun;
         G4GenericMessenger* fMessenger;
@@ -51,4 +54,6 @@ class PrimaryGenerator : public G4VUserPrimaryGeneratorAction {
         G4double IbdWeight(G4double Enu) const;
         void RecomputeIbdWmax();
         G4double SampleIbdNuEnergy();
+        G4double IbdAngularWeight(G4double Enu, G4double cosTheta) const;
+        G4double SampleIbdCosTheta(G4double Enu) const;
 };

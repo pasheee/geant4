@@ -5,6 +5,7 @@ Generate small histogram tables for LaTeX (pgfplots) used in NIRS/main.tex.
 
 Inputs (produced by the Geant4 simulation, usually in sim/build/):
   - ibd_positron_spectrum.txt     (# event_id Enu_MeV Te+_MeV)
+  - ibd_kinematics.txt            (# event_id Enu_MeV Ee_MeV Te_MeV cosThetaE ...)
   - pe_asymmetry.txt              (# event_id Npe_top Npe_bottom Npe_total asym)
   - chernkov_spectrum.txt         (photon energy in eV, one per line)
 
@@ -13,6 +14,8 @@ Outputs (written to NIRS/data/):
   - asym_hist.dat
   - cherenkov_lambda_hist.dat
   - npe_vs_Te_mean.dat            (<Npe> vs positron kinetic energy)
+  - ibd_cos_theta_e_hist.dat
+  - ibd_cos_theta_n_hist.dat
 """
 
 from __future__ import annotations
@@ -90,6 +93,30 @@ def main() -> int:
         f.write("# Te_center_MeV  count\n")
         for x, y in zip(centers, counts):
             f.write(f"{x:.5f} {y}\n")
+
+    # 1b) IBD angular distributions relative to the incoming antineutrino.
+    kin_path = sim_build / "ibd_kinematics.txt"
+    cos_theta_e = []
+    cos_theta_n = []
+    if kin_path.exists():
+        for p in _read_columns(kin_path):
+            if len(p) >= 11:
+                try:
+                    cos_theta_e.append(float(p[4]))
+                    cos_theta_n.append(float(p[10]))
+                except ValueError:
+                    pass
+
+    for filename, values, header in [
+        ("ibd_cos_theta_e_hist.dat", cos_theta_e, "# cos_theta_e_center  count\n"),
+        ("ibd_cos_theta_n_hist.dat", cos_theta_n, "# cos_theta_n_center  count\n"),
+    ]:
+        centers, counts = make_hist(values, vmin=-1.0, vmax=1.0, nbins=50)
+        out = out_dir / filename
+        with out.open("w") as f:
+            f.write(header)
+            for x, y in zip(centers, counts):
+                f.write(f"{x:.5f} {y}\n")
 
     # 2) Asymmetry histogram
     pe_path = sim_build / "pe_asymmetry.txt"
@@ -407,17 +434,41 @@ def main() -> int:
                     s1_t[ib]  += npe
                     s2_t[ib]  += npe * npe
     out = out_dir / "npe_vs_Te_mean_trig3.dat"
+    # Adaptive binning: merge neighbours until merged bin has >= MIN_MERGE counts.
+    # Fine bins stay as-is in the well-populated region; sparse tail bins are grouped.
+    MIN_MERGE = 30
     with out.open("w") as f:
         f.write("# Te_center_MeV  mean_Npe  stderr_Npe  count (N_fired >= 3)\n")
-        for ib in range(nbins_prof):
-            if cnt_t[ib] <= 0:
+        ib = 0
+        while ib < nbins_prof:
+            if cnt_t[ib] == 0:
+                ib += 1
                 continue
-            center = Tmin_prof + (ib + 0.5) * width_prof
-            mean   = s1_t[ib] / cnt_t[ib]
-            mean2  = s2_t[ib] / cnt_t[ib]
-            var    = max(0.0, mean2 - mean * mean)
-            stderr = math.sqrt(var / cnt_t[ib])
-            f.write(f"{center:.5f} {mean:.6f} {stderr:.6f} {cnt_t[ib]}\n")
+            if cnt_t[ib] >= MIN_MERGE:
+                # Good bin — write directly
+                center = Tmin_prof + (ib + 0.5) * width_prof
+                mean   = s1_t[ib] / cnt_t[ib]
+                mean2  = s2_t[ib] / cnt_t[ib]
+                var    = max(0.0, mean2 - mean * mean)
+                stderr = math.sqrt(var / cnt_t[ib])
+                f.write(f"{center:.5f} {mean:.6f} {stderr:.6f} {cnt_t[ib]}\n")
+                ib += 1
+            else:
+                # Sparse bin — merge forward until we accumulate enough counts
+                m_cnt, m_s1, m_s2 = 0, 0.0, 0.0
+                start = ib
+                while ib < nbins_prof and m_cnt < MIN_MERGE:
+                    m_cnt += cnt_t[ib]
+                    m_s1  += s1_t[ib]
+                    m_s2  += s2_t[ib]
+                    ib += 1
+                if m_cnt >= MIN_MERGE // 2:
+                    center = Tmin_prof + (start + (ib - start) / 2.0) * width_prof
+                    mean   = m_s1 / m_cnt
+                    mean2  = m_s2 / m_cnt
+                    var    = max(0.0, mean2 - mean * mean)
+                    stderr = math.sqrt(var / m_cnt)
+                    f.write(f"{center:.5f} {mean:.6f} {stderr:.6f} {m_cnt}\n")
     print(" -", out.as_posix())
 
     # C) Lifetime + Npe histograms for Cd and Gd (trig3)

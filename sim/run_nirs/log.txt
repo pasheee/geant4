@@ -1,4 +1,4 @@
-=== Random seed: 918638018874000 ===
+=== Random seed: 604459819459291 ===
 
 **************************************************************
  Geant4 version Name: geant4-11-03-patch-02 [MT]   (25-April-2025)
@@ -777,66 +777,130 @@ Correlated gamma emission flag                      0
 Max 2J for sampling of angular correlations         10
 =======================================================================
 === Run started ===
-Total energy deposited in WaterCdSD: 4.36052 MeV
-Optical photons detected in WaterCdSD: 1207
+Total energy deposited in WaterCdSD: 1.94529 MeV
+Optical photons detected in WaterCdSD: 440
 === PMT Summary (PMTSD), event 0 ===
 Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=10 top=9 bottom=1 asym=0.8
+Photoelectrons (QE applied): total=23 top=7 bottom=16 asym=-0.391304
 Photoelectrons per PMT (copy -> count):
-  PMT 0 : 1
   PMT 3 : 1
-  PMT 5 : 1
-  PMT 6 : 1
-  PMT 11 : 1
-  PMT 13 : 2
-  PMT 14 : 1
+  PMT 8 : 1
+  PMT 9 : 2
+  PMT 10 : 1
+  PMT 15 : 1
   PMT 16 : 1
+  PMT 21 : 3
+  PMT 26 : 2
+  PMT 27 : 3
+  PMT 30 : 1
   PMT 33 : 1
-Total energy deposited in WaterCdSD: 3.85485 MeV
-Optical photons detected in WaterCdSD: 880
+  PMT 35 : 2
+  PMT 36 : 2
+  PMT 37 : 2
+Total energy deposited in WaterCdSD: 10.2184 MeV
+Optical photons detected in WaterCdSD: 2747
 === PMT Summary (PMTSD), event 1 ===
-Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=12 top=0 bottom=12 asym=-1
+Total energy deposited: 1.11589 MeV
+Photoelectrons (QE applied): total=184 top=53 bottom=131 asym=-0.423913
 Photoelectrons per PMT (copy -> count):
-  PMT 23 : 1
-  PMT 24 : 2
-  PMT 31 : 1
-  PMT 32 : 4
+  PMT 1 : 14
+  PMT 4 : 3
+  PMT 6 : 7
+  PMT 7 : 7
+  PMT 8 : 5
+  PMT 12 : 12
+  PMT 13 : 2
+  PMT 15 : 1
+  PMT 16 : 1
+  PMT 17 : 1
+  PMT 19 : 7
+  PMT 20 : 7
+  PMT 21 : 14
+  PMT 22 : 12
+  PMT 23 : 7
+  PMT 24 : 3
+  PMT 25 : 14
+  PMT 26 : 3
+  PMT 28 : 7
+  PMT 29 : 4
+  PMT 30 : 6
+  PMT 31 : 11
+  PMT 32 : 10
   PMT 33 : 3
-  PMT 34 : 1
-Total energy deposited in WaterCdSD: 2.16691 MeV
-Optical photons detected in WaterCdSD: 276
+  PMT 34 : 8
+  PMT 35 : 9
+  PMT 36 : 4
+  PMT 37 : 2
+Total energy deposited in WaterCdSD: 3.15345 MeV
+Optical photons detected in WaterCdSD: 104
 === PMT Summary (PMTSD), event 2 ===
 Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=7 top=7 bottom=0 asym=1
+Photoelectrons (QE applied): total=7 top=5 bottom=2 asym=0.428571
 Photoelectrons per PMT (copy -> count):
-  PMT 3 : 1
-  PMT 9 : 1
-  PMT 10 : 1
-  PMT 11 : 1
-  PMT 12 : 3
-Total energy deposited in WaterCdSD: 1.3932 MeV
-Optical photons detected in WaterCdSD: 227
+  PMT 1 : 1
+  PMT 2 : 1
+  PMT 4 : 1
+  PMT 6 : 1
+  PMT 13 : 1
+  PMT 26 : 1
+  PMT 28 : 1
+Total energy deposited in WaterCdSD: 8.82479 MeV
+Optical photons detected in WaterCdSD: 1772
 === PMT Summary (PMTSD), event 3 ===
-Total energy deposited: 19.0317 keV
-Photoelectrons (QE applied): total=10 top=0 bottom=10 asym=-1
+Total energy deposited: 0 eV 
+Photoelectrons (QE applied): total=126 top=65 bottom=61 asym=0.031746
 Photoelectrons per PMT (copy -> count):
-  PMT 19 : 3
-  PMT 21 : 1
-  PMT 25 : 1
-  PMT 26 : 3
-  PMT 29 : 1
-  PMT 37 : 1
-Total energy deposited in WaterCdSD: 1.62334 MeV
-Optical photons detected in WaterCdSD: 99
-=== PMT Summary (PMTSD), event 4 ===
-Total energy deposited: 74.8742 keV
-Photoelectrons (QE applied): total=2 top=0 bottom=2 asym=-1
-Photoelectrons per PMT (copy -> count):
+  PMT 0 : 4
+  PMT 1 : 2
+  PMT 2 : 1
+  PMT 3 : 6
+  PMT 4 : 5
+  PMT 5 : 1
+  PMT 6 : 2
+  PMT 7 : 1
+  PMT 8 : 4
+  PMT 9 : 5
+  PMT 10 : 5
+  PMT 11 : 7
+  PMT 12 : 6
+  PMT 13 : 1
+  PMT 14 : 3
+  PMT 15 : 4
+  PMT 16 : 2
+  PMT 17 : 2
+  PMT 18 : 4
+  PMT 20 : 6
+  PMT 21 : 3
   PMT 23 : 1
-  PMT 32 : 1
+  PMT 24 : 1
+  PMT 25 : 4
+  PMT 26 : 5
+  PMT 27 : 6
+  PMT 28 : 3
+  PMT 29 : 6
+  PMT 30 : 2
+  PMT 32 : 4
+  PMT 33 : 4
+  PMT 34 : 4
+  PMT 35 : 5
+  PMT 36 : 2
+  PMT 37 : 5
+Total energy deposited in WaterCdSD: 2.73361 MeV
+Optical photons detected in WaterCdSD: 321
+=== PMT Summary (PMTSD), event 4 ===
+Total energy deposited: 0 eV 
+Photoelectrons (QE applied): total=18 top=2 bottom=16 asym=-0.777778
+Photoelectrons per PMT (copy -> count):
+  PMT 8 : 2
+  PMT 20 : 1
+  PMT 21 : 4
+  PMT 26 : 4
+  PMT 28 : 2
+  PMT 29 : 3
+  PMT 31 : 1
+  PMT 37 : 1
 === Run finished ===
-Total number of optical photons produced: 73806981
+Total number of optical photons produced: 157023637
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
@@ -15137,6 +15201,10 @@ Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P26G4ParticleHPContAngularPar>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
@@ -15146,6 +15214,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<N19G4ParticleHPProduct10toBeCachedE>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -74294,6 +74366,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -74442,6 +74518,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -74590,6 +74670,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -74886,6 +74970,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -75386,6 +75474,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -75510,6 +75602,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -76558,6 +76654,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -77134,6 +77234,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -77274,6 +77378,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -77414,6 +77522,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -77586,6 +77698,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
@@ -77881,6 +77997,10 @@ Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P26G4ParticleHPContAngularPar>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
@@ -77902,6 +78022,10 @@ If the RunManagerKernel has been deleted, it failed to delete an allocated resou
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
+If the RunManagerKernel has been deleted, it failed to delete an allocated resource
+and this destructor is being called after the statics were destroyed.
+Exception: [code: generic:22] caught: mutex lock failed: Invalid argument
+Non-critical error: mutex lock failure in ~G4Cache<N26G4ParticleHPContAngularPar10toBeCachedE>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.
 Exception: [code: generic:22] caught: mutex lock failed: Invalid argument

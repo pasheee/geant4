@@ -992,6 +992,8 @@ CMakeFiles/sim.dir/source/construction.cc.o: \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSurface.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSurface.icc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.icc \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.icc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4OpticalSurface.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Physics2DVector.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Physics2DVector.icc \

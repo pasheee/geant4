@@ -13,6 +13,7 @@
 #include "G4Transform3D.hh"
 #include "G4VisAttributes.hh"
 #include "G4LogicalSkinSurface.hh"
+#include "G4LogicalBorderSurface.hh"
 #include "G4OpticalSurface.hh"
 
 

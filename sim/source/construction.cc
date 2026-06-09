@@ -69,15 +69,20 @@ G4VPhysicalVolume *Detector::Construct() {
     G4double steelTank_outerRadius = 632*mm;
     G4double steelTank_height = 1300*mm;
     G4double steelTank_halfHeight = steelTank_height/2;
+    G4double steelWallThickness = steelTank_outerRadius - steelTank_innerRadius; // 2 mm
 
-    G4Tubs* solidSteelTank = new G4Tubs("solidSteelTank", steelTank_innerRadius, 
+    // Solid steel "can": fully encloses the water on the sides and the top/bottom.
+    // The inner water volume (placed below) is its daughter, so the only external
+    // neighbour of the water is steel -> the reflective border surface can act on
+    // all walls (sides + end caps).
+    G4Tubs* solidSteelTank = new G4Tubs("solidSteelTank", 0, 
                                        steelTank_outerRadius, steelTank_halfHeight, 
                                        0, 360*deg);
     G4LogicalVolume* logicSteelTank = new G4LogicalVolume(solidSteelTank, steel, "logicSteelTank");
     logicSteelTank->SetVisAttributes(tankColor);
     
-    new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicSteelTank, "physSteelTank", 
-                      logicWorld, false, 0, true);
+    G4VPhysicalVolume* physSteelTank = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.),
+                      logicSteelTank, "physSteelTank", logicWorld, false, 0, true);
 
 
     G4OpticalSurface* mirrorSurface = new G4OpticalSurface("MirrorSurface");
@@ -95,17 +100,23 @@ G4VPhysicalVolume *Detector::Construct() {
     mirrorMPT->AddProperty("REFLECTIVITY", photonEnergyMirror, reflectivity, nEntriesMirror);
     mirrorSurface->SetMaterialPropertiesTable(mirrorMPT);
 
-    new G4LogicalSkinSurface("SteelTankMirror", logicSteelTank, mirrorSurface);
-
-    G4double pureWater_outerRadius = steelTank_innerRadius - 0.001*mm;
-    G4double pureWater_halfHeight = steelTank_halfHeight - 0.001*mm;
+    // Water buffer: daughter of the steel can, in direct contact with the steel on
+    // all sides (no air gap). Wall/end-cap thickness = steelWallThickness.
+    G4double pureWater_outerRadius = steelTank_outerRadius - steelWallThickness; // 630 mm
+    G4double pureWater_halfHeight = steelTank_halfHeight - steelWallThickness;   // 648 mm
 
     G4Tubs* solidPureWater = new G4Tubs("solidPureWater", 0, pureWater_outerRadius, 
                                        pureWater_halfHeight, 0, 360*deg);
     G4LogicalVolume* logicPureWater = new G4LogicalVolume(solidPureWater, pureWater, "logicPureWater");
     logicPureWater->SetVisAttributes(waterColor);
-    new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicPureWater, "physPureWater", 
-                      logicWorld, false, 0, true);
+    G4VPhysicalVolume* physPureWater = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.),
+                      logicPureWater, "physPureWater", logicSteelTank, false, 0, true);
+
+    // Reflective tank walls: directional border surface acting only on photons going
+    // from the water into the steel (outer wall + end caps). Internal water boundaries
+    // with daughters (PMTs, PMMA vessel, doped target) are different volume pairs and
+    // are therefore unaffected.
+    new G4LogicalBorderSurface("WaterTankMirror", physPureWater, physSteelTank, mirrorSurface);
 
     G4double pmmaVessel_outerRadius = 599.999*mm;
     G4double pmmaVessel_innerRadius = 590*mm;
@@ -249,6 +260,20 @@ G4VPhysicalVolume *Detector::Construct() {
     waterMPT->AddProperty("RINDEX", photonEnergyWater, rindexWater, nWaterEntries);
     waterMPT->AddProperty("ABSLENGTH", photonEnergyWater, absorption_pureWater, nWaterEntries);
     pureWater->SetMaterialPropertiesTable(waterMPT);
+
+    // PMMA (acrylic) vessel optical properties. Without RINDEX optical photons are
+    // killed at the water<->PMMA boundary (NoRINDEX). Treat the thin acrylic wall as
+    // transparent: constant n~1.49, large absorption length.
+    G4double rindexPMMA[nWaterEntries];
+    G4double absorption_pmma[nWaterEntries];
+    for (int i = 0; i < nWaterEntries; ++i) {
+        rindexPMMA[i] = 1.49;
+        absorption_pmma[i] = 10.0 * m;
+    }
+    auto pmmaMPT = new G4MaterialPropertiesTable();
+    pmmaMPT->AddProperty("RINDEX", photonEnergyWater, rindexPMMA, nWaterEntries);
+    pmmaMPT->AddProperty("ABSLENGTH", photonEnergyWater, absorption_pmma, nWaterEntries);
+    pmma->SetMaterialPropertiesTable(pmmaMPT);
 
     auto waterCdMPT = new G4MaterialPropertiesTable();
     waterCdMPT->AddProperty("RINDEX", photonEnergyWater, rindexWater, nWaterEntries);

@@ -1,4 +1,4 @@
-=== Random seed: 918638024672791 ===
+=== Random seed: 604459824448541 ===
 
 **************************************************************
  Geant4 version Name: geant4-11-03-patch-02 [MT]   (25-April-2025)
@@ -777,43 +777,64 @@ Correlated gamma emission flag                      0
 Max 2J for sampling of angular correlations         10
 =======================================================================
 === Run started ===
-Total energy deposited in WaterCdSD: 1.35628 MeV
-Optical photons detected in WaterCdSD: 113
+Total energy deposited in WaterCdSD: 1.82697 MeV
+Optical photons detected in WaterCdSD: 95
 === PMT Summary (PMTSD), event 0 ===
 Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=1 top=0 bottom=1 asym=-1
+Photoelectrons (QE applied): total=9 top=2 bottom=7 asym=-0.555556
 Photoelectrons per PMT (copy -> count):
-  PMT 25 : 1
-Total energy deposited in WaterCdSD: 1.8673 MeV
-Optical photons detected in WaterCdSD: 149
+  PMT 0 : 1
+  PMT 16 : 1
+  PMT 23 : 2
+  PMT 24 : 1
+  PMT 32 : 1
+  PMT 34 : 2
+  PMT 37 : 1
+Total energy deposited in WaterCdSD: 938.472 keV
+Optical photons detected in WaterCdSD: 65
 === PMT Summary (PMTSD), event 1 ===
-Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=2 top=2 bottom=0 asym=1
+Total energy deposited: 619.12 keV
+Photoelectrons (QE applied): total=2 top=1 bottom=1 asym=0
 Photoelectrons per PMT (copy -> count):
-  PMT 7 : 2
-Total energy deposited in WaterCdSD: 913.076 keV
-Optical photons detected in WaterCdSD: 119
+  PMT 18 : 1
+  PMT 22 : 1
+Total energy deposited in WaterCdSD: 1.86731 MeV
+Optical photons detected in WaterCdSD: 100
 === PMT Summary (PMTSD), event 2 ===
-Total energy deposited: 347.294 keV
-Photoelectrons (QE applied): total=0 top=0 bottom=0 asym=0
-Total energy deposited in WaterCdSD: 1.78479 MeV
-Optical photons detected in WaterCdSD: 71
+Total energy deposited: 0 eV 
+Photoelectrons (QE applied): total=7 top=1 bottom=6 asym=-0.714286
+Photoelectrons per PMT (copy -> count):
+  PMT 10 : 1
+  PMT 22 : 2
+  PMT 23 : 1
+  PMT 29 : 1
+  PMT 34 : 1
+  PMT 37 : 1
+Total energy deposited in WaterCdSD: 1.84494 MeV
+Optical photons detected in WaterCdSD: 113
 === PMT Summary (PMTSD), event 3 ===
 Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=5 top=0 bottom=5 asym=-1
+Photoelectrons (QE applied): total=6 top=6 bottom=0 asym=1
 Photoelectrons per PMT (copy -> count):
-  PMT 19 : 1
-  PMT 24 : 2
-  PMT 34 : 2
-Total energy deposited in WaterCdSD: 1.2738 MeV
-Optical photons detected in WaterCdSD: 115
+  PMT 2 : 1
+  PMT 11 : 1
+  PMT 15 : 1
+  PMT 16 : 1
+  PMT 18 : 2
+Total energy deposited in WaterCdSD: 1.86739 MeV
+Optical photons detected in WaterCdSD: 135
 === PMT Summary (PMTSD), event 4 ===
 Total energy deposited: 0 eV 
-Photoelectrons (QE applied): total=1 top=0 bottom=1 asym=-1
+Photoelectrons (QE applied): total=8 top=2 bottom=6 asym=-0.5
 Photoelectrons per PMT (copy -> count):
-  PMT 28 : 1
+  PMT 1 : 1
+  PMT 12 : 1
+  PMT 19 : 3
+  PMT 20 : 1
+  PMT 24 : 1
+  PMT 29 : 1
 === Run finished ===
-Total number of optical photons produced: 12949578
+Total number of optical photons produced: 12975295
 Non-critical error: mutex lock failure in ~G4Cache<P15G4HadFinalState>. 
 If the RunManagerKernel has been deleted, it failed to delete an allocated resource
 and this destructor is being called after the statics were destroyed.

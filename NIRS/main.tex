@@ -1,17 +1,23 @@
-\documentclass[12pt]{extarticle}
-\usepackage{graphicx} 
+\documentclass[a4paper,12pt]{extarticle}
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{ tipa }
-\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[english,main=russian]{babel}
+
+\usepackage[a4paper,left=30mm,right=15mm,top=20mm,bottom=20mm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage{textcase}
+\usepackage{tipa}
+\usepackage{amsmath,amssymb,amsfonts}
 \usepackage{tensor}
 \usepackage{esdiff}
 \usepackage{mathrsfs}
-\usepackage[english, main = russian]{babel}
-\usepackage{ulem}
-\usepackage{xcolor}
-\usepackage{csquotes}
-\usepackage{subcaption}
+
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{hhline}
@@ -20,70 +26,135 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{enumitem}
-\usepackage{textcase}
+\setlist{nosep}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{
+    labelsep=endash,
+    justification=centering,
+    singlelinecheck=false
+}
+
 \usepackage{titlesec}
 \usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+\titleformat{\section}{\normalfont\bfseries\centering}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0.5\baselineskip}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
+
+\usepackage[unicode,hidelinks]{hyperref}
+\urlstyle{same}
+
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.}
+\makeatother
 
 \begin{document}
 
 \begin{titlepage}
+    \thispagestyle{empty}
     \begin{center}
-        \begin{scshape}
-            Министерство науки и высшего образования Российской Федерации
-            \smallskip
-            Федеральное государственное автономное образовательное учреждение высшего образования <<Национальный исследовательский ядерный университет <<МИФИ>>
-        \end{scshape}
-        \vspace{1\baselineskip}
-        \begin{flushleft}
-            УДК 539.1
-        \end{flushleft}
+        \small
+        Министерство науки и высшего образования Российской Федерации\\
+        Федеральное государственное автономное образовательное учреждение высшего образования\\
+        <<Национальный исследовательский ядерный университет <<МИФИ>>
 
-        \Large
+        \vspace{4\baselineskip}
+
+        \textbf{Выпускная квалификационная работа}
 
         \vspace{2\baselineskip}
 
-        \MakeTextUppercase{Отчет} \\
-        \MakeTextUppercase{о научно-исследовательской работе}
-        \\
-        \begin{bfseries}
-            \MakeTextUppercase{Регистрация реакторных антинейтрино с помощью черенковского детектора}
-        \end{bfseries}
+        по теме:
 
-        \normalsize
+        \vspace{\baselineskip}
 
-        \vspace{2\baselineskip}
+        \textbf{Регистрация реакторных антинейтрино\\
+        с помощью черенковского детектора}
+    \end{center}
 
-        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-         Научный руководитель
-         (старший преподаватель)
+    \vfill
+
+    \begin{flushright}
+        \begin{minipage}{0.52\textwidth}
+            \raggedright
+            Научный руководитель\\
+            старший преподаватель \hfill И.~Н.~Мачулин
+
+            \vspace{2\baselineskip}
+
+            Научный консультант\\
+            к.ф.-м.н. \hfill Г.~Д.~Долганов
+
+            \vspace{2\baselineskip}
+
+            Студент \hfill П.~А.~Панфилов
         \end{minipage}
-        \hfill
-        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-         \underline{\hspace{2cm}}~И. Н. Мачулин
-        \end{minipage}
-        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-         Научный консультант
-         (к.ф.-м.н.)
-        \end{minipage}
-        \hfill
-        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-         \underline{\hspace{2cm}}~Г.Д. Долганов
-        \end{minipage}
-        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-         Студент
-        \end{minipage}
-        \hfill
-        \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-         \underline{\hspace{2cm}}~П. А. Панфилов
-        \end{minipage}
-        \vfill
+    \end{flushright}
+
+    \vfill
+
+    \begin{center}
         Москва 2025
     \end{center}
 \end{titlepage}
 
+\newpage
+\setcounter{page}{2}
+\tableofcontents
+
+\newpage
+\phantomsection
+\section*{Перечень сокращений и обозначений}
+\addcontentsline{toc}{section}{Перечень сокращений и обозначений}
+
+{
+\setlength{\tabcolsep}{0pt}
+\renewcommand{\arraystretch}{1.15}
+\noindent
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash\bfseries}p{0.14\textwidth}>{\raggedright\arraybackslash}X@{}}
+IBD & реакция обратного бета-распада (\textit{inverse beta decay}). \\
+ФЭУ & фотоэлектронный умножитель. \\
+АЭС & атомная электростанция. \\
+PMMA & полиметилметакрилат (\textit{polymethyl methacrylate}). \\
+Cd & кадмий. \\
+Gd & гадолиний. \\
+QE & квантовая эффективность фотоумножителя (\textit{quantum efficiency}). \\
+HP & прецизионные нейтронные модели \textit{High Precision}. \\
+G4NDL & библиотека нейтронных данных Geant4 (\textit{Geant4 Neutron Data Library}). \\
+LAB & линейный алкилбензол (\textit{linear alkylbenzene}). \\
+prompt & prompt-компонента сигнала, формируемая позитроном и аннигиляционными $\gamma$-квантами. \\
+delayed & delayed-компонента сигнала, связанная с захватом нейтрона. \\
+$N_{pe}$ & число зарегистрированных фотоэлектронов. \\
+$N_{fired}$ & число сработавших фотоумножителей. \\
+$T_{e^+}$ & кинетическая энергия позитрона. \\
+$E_{\bar{\nu}}$ & энергия реакторного антинейтрино. \\
+\end{tabularx}
+}
+
+\newpage
+\phantomsection
 \section*{Введение}
+\addcontentsline{toc}{section}{Введение}
 
 Реакторные антинейтрино $\bar{\nu}_e$ являются одним из наиболее интенсивных искусственных источников нейтрино. Они рождаются в $\beta$-распадах осколков деления ядер $^{235}$U, $^{238}$U, $^{239}$Pu и $^{241}$Pu. Спектр антинейтрино зависит от набора изотопов и режима работы реактора, поэтому его изучение важно как для задач фундаментальной физики (прецизионные измерения осцилляций нейтрино), так и для прикладных задач (мониторинг реакторов)~\cite{huber2011,mueller2011}.
 
@@ -489,25 +560,21 @@ H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{
 
 Оценка~(\ref{eq:R_reg}) учитывает только эффективность регистрации сигнала и не включает фоны от космических мюонов, быстрых нейтронов и реакторных $\gamma$-квантов, моделирование которых выходит за рамки настоящей работы.
 
-\section{Вывод}
-\subsection{Результаты работы}
-1) Реализована и дополнена Geant4-модель черенковского детектора, ориентированная на регистрацию реакторных антинейтрино в канале IBD.
+\newpage
+\section*{Заключение}
+\phantomsection
+\addcontentsline{toc}{section}{Заключение}
 
-2) Реализовано разыгрывание спектра позитронов от реакции IBD, получен спектр $T_{e^+}$ (рис.~\ref{fig:pos_spectrum}).
+В рамках выпускной квалификационной работы была реализована и дополнена Geant4-модель черенковского детектора, ориентированная на регистрацию реакторных антинейтрино в канале IBD. В модели реализовано разыгрывание спектра позитронов от реакции IBD и получен спектр кинетической энергии $T_{e^+}$ (рис.~\ref{fig:pos_spectrum}), а также выполнен учёт спектральных оптических свойств воды ($n(\lambda)$, $L_{abs}(\lambda)$) и спектральной квантовой эффективности фотоумножителей $QE(\lambda)$.
 
-3) Выполнён учёт спектральных оптических свойств воды ($n(\lambda)$, $L_{abs}(\lambda)$) и спектральной квантовой эффективности фотоумножителей $QE(\lambda)$.
+Кроме того, реализована и валидирована адронная физика нейтронов на основе HP-моделей и данных G4NDL/ENDF-B. Для рассмотренного в моделировании условия регистрации $N_{fired}\ge 3$ проведено сравнение допантов Cd и Gd; полученные результаты показывают, что в рамках этого сравнения Gd предпочтительнее по трём рассмотренным параметрам: среднее время захвата нейтрона меньше ($31.6$ против $112.2~\mu$s), средний светосбор выше ($42.8$ против $40.6$), а эффективность регистрации больше ($74.0\%$ против $56.8\%$). На основе пересчёта реперной точки iDREAM ($1.5\cdot 10^{3}$ соб./сутки, $1$~м$^3$ Gd-LAB, $r=20$~м) по числу свободных протонов и применения полученных эффективностей выполнена оценка ожидаемой скорости регистрации IBD-событий на Калинской АЭС: $R^{reg}_{Gd}\approx 0.7\cdot 10^{3}$ соб./сутки и $R^{reg}_{Cd}\approx 0.5\cdot 10^{3}$ соб./сутки.
 
-4) Реализована и валидирована адронная физика нейтронов (HP-модели на основе данных G4NDL/ENDF-B); для условия регистрации $N_{fired}\ge 3$ выполнено сравнение допантов Cd и Gd: Gd предпочтительнее по всем трём параметрам --- $\langle t_{cap}\rangle$ короче ($31.6$ vs $112.2~\mu$s), $\langle N_{pe}\rangle$ выше ($42.8$ vs $40.6$), эффективность регистрации выше ($74.0\%$ vs $56.8\%$).
+Дальнейшее развитие работы связано с учётом углового распределения позитронов в модели в рамках формализма Vogel--Beacom, оптимизацией геометрии детектора и конфигурации ФЭУ для повышения числа фотоэлектронов и улучшения разделения сигнал/фон, а также с учётом фонов от космических мюонов, быстрых нейтронов и реакторных $\gamma$-квантов.
 
-5) Получена оценка ожидаемой скорости регистрации IBD-событий на Калинской АЭС путём пересчёта реперной точки iDREAM ($1.5\cdot 10^{3}$ соб./сутки, $1$~м$^3$ Gd-LAB, $r=20$~м) по числу свободных протонов и применения полученных эффективностей: $R^{reg}_{Gd}\approx 0.7\cdot 10^{3}$ соб./сутки, $R^{reg}_{Cd}\approx 0.5\cdot 10^{3}$ соб./сутки.
-
-\subsection{Дальнейшая работа}
-1) Учёт углового распределения позитронов в модели (формализм Vogel--Beacom).
-
-2) Оптимизация геометрии и конфигурации ФЭУ для повышения числа фотоэлектронов и улучшения разделения сигнал/фон.
-
-3) Учёт фонов от космических мюонов, быстрых нейтронов и реакторных $\gamma$-квантов.
-
+\newpage
+\renewcommand{\refname}{Список использованных источников}
+\phantomsection
+\addcontentsline{toc}{section}{Список использованных источников}
 \begin{thebibliography}{99}
 
 \bibitem{geant4_2003} Agostinelli, S., et al. Geant4---a simulation toolkit. \textit{Nucl. Instrum. Meth. A} \textbf{506} (2003) 250--303.

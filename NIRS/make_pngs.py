@@ -49,6 +49,35 @@ def main():
             plt.savefig(plots_dir / output, dpi=300)
             plt.close()
 
+    # 2a. Directional asymmetry: nu along -z vs +z
+    data_mz = load_dat("asym_hist_nu_minus_z_trig3.dat")
+    data_pz = load_dat("asym_hist_nu_plus_z_trig3.dat")
+    if data_mz is not None and data_pz is not None and len(data_mz) > 0 and len(data_pz) > 0:
+        width = (data_mz[1, 0] - data_mz[0, 0]) if len(data_mz) > 1 else 0.05
+        plt.figure(figsize=(9, 6))
+        plt.bar(data_mz[:, 0], data_mz[:, 1], width=width, alpha=0.55, color='navy',
+                label=r'$\hat{\nu}$ along $-z$')
+        plt.bar(data_pz[:, 0], data_pz[:, 1], width=width, alpha=0.55, color='darkorange',
+                label=r'$\hat{\nu}$ along $+z$')
+        mean_path = data_dir / "asym_mean_nu_dir_trig3.dat"
+        if mean_path.exists():
+            for line in mean_path.read_text().splitlines():
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                parts = line.split()
+                if len(parts) >= 2:
+                    tag, m = parts[0], float(parts[1])
+                    color = 'navy' if 'minus' in tag else 'darkorange'
+                    plt.axvline(m, color=color, linestyle='--', linewidth=1.2)
+        plt.xlabel(r"Event asymmetry $A=(N_{pe}^{top}-N_{pe}^{bottom})/(N_{pe}^{top}+N_{pe}^{bottom})$")
+        plt.ylabel("Counts")
+        plt.title("Prompt positron asymmetry vs antineutrino direction (N_fired >= 3)")
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+        plt.savefig(plots_dir / "asym_hist_nu_dirs.png", dpi=300)
+        plt.close()
+
     # 2. Asymmetry Histogram
     data = load_dat("asym_hist.dat")
     if data is not None and len(data) > 0:
@@ -73,18 +102,18 @@ def main():
         plt.savefig(plots_dir / "cherenkov_lambda_hist.png", dpi=300)
         plt.close()
 
-    # 4. Mean Npe vs Te
-    data = load_dat("npe_vs_Te_mean.dat")
+    # 4. Mean Npe vs Te (uniform mono-energetic scan, trig3)
+    data = load_dat("npe_vs_Te_mean_uniform_trig3.dat")
+    if data is None or len(data) == 0:
+        data = load_dat("npe_vs_Te_mean_trig3.dat")
     if data is not None and len(data) > 0:
-        # data: Te_center, mean_Npe, stderr_Npe, count
-        # filter out zero counts
-        valid = data[:, 3] > 0
+        valid = data[:, 3] > 0 if data.shape[1] > 3 else np.ones(len(data), dtype=bool)
         if np.any(valid):
             plt.figure(figsize=(8, 6))
             plt.errorbar(data[valid, 0], data[valid, 1], yerr=data[valid, 2], fmt='o-', color='red', markersize=4)
             plt.xlabel("Positron Kinetic Energy (MeV)")
             plt.ylabel("Mean Npe")
-            plt.title("Mean Photoelectrons vs Positron Energy")
+            plt.title("Mean Photoelectrons vs Positron Energy (N_fired >= 3, uniform Te grid)")
             plt.grid(True, alpha=0.3)
             plt.savefig(plots_dir / "npe_vs_Te_mean.png", dpi=300)
             plt.close()

@@ -1,6 +1,2 @@
 # event_id generated_optical_photons
-0 722
-1 351
-2 628
-3 1304
-4 887
+0 759

@@ -522,6 +522,142 @@ def main() -> int:
                     f.write(f"{x} {(N_t - idx) / N_t:.6f}\n")
             print(" -", out_h.as_posix())
 
+    # D) Uniform mono-energetic Te scan (N_fired >= 3)
+    uniform_root = repo / "sim" / "run_uniform_te"
+    if uniform_root.exists():
+        rows = []
+        for te_dir in sorted(uniform_root.iterdir()):
+            if not te_dir.is_dir() or not te_dir.name.startswith("Te_"):
+                continue
+            te_str = te_dir.name[3:].replace("p", ".")
+            try:
+                te_val = float(te_str)
+            except ValueError:
+                continue
+            pe_dp = te_dir / "pe_asymmetry.txt"
+            if not pe_dp.exists():
+                continue
+            npes_t = []
+            for p in _read_columns(pe_dp):
+                if len(p) >= 6:
+                    try:
+                        nfired = int(float(p[5]))
+                        npe = float(p[3])
+                    except ValueError:
+                        continue
+                    if nfired >= TRIG_THR:
+                        npes_t.append(npe)
+            if not npes_t:
+                continue
+            n = len(npes_t)
+            mean = sum(npes_t) / n
+            mean2 = sum(x * x for x in npes_t) / n
+            var = max(0.0, mean2 - mean * mean)
+            stderr = math.sqrt(var / n)
+            rows.append((te_val, mean, stderr, n))
+        if rows:
+            rows.sort(key=lambda r: r[0])
+            out = out_dir / "npe_vs_Te_mean_uniform_trig3.dat"
+            with out.open("w") as f:
+                f.write("# Te_MeV  mean_Npe  stderr_Npe  count (N_fired >= 3, mono-energetic uniform grid)\n")
+                for te_val, mean, stderr, n in rows:
+                    f.write(f"{te_val:.1f} {mean:.6f} {stderr:.6f} {n}\n")
+            print(" -", out.as_posix())
+
+    # E) Directional prompt asymmetry (nu along +/- z, prompt-only IBD)
+    asym_root = repo / "sim" / "run_asym_dir"
+    asym_dirs = {
+        "minus_z": asym_root / "nu_minus_z",
+        "plus_z": asym_root / "nu_plus_z",
+    }
+    mean_rows = []
+    for tag, run_dir in asym_dirs.items():
+        pe_dp = run_dir / "pe_asymmetry.txt"
+        if not pe_dp.exists():
+            continue
+        asym_vals = []
+        for p in _read_columns(pe_dp):
+            if len(p) >= 6:
+                try:
+                    nfired = int(float(p[5]))
+                    a = float(p[4])
+                except ValueError:
+                    continue
+                if nfired >= TRIG_THR:
+                    asym_vals.append(a)
+        if not asym_vals:
+            continue
+        centers, counts = make_hist(asym_vals, vmin=-1.0, vmax=1.0, nbins=40)
+        out_h = out_dir / f"asym_hist_nu_{tag}_trig3.dat"
+        with out_h.open("w") as f:
+            f.write(f"# asym_center  count (nu_{tag}, N_fired >= {TRIG_THR}, prompt-only IBD)\n")
+            for x, y in zip(centers, counts):
+                f.write(f"{x:.5f} {y}\n")
+        print(" -", out_h.as_posix())
+        n = len(asym_vals)
+        mean = sum(asym_vals) / n
+        mean2 = sum(x * x for x in asym_vals) / n
+        var = max(0.0, mean2 - mean * mean)
+        stderr = math.sqrt(var / n)
+        mean_rows.append((tag, mean, stderr, n))
+
+        # <A>(T_e+) profile joined with ibd_positron_spectrum.txt
+        spec_dp = run_dir / "ibd_positron_spectrum.txt"
+        Te_by_event = {}
+        if spec_dp.exists():
+            for p in _read_columns(spec_dp):
+                if len(p) >= 3:
+                    try:
+                        Te_by_event[int(float(p[0]))] = float(p[2])
+                    except ValueError:
+                        pass
+        nbins_a = 16
+        Tmin_a, Tmax_a = 2.0, 8.0
+        width_a = (Tmax_a - Tmin_a) / nbins_a
+        cnt_a = [0] * nbins_a
+        s1_a = [0.0] * nbins_a
+        s2_a = [0.0] * nbins_a
+        for p in _read_columns(pe_dp):
+            if len(p) >= 6:
+                try:
+                    eid = int(float(p[0]))
+                    nfired = int(float(p[5]))
+                    a = float(p[4])
+                except ValueError:
+                    continue
+                if nfired < TRIG_THR:
+                    continue
+                Te_i = Te_by_event.get(eid)
+                if Te_i is None or Te_i < Tmin_a or Te_i >= Tmax_a:
+                    continue
+                ib = int((Te_i - Tmin_a) / (Tmax_a - Tmin_a) * nbins_a)
+                if 0 <= ib < nbins_a:
+                    cnt_a[ib] += 1
+                    s1_a[ib] += a
+                    s2_a[ib] += a * a
+        out_prof = out_dir / f"asym_vs_Te_nu_{tag}_trig3.dat"
+        with out_prof.open("w") as f:
+            f.write(f"# Te_center_MeV  mean_A  stderr_A  count (nu_{tag}, prompt-only)\n")
+            for ib in range(nbins_a):
+                center = Tmin_a + (ib + 0.5) * width_a
+                if cnt_a[ib] <= 0:
+                    f.write(f"{center:.5f} 0 0 0\n")
+                    continue
+                m = s1_a[ib] / cnt_a[ib]
+                m2 = s2_a[ib] / cnt_a[ib]
+                v = max(0.0, m2 - m * m)
+                se = math.sqrt(v / cnt_a[ib])
+                f.write(f"{center:.5f} {m:.6f} {se:.6f} {cnt_a[ib]}\n")
+        print(" -", out_prof.as_posix())
+
+    if mean_rows:
+        out_m = out_dir / "asym_mean_nu_dir_trig3.dat"
+        with out_m.open("w") as f:
+            f.write("# nu_direction_tag  mean_A  stderr_A  count (N_fired >= 3)\n")
+            for tag, mean, stderr, n in mean_rows:
+                f.write(f"{tag} {mean:.6f} {stderr:.6f} {n}\n")
+        print(" -", out_m.as_posix())
+
     print("Wrote:")
     print(" -", (out_dir / "positron_Te_hist.dat").as_posix())
     print(" -", (out_dir / "asym_hist.dat").as_posix())

@@ -43,35 +43,3 @@
 /vis/viewer/set/autoRefresh true
 /vis/viewer/refresh
 /vis/verbose warnings
-/control/execute ../macros/vis_reflection.mac
-/vis/scene/endOfEventAction accumulate
-/tracking/storeTrajectory 2
-/vis/modeling/trajectories/create/drawByParticleID photonColor
-/vis/modeling/trajectories/photonColor/set opticalphoton yellow
-/vis/scene/notifyHandlers scene-0
-/vis/modeling/trajectories/photonColor/set e- red
-/vis/scene/notifyHandlers scene-0
-/vis/modeling/trajectories/photonColor/set e+ red
-/vis/scene/notifyHandlers scene-0
-/vis/modeling/trajectories/select photonColor
-/vis/filtering/trajectories/create/particleFilter optFilter
-/vis/filtering/trajectories/optFilter/add opticalphoton
-/vis/scene/notifyHandlers scene-0
-/vis/filtering/trajectories/optFilter/add e-
-/vis/scene/notifyHandlers scene-0
-/vis/filtering/trajectories/optFilter/active true
-/vis/scene/notifyHandlers scene-0
-/gen/mode mono
-/gen/particle e-
-/gen/monoEnergy 2 MeV
-/gen/isotropic false
-/gen/randomizePos false
-/gen/dir 1 0 0
-/vis/viewer/set/viewpointVector 0 0 1
-/vis/viewer/refresh
-/vis/viewer/set/style surface
-/vis/viewer/refresh
-/vis/viewer/zoom 1.3
-/vis/viewer/refresh
-/run/beamOn 1
-/vis/scene/notifyHandlers scene-0

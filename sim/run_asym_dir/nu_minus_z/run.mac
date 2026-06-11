@@ -1,0 +1,14 @@
+/control/verbose 0
+/run/verbose 0
+/tracking/verbose 0
+
+/run/initialize
+
+/analysis/writeCherenkovSpectrum false
+
+/gen/mode ibd
+/gen/ibdAngularModel vogelBeacomTable
+/gen/ibdNuDir 0 0 -1
+/gen/ibdEmitNeutron false
+
+/run/beamOn 150000

@@ -1,0 +1,20 @@
+# Mono-energetic positron template for uniform Te scan.
+# Placeholders 4.2 (MeV) and 20000 are substituted by run_uniform_te_scan.sh.
+
+/control/verbose 0
+/run/verbose 0
+/tracking/verbose 0
+
+/run/initialize
+
+/run/printProgress 5000
+
+/analysis/writeCherenkovSpectrum false
+
+/gen/mode mono
+/gen/particle e+
+/gen/monoEnergy 4.2 MeV
+/gen/isotropic true
+/gen/randomizePos true
+
+/run/beamOn 20000

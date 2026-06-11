@@ -40,10 +40,17 @@
 \usepackage{indentfirst}
 \setlength{\parindent}{1.25cm}
 \setlength{\parskip}{0pt}
-\titleformat{\section}{\normalfont\bfseries\centering}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
-\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
-\titlespacing*{\subsection}{0pt}{\baselineskip}{0.5\baselineskip}
+
+% Главы (section) — по центру, жирный, прописные
+\titleformat{\section}
+{\bfseries\Large\filcenter}{\thesection.}{4pt}{\MakeTextUppercase}
+
+% Подразделы — жирный, слева
+\titleformat{\subsection}
+{\bfseries\large}{\thesubsection.}{4pt}{}
+
+\titleformat{\subsubsection}
+{\bfseries\normalsize}{\thesubsubsection.}{4pt}{}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -61,6 +68,11 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 
+\usepackage{seqsplit}
+\newcommand{\gclass}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\macrocmd}[1]{\texttt{\seqsplit{#1}}}
+\emergencystretch=2em
+
 \usepackage[unicode,hidelinks]{hyperref}
 \urlstyle{same}
 
@@ -71,18 +83,18 @@
 \begin{document}
 
 \begin{titlepage}
-  \begin{center}
+\begin{center}
     \begin{scshape}
-      Министерство науки и высшего образования Российской Федерации\\
-      \smallskip
-      Федеральное государственное автономное образовательное учреждение
-      высшего образования\\
-      <<Национальный исследовательский ядерный университет <<МИФИ>>
+    Министерство науки и высшего образования Российской Федерации\\
+    \smallskip
+    Федеральное государственное автономное образовательное учреждение
+    высшего образования\\
+    <<Национальный исследовательский ядерный университет <<МИФИ>>
     \end{scshape}
 
     \vspace{1\baselineskip}
     \begin{flushleft}
-      УДК 539.1
+    УДК 539.1
     \end{flushleft}
 
     \Large
@@ -90,42 +102,42 @@
 
     \MakeTextUppercase{Выпускная квалификационная работа}\\[0.5\baselineskip]
     \begin{bfseries}
-      \MakeTextUppercase{Регистрация реакторных антинейтрино
-      с помощью черенковского детектора}
+    \MakeTextUppercase{Регистрация реакторных антинейтрино
+    с помощью черенковского детектора}
     \end{bfseries}
 
     \normalsize
     \vspace{2\baselineskip}
 
     \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-      Научный руководитель\\
-      (старший преподаватель)
+    Научный руководитель\\
+    (старший преподаватель)
     \end{minipage}
     \hfill
     \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-      \underline{\hspace{2cm}}~И.\,Н. Мачулин
+    \underline{\hspace{2cm}}~И.\,Н. Мачулин
     \end{minipage}
 
     \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-      Научный консультант\\
-      (к.\,ф.-м.\,н.)
+    Научный консультант\\
+    (к.\,ф.-м.\,н.)
     \end{minipage}
     \hfill
     \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-      \underline{\hspace{2cm}}~Г.\,Д. Долганов
+    \underline{\hspace{2cm}}~Г.\,Д. Долганов
     \end{minipage}
 
     \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-      Студент
+    Студент
     \end{minipage}
     \hfill
     \begin{minipage}[b][2\baselineskip][b]{0.4\linewidth}
-      \underline{\hspace{2cm}}~П.\,А. Панфилов
+    \underline{\hspace{2cm}}~П.\,А. Панфилов
     \end{minipage}
 
     \vfill
     Москва 2025
-  \end{center}
+\end{center}
 \end{titlepage}
 
 \newpage
@@ -156,6 +168,7 @@ prompt & prompt-компонента сигнала, формируемая по
 delayed & delayed-компонента сигнала, связанная с захватом нейтрона. \\
 $N_{pe}$ & число зарегистрированных фотоэлектронов. \\
 $N_{fired}$ & число сработавших фотоумножителей. \\
+$A$ & событийная асимметрия светосбора по верхней и нижней крышкам ФЭУ. \\
 $T_{e^+}$ & кинетическая энергия позитрона. \\
 $E_{\bar{\nu}}$ & энергия реакторного антинейтрино. \\
 \end{tabularx}
@@ -272,7 +285,7 @@ $^{157}$Gd & $2.55\cdot 10^{5}$  & $\approx 8$ \\
 \section{Моделирование в Geant4}
 
 \subsection{Геометрия детектора}
-Модель представляет собой цилиндрический бак, заполненный водой, внутри которого расположен сосуд из PMMA с водой, легированной кадмием (Cd) или гадолинием (Gd). В верхней и нижней частях установлены фотоумножители (ФЭУ) в виде концентрических колец, регистрирующие черенковский свет. Основные параметры геометрии приведены в таблице~\ref{tab:geom}.
+Модель представляет собой цилиндрический бак, заполненный водой, внутри которого расположен сосуд из PMMA с водой, легированной кадмием (Cd) или гадолинием (Gd). В верхней и нижней частях установлены фотоумножители (ФЭУ) в виде концентрических колец, регистрирующие черенковский свет. Трёхмерная модель детектора показана на рисунке~\ref{fig:detector_geometry}, основные параметры геометрии --- в таблице~\ref{tab:geom}.
 
 \begin{table}[h]
 \centering
@@ -295,15 +308,22 @@ $^{157}$Gd & $2.55\cdot 10^{5}$  & $\approx 8$ \\
 \end{tabular}
 \end{table}
 
-\subsection{Физические процессы}
-В расчётах использованы стандартные электромагнитные процессы (\texttt{G4EmStandardPhysics}) и оптическая физика (\texttt{G4OpticalPhysics})~\cite{geant4_2003,geant4_2016}. Для воды задан показатель преломления $n(\lambda)$ и длина поглощения $L_{abs}(\lambda)$, что определяет генерацию и транспорт черенковских фотонов. Для стекла ФЭУ задана спектральная квантовая эффективность $QE(\lambda)$, используемая при подсчёте фотоэлектронов.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{detector.png}
+\caption{Геометрия детектора в Geant4: стальной бак, водяной буфер, PMMA-сосуд, легированная мишень и расстановка 38~ФЭУ.}
+\label{fig:detector_geometry}
+\end{figure}
 
-Для корректного моделирования упругого рассеяния, термализации и радиационного захвата нейтронов в \texttt{PhysicsList} дополнительно зарегистрированы конструкторы адронной физики: \texttt{G4HadronPhysicsFTFP\_BERT\_HP}, \texttt{G4HadronElasticPhysicsHP}, \texttt{G4IonPhysics} и \texttt{G4DecayPhysics}. Опция \texttt{HP} (High Precision) переключает обработку нейтронных взаимодействий на табулированные данные нейтронной библиотеки G4NDL/ENDF-B, что обеспечивает корректное описание сечений в области тепловых и эпитепловых энергий, включая резонансы $^{113}\text{Cd}$ и $^{157}\text{Gd}$.
+\subsection{Физические процессы}
+В расчётах использованы стандартные электромагнитные процессы (\gclass{G4EmStandardPhysics}) и оптическая физика (\gclass{G4OpticalPhysics})~\cite{geant4_2003,geant4_2016}. Для воды задан показатель преломления $n(\lambda)$ и длина поглощения $L_{abs}(\lambda)$, что определяет генерацию и транспорт черенковских фотонов. Для стекла ФЭУ задана спектральная квантовая эффективность $QE(\lambda)$, используемая при подсчёте фотоэлектронов.
+
+Для корректного моделирования упругого рассеяния, термализации и радиационного захвата нейтронов в \macrocmd{PhysicsList} дополнительно зарегистрированы конструкторы адронной физики: \gclass{G4HadronPhysicsFTFP\_BERT\_HP}, \gclass{G4HadronElasticPhysicsHP}, \gclass{G4IonPhysics} и \gclass{G4DecayPhysics}. Опция \macrocmd{HP} (High Precision) переключает обработку нейтронных взаимодействий на табулированные данные нейтронной библиотеки G4NDL/ENDF-B, что обеспечивает корректное описание сечений в области тепловых и эпитепловых энергий, включая резонансы $^{113}\text{Cd}$ и $^{157}\text{Gd}$.
 
 \subsection{Генерация первичных частиц}
-Первичный генератор реализует два режима: моноэнергетический пучок (\texttt{/gen/mode mono}) и режим IBD (\texttt{/gen/mode ibd}). В режиме IBD энергия антинейтрино $E_{\bar{\nu}}$ разыгрывается по распределению $\phi(E_{\bar{\nu}})\cdot\sigma(E_{\bar{\nu}})$, где $\phi$ задаётся параметризацией Huber–Mueller, а $\sigma$ в первом приближении пропорциональна $p_eE_e$~\cite{huber2011,mueller2011,vogel1999}. Далее вычисляется кинетическая энергия позитрона $T_{e^+}\approx E_{\bar{\nu}}-1.806$ MeV и запускается первичный позитрон.
+Первичный генератор реализует два режима: моноэнергетический пучок (\macrocmd{/gen/mode mono}) и режим IBD (\macrocmd{/gen/mode ibd}). В режиме IBD энергия антинейтрино $E_{\bar{\nu}}$ разыгрывается по распределению $\phi(E_{\bar{\nu}})\cdot\sigma(E_{\bar{\nu}})$, где $\phi$ задаётся параметризацией Huber–Mueller, а $\sigma$ в первом приближении пропорциональна $p_eE_e$~\cite{huber2011,mueller2011,vogel1999}. Далее вычисляется кинетическая энергия позитрона $T_{e^+}\approx E_{\bar{\nu}}-1.806$ MeV и запускается первичный позитрон.
 
-Для исследования delayed-компоненты используется моноэнергетический режим с параметрами \texttt{/gen/particle neutron}, \texttt{/gen/monoEnergy 10 keV}, \texttt{/gen/randomizePos true} и \texttt{/gen/isotropic true}: тепловые нейтроны разыгрываются изотропно по углу и равномерно по объёму центральной мишени. Тип допанта переключается командой \texttt{/det/dopant Cd|Gd}, что позволяет проводить сравнительный анализ времени захвата и сигнала вторичного черенковского излучения для разных конфигураций.
+Для исследования delayed-компоненты используется моноэнергетический режим с параметрами \macrocmd{/gen/particle neutron}, \macrocmd{/gen/monoEnergy 10 keV}, \macrocmd{/gen/randomizePos true} и \macrocmd{/gen/isotropic true}: тепловые нейтроны разыгрываются изотропно по углу и равномерно по объёму центральной мишени. Тип допанта переключается командой \macrocmd{/det/dopant Cd|Gd}, что позволяет проводить сравнительный анализ времени захвата и сигнала вторичного черенковского излучения для разных конфигураций.
 
 \newpage
 \section{Результаты моделирования}
@@ -341,7 +361,7 @@ table[x index=0, y index=1] {data/positron_Te_hist_trig3.dat};
 \subsection{Зависимость $\langle N_{pe}\rangle$ от энергии позитрона и средний светосбор}
 Число фотоэлектронов (PE), зарегистрированных фотоумножителями, определяется не только числом рождённых черенковских фотонов, но и потерями при транспортировке (поглощение в воде и отражения на границах) и спектральной квантовой эффективностью $QE(\lambda)$.
 
-Для построения зависимости среднего числа фотоэлектронов от энергии позитрона события были разбиты на бины по кинетической энергии $T_{e^+}$, после чего в каждом бине вычислялось среднее значение $N^{tot}_{pe}$ с его стандартной ошибкой. Полученная зависимость $\langle N_{pe}\rangle(T_{e^+})$ приведена на рисунке~\ref{fig:npe_vs_te}.
+Для построения зависимости среднего числа фотоэлектронов от энергии позитрона был выполнен набор моноэнергетических симуляций на равномерной сетке $T_{e^+}$ с шагом $0.1$~MeV в диапазоне $0$--$8$~MeV ($2\times 10^4$ событий на точку). В каждой точке вычислялось среднее значение $N^{tot}_{pe}$ и его стандартная ошибка при условии $N_{fired}\ge 3$. Полученная зависимость $\langle N_{pe}\rangle(T_{e^+})$ приведена на рисунке~\ref{fig:npe_vs_te}.
 
 \begin{figure}[h!]
 \centering
@@ -361,10 +381,10 @@ table[x index=0, y index=1] {data/positron_Te_hist_trig3.dat};
     y dir=both,
     y explicit
 ]
-table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean_trig3.dat};
+table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean_uniform_trig3.dat};
 \end{axis}
 \end{tikzpicture}
-\caption{Зависимость среднего числа фотоэлектронов $\langle N_{pe}^{tot}\rangle$ от кинетической энергии позитрона при условии $N_{fired}\ge 3$.}
+\caption{Зависимость среднего числа фотоэлектронов $\langle N_{pe}^{tot}\rangle$ от кинетической энергии позитрона при условии $N_{fired}\ge 3$ (моноэнергетические позитроны на равномерной сетке $T_{e^+}$, $2\times 10^4$ событий на точку).}
 \label{fig:npe_vs_te}
 \end{figure}
 
@@ -373,8 +393,80 @@ table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean_trig3.dat};
     \langle N^{tot}_{pe}\rangle \approx 106.6.
 \end{equation}
 
+Для иллюстрации зависимости светового выхода от энергии позитрона на рисунке~\ref{fig:photons_percentiles} приведены распределения числа \textit{сгенерированных} черенковских фотонов при моноэнергетических позитронах с кинетическими энергиями, соответствующими 10-, 50- и 90-му перцентилям спектра IBD ($T_{e^+}\approx 0.85$, $2.23$ и $4.20$~MeV). Видно, что с ростом $T_{e^+}$ среднее число фотонов увеличивается, однако зарегистрированное $\langle N_{pe}\rangle$ определяется также потерями при транспортировке и спектральной квантовой эффективностью ФЭУ.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{photons_hist_percentiles.png}
+\caption{Распределения числа сгенерированных черенковских фотонов для моноэнергетических позитронов с энергиями 10-, 50- и 90-го перцентилей спектра IBD ($T_{e^+}\approx 0.85$, $2.23$ и $4.20$~MeV; $10^5$ событий на точку).}
+\label{fig:photons_percentiles}
+\end{figure}
+
+\subsection{Асимметрия prompt-сигнала и направление антинейтрино}
+\label{sec:asymmetry}
+
+Помимо энергетической информации, реакция IBD сохраняет угловую корреляцию между направлением приходящего антинейтрино и импульсом позитрона: в нерелятивистском пределе позитрон в среднем испускается вперёд по направлению потока $\bar{\nu}_e$, а угловое распределение описывается формализмом Vogel--Beacom~\cite{vogel1999}. Для водного черенковского детектора с двумя крышками ФЭУ это означает, что направление движения позитрона (а значит, и информация о направлении реактора) может проявляться в неоднородном светосборе между верхними и нижними фотоумножителями. Подобная идея лежит в основе методов мониторинга и локализации реакторных источников антинейтрино~\cite{learned1979,ashenfelter2018}.
+
+В модели Geant4 для каждого события фиксируются числа фотоэлектронов на верхней ($N_{pe}^{top}$) и нижней ($N_{pe}^{bottom}$) крышках; копии ФЭУ с номерами $0$--$18$ относятся к верхней крышке, $19$--$37$~--- к нижней. Вводится \textit{событийная асимметрия светосбора}
+\begin{equation}
+    A \equiv \frac{N_{pe}^{top} - N_{pe}^{bottom}}{N_{pe}^{top} + N_{pe}^{bottom}},
+    \label{eq:asym_def}
+\end{equation}
+где $A\in[-1,1]$: положительные значения соответствуют преобладанию света на верхней крышке, отрицательные~--- на нижней. Для анализа направленной чувствительности целесообразно использовать среднее $\langle A\rangle$ по ансамблю событий (а не отдельное событие с $|A|\approx 1$): при типичном светосборе $\sim 10^2$~PE разброс $A$ велик, тогда как смещение среднего отражает систематический дисбаланс, связанный с направлением первичного позитрона.
+
+Для изоляции именно prompt-компоненты IBD-сигнала моделирование выполнялось в режиме \macrocmd{/gen/mode ibd} с угловой моделью \gclass{vogelBeacomTable} и \macrocmd{/gen/ibdEmitNeutron false}, то есть без генерации нейтрона и без delayed-фотонов от захвата. Такой выбор исключает вклад гамма-каскада захвата, который в полном IBD-событии размывал бы топологию prompt-сигнала. Направление антинейтрино задавалось вдоль оси $z$ детектора: $\hat{\nu}=(0,0,-1)$ и контрольный случай $\hat{\nu}=(0,0,+1)$. Для каждой конфигурации было разыграно $1.5\cdot 10^5$ prompt-событий IBD (\macrocmd{SIM\_SEED=42}); к анализу принимались события с $N_{fired}\ge 3$ ($93.8\%$ от сгенерированных, $140\,665$ и $140\,730$ событий для $\hat{\nu}\parallel -z$ и $\hat{\nu}\parallel +z$ соответственно).
+
+На рисунке~\ref{fig:asym_nu_dirs} приведены распределения $A$ для двух противоположных направлений $\hat{\nu}$. Формы гистограмм близки (ширина $\sigma_A\approx 0.62$), однако средние значения смещены в противоположные стороны:
+\begin{equation}
+    \langle A\rangle_{\hat{\nu}\parallel -z} = +0.0204 \pm 0.0017,\qquad
+    \langle A\rangle_{\hat{\nu}\parallel +z} = -0.0186 \pm 0.0017.
+    \label{eq:asym_means}
+\end{equation}
+Указанные погрешности соответствуют стандартной ошибке среднего $\sigma_A/\sqrt{N}\approx 0.62/\sqrt{1.4\cdot 10^5}$ $\approx 0.0017$; выбор объёма $1.5\cdot 10^5$ сгенерированных событий на направление оказался достаточным для различения $\Delta\langle A\rangle\approx 0.039$ с значимостью $\sim 17\sigma$, что демонстрирует принципиальную чувствительность рассматриваемой геометрии к направлению антинейтрино через угловую корреляцию Vogel--Beacom. Абсолютная величина $\langle A\rangle$ мала по сравнению с $\sigma_A$, поэтому для практической локализации реактора потребуются либо существенно большие статистики ($\gtrsim 10^6$~событий снижают погрешность $\langle A\rangle$ до $\sim 10^{-3}$), либо дополнительные наблюдаемые: например, взвешивание событий по $T_{e^+}$ (при высоких энергиях угловая корреляция усиливается~\cite{vogel1999}) или реконструкция направления по кольцам ФЭУ в горизонтальной плоскости.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.95\textwidth,
+    height=0.55\textwidth,
+    ybar,
+    bar width=0.045,
+    enlarge x limits=false,
+    xlabel={$A$},
+    ylabel={Counts},
+    xmin=-1, xmax=1,
+    grid=both,
+    minor grid style={gray!15},
+    major grid style={gray!30},
+    legend pos=north west,
+    legend cell align={left},
+    area legend,
+]
+\addplot+[ybar, fill=blue!60, fill opacity=0.45, draw=blue!80, draw opacity=0.85]
+table[x index=0, y index=1] {data/asym_hist_nu_minus_z_trig3.dat};
+\addlegendentry{$\hat{\nu}\parallel -z$}
+\addplot+[ybar, fill=orange!65, fill opacity=0.45, draw=orange!85, draw opacity=0.85]
+table[x index=0, y index=1] {data/asym_hist_nu_plus_z_trig3.dat};
+\addlegendentry{$\hat{\nu}\parallel +z$}
+\addplot+[dashed, blue!80, line width=0.9pt, forget plot]
+coordinates {(0.020398,0) (0.020398,6500)};
+\addplot+[dashed, orange!85, line width=0.9pt, forget plot]
+coordinates {(-0.018565,0) (-0.018565,6500)};
+\addlegendimage{dashed, blue!80, line width=0.9pt}
+\addlegendentry{$\langle A\rangle_{\hat{\nu}\parallel -z}=+0.020$}
+\addlegendimage{dashed, orange!85, line width=0.9pt}
+\addlegendentry{$\langle A\rangle_{\hat{\nu}\parallel +z}=-0.019$}
+\end{axis}
+\end{tikzpicture}
+\caption{Распределение событийной асимметрии $A$ для prompt-сигнала IBD при противоположных направлениях антинейтрино вдоль оси $z$ (модель Vogel--Beacom, без нейтрона, $N_{fired}\ge 3$, $\sim 1.4\cdot 10^5$ событий на направление после триггера). Пунктирные вертикальные линии обозначают средние $\langle A\rangle$.}
+\label{fig:asym_nu_dirs}
+\end{figure}
+
+Таким образом, черенковский детектор с двумя крышками ФЭУ в принципе способен извлекать информацию о направлении приходящего потока $\bar{\nu}_e$. Полученный в моделировании эффект невелик, но устойчив и воспроизводим; его усиление является предметом дальнейшей оптимизации геометрии (число и расположение ФЭУ, отражающие свойства стенок) и алгоритмов реконструкции направления.
+
 \subsection{Время жизни тепловых нейтронов в воде с допантами Cd и Gd}
-Для исследования delayed-компоненты сигнала был запущен моноэнергетический пучок нейтронов с начальной кинетической энергией $T_n=10$~keV, изотропно и равномерно разыгранный по объёму центральной мишени. Для каждого первичного нейтрона ($\texttt{ParentID}==0$) фиксировалось полное время от рождения до момента захвата (статус трека \texttt{fStopAndKill}). Распределения при условии $N_{fired}\ge 3$, полученные для $10^6$ событий каждой конфигурации, представлены на рисунке~\ref{fig:lifetime}.
+Для исследования delayed-компоненты сигнала был запущен моноэнергетический пучок нейтронов с начальной кинетической энергией $T_n=10$~keV, изотропно и равномерно разыгранный по объёму центральной мишени. Для каждого первичного нейтрона (\macrocmd{ParentID}==0) фиксировалось полное время от рождения до момента захвата (статус трека \macrocmd{fStopAndKill}). Распределения при условии $N_{fired}\ge 3$, полученные для $10^6$ событий каждой конфигурации, представлены на рисунке~\ref{fig:lifetime}.
 
 \begin{figure}[h!]
 \centering
@@ -570,6 +662,52 @@ H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{
 
 Оценка~(\ref{eq:R_reg}) учитывает только эффективность регистрации сигнала и не включает фоны от космических мюонов, быстрых нейтронов и реакторных $\gamma$-квантов, моделирование которых выходит за рамки настоящей работы.
 
+\subsection{Время накопления статистики для направленной асимметрии на Калининской АЭС}
+\label{sec:asym_time}
+
+Оценка~(\ref{eq:R_reg}) задаёт скорость регистрации полных IBD-событий. Для извлечения направления реактора по prompt-компоненте (разд.~\ref{sec:asymmetry}) необходимо оценить время наблюдения $t$, за которое смещение средней асимметрии $\langle A\rangle$ становится статистически значимым. Поскольку событийная асимметрия $A$ имеет большой разброс ($\sigma_A\approx 0.62$, рис.~\ref{fig:asym_nu_dirs}), а смещение среднего при фиксированном направлении антинейтрино мало ($|\langle A\rangle|\approx 0.02$), ключевым параметром является число prompt-событий с триггером $N_{fired}\ge 3$, накопленных за время $t$.
+
+Стандартная ошибка среднего по ансамблю из $N$ событий:
+\begin{equation}
+    \sigma_{\langle A\rangle}=\frac{\sigma_A}{\sqrt{N}},\qquad N=R_{\mathrm{trig}}\,t,
+    \label{eq:sigma_A_mean}
+\end{equation}
+где $R_{\mathrm{trig}}$ --- скорость prompt-событий, прошедших триггер $N_{fired}\ge 3$. В качестве меры значимости используется отношение сигнала к погрешности:
+\begin{equation}
+    S\equiv\frac{|\langle A\rangle|}{\sigma_{\langle A\rangle}}
+    =\frac{|\langle A\rangle|\sqrt{N}}{\sigma_A}.
+    \label{eq:significance}
+\end{equation}
+Определение~(\ref{eq:significance}) соответствует проверке гипотезы о ненулевом смещении $\langle A\rangle$ при фиксированном (известном) направлении реактора относительно изотропного (нулевого) случая; для моделирования разд.~\ref{sec:asymmetry} $|\langle A\rangle|\approx 0.020$ (среднее по модулю для $\hat{\nu}\parallel\pm z$). Из~(\ref{eq:significance}) следует замкнутая формула для времени, необходимого для достижения значимости $S$:
+\begin{equation}
+    t=\frac{S^2\,\sigma_A^2}{|\langle A\rangle|^2\,R_{\mathrm{trig}}}.
+    \label{eq:t_sig}
+\end{equation}
+
+Для численной подстановки используем зарегистрированную скорость IBD-событий на Калининской АЭС с допантом Gd из оценки~(\ref{eq:R_reg}): $R^{reg}_{Gd}\approx 1.1\cdot 10^{3}$~соб./сутки. Эта величина уже включает эффективности регистрации prompt- и delayed-компонент ($\varepsilon_{prompt}\cdot\varepsilon_{delayed}$). Анализ направленной асимметрии опирается лишь на prompt-сигнал; доля prompt-событий, проходящих триггер $N_{fired}\ge 3$, в моделировании разд.~\ref{sec:asymmetry} составила $93.8\%$ (для полного IBD-канала $\varepsilon_{prompt}=98.8\%$, табл.~\ref{tab:trigger}). Чтобы не учитывать триггерную эффективность дважды, вводим скорость prompt-событий с триггером:
+\begin{equation}
+    R_{\mathrm{trig}}=R^{reg}_{Gd}\cdot\frac{0.938}{0.988}\approx 1.1\cdot 10^{3}\cdot 0.949\approx 1.0\cdot 10^{3}~\text{соб./сутки}.
+    \label{eq:R_trig}
+\end{equation}
+Здесь множитель $0.938/0.988$ переводит полную зарегистрированную скорость к числу prompt-событий с $N_{fired}\ge 3$; альтернативно $R_{\mathrm{trig}}=R^{IBD}_{our}\cdot 0.938\approx 1.2\cdot 10^{3}\cdot 0.938\approx 1.1\cdot 10^{3}$~соб./сутки (из~(\ref{eq:R_raw})), что согласуется в пределах округления.
+
+Подставляя $\sigma_A=0.62$ и $|\langle A\rangle|=0.020$ (разд.~\ref{sec:asymmetry}), получаем для $S=3$:
+\begin{equation}
+    N_{3\sigma}=\frac{S^2\sigma_A^2}{\langle A\rangle^2}
+    =\frac{9\cdot 0.62^2}{0.020^2}\approx 8.7\cdot 10^{3},\qquad
+    t_{3\sigma}=\frac{N_{3\sigma}}{R_{\mathrm{trig}}}\approx\frac{8.7\cdot 10^{3}}{1.0\cdot 10^{3}}\approx 8.7~\text{сут}\approx 0.3~\text{мес}.
+\end{equation}
+Для $S=5$:
+\begin{equation}
+    N_{5\sigma}=\frac{25\cdot 0.62^2}{0.020^2}\approx 2.4\cdot 10^{4},\qquad
+    t_{5\sigma}\approx\frac{2.4\cdot 10^{4}}{1.0\cdot 10^{3}}\approx 24~\text{сут}\approx 0.8~\text{мес}.
+\end{equation}
+Таким образом, при размещении рассматриваемого детектора на Калининской АЭС ($r=20$~м, Gd $1$~г/л) для выявления направленного смещения $\langle A\rangle$ относительно изотропного случая потребуется порядка одной--трёх недель непрерывного накопления prompt-статистики (при $3\sigma$--$5\sigma$).
+
+Альтернативная постановка --- различение двух противоположных направлений $\hat{\nu}$, для которых $\Delta\langle A\rangle\approx 0.039$ (уравнение~(\ref{eq:asym_means})). При сравнении двух выборок одинакового объёма $N$ стандартная ошибка разности средних увеличивается в $\sqrt{2}$, и значимость оценивается как $S_\Delta=\Delta\langle A\rangle\sqrt{N}/(\sqrt{2}\,\sigma_A)$. Отсюда $N_{3\sigma}=2S^2\sigma_A^2/\Delta\langle A\rangle^2\approx 4.6\cdot 10^{3}$ и $t_{3\sigma}\approx 4.4$~сут; для $5\sigma$: $N_{5\sigma}\approx 1.3\cdot 10^{4}$, $t_{5\sigma}\approx 12$~сут.
+
+Полученные оценки носят статистический характер и основаны на следующих допущениях: реактор моделируется как точечный источник с \emph{известным} направлением в системе координат детектора; фоновые события (космические мюоны, быстрые нейтроны, $\gamma$-кванты) не учитываются; угловой разброс потока антинейтрино от конечного размера активной зоны и эффекты реконструкции направления не моделировались. В реальной установке указанные времена следует рассматривать как нижние оценки; учёт фонов и конечного углового размера источника увеличит необходимое время наблюдения.
+
 \newpage
 \section*{Заключение}
 \phantomsection
@@ -579,7 +717,7 @@ H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{
 
 Кроме того, реализована и валидирована адронная физика нейтронов на основе HP-моделей и данных G4NDL/ENDF-B. Для рассмотренного в моделировании условия регистрации $N_{fired}\ge 3$ проведено сравнение допантов Cd и Gd; полученные результаты показывают, что в рамках этого сравнения Gd предпочтительнее по трём рассмотренным параметрам: среднее время захвата нейтрона меньше ($32.2$ против $113.5~\mu$s), средний светосбор выше ($84.8$ против $72.1$), а эффективность регистрации больше ($89.2\%$ против $78.3\%$). На основе пересчёта реперной точки iDREAM ($1.5\cdot 10^{3}$ соб./сутки, $1$~м$^3$ Gd-LAB, $r=20$~м) по числу свободных протонов и применения полученных эффективностей выполнена оценка ожидаемой скорости регистрации IBD-событий на Калинской АЭС: $R^{reg}_{Gd}\approx 1.1\cdot 10^{3}$ соб./сутки и $R^{reg}_{Cd}\approx 0.9\cdot 10^{3}$ соб./сутки.
 
-Дальнейшее развитие работы связано с учётом углового распределения позитронов в модели в рамках формализма Vogel--Beacom, оптимизацией геометрии детектора и конфигурации ФЭУ для повышения числа фотоэлектронов и улучшения разделения сигнал/фон, а также с учётом фонов от космических мюонов, быстрых нейтронов и реакторных $\gamma$-квантов.
+Проведено моделирование событийной асимметрии prompt-сигнала $A$ и показана принципиальная чувствительность к направлению антинейтрино (разд.~\ref{sec:asymmetry}, рис.~\ref{fig:asym_nu_dirs}). Дальнейшее развитие работы связано с оптимизацией геометрии детектора и конфигурации ФЭУ для усиления направленного отклика, разработкой алгоритмов реконструкции направления реактора, а также с учётом фонов от космических мюонов, быстрых нейтронов и реакторных $\gamma$-квантов.
 
 \newpage
 \renewcommand{\refname}{Список использованных источников}
@@ -601,7 +739,7 @@ H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{
 
 \bibitem{jelley1958} Jelley, J. V. \textit{Cherenkov Radiation and its Applications}. Pergamon Press (1958).
 
-\bibitem{wcsim} WCSim collaboration. WCSim --- The Water Cherenkov Simulator (software). GitHub: \texttt{https://github.com/WCSim/WCSim}
+\bibitem{wcsim} WCSim collaboration. WCSim --- The Water Cherenkov Simulator (software). GitHub: \url{https://github.com/WCSim/WCSim}
 
 \bibitem{mughabghab2006} Mughabghab, S. F. \textit{Atlas of Neutron Resonances. Resonance Parameters and Thermal Cross Sections.} 5th ed., Elsevier (2006).
 
@@ -610,6 +748,10 @@ H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{
 \bibitem{idream_jinst} Abramov, A., et al. iDREAM: industrial Detector of REactor Antineutrinos for Monitoring at Kalinin nuclear power plant. \textit{JINST} \textbf{17} (2022) P09001. arXiv:2112.09372.
 
 \bibitem{idream_signal} Abramov, A. A., et al. Antineutrino Signal in the iDREAM Detector at Kalinin NPP. \textit{Phys. Atom. Nucl.} \textbf{86} (2023) 1389--1393. DOI: 10.1134/S1063778824010022.
+
+\bibitem{learned1979} Learned, J. G., Pakvasa, S. K. Modulation in the reactor antineutrino flux. \textit{Phys. Rev. D} \textbf{20} (1979) 708.
+
+\bibitem{ashenfelter2018} Ashenfelter, J., et al. (PROSPECT Collaboration). Precision Oscillation and Spectrum Measurements of Reactor Antineutrinos at Very Short Baselines. \textit{Phys. Rev. Lett.} \textbf{121} (2018) 251802.
 
 \end{thebibliography}
 

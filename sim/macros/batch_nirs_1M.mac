@@ -1,0 +1,16 @@
+# Batch run for NIRS figures (IBD positrons) at 1M events
+# Output (in run dir):
+#   - pe_asymmetry.txt
+#   - ibd_positron_spectrum.txt
+
+/run/initialize
+
+/analysis/writeCherenkovSpectrum false
+
+/gen/mode ibd
+/gen/particle e+
+/gen/ibdAngularModel vogelBeacomTable
+/gen/ibdNuDir 0 0 -1
+/gen/ibdEmitNeutron true
+
+/run/beamOn 1000000

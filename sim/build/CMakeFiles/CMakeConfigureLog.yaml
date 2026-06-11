@@ -10702,3 +10702,326 @@ events:
         - "/Network/Library/Frameworks"
         - "/System/Library/Frameworks"
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/FindHDF5.cmake:409 (try_compile)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/FindHDF5.cmake:785 (_HDF5_test_regular_compiler_C)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Geant4/Geant4Config.cmake:329 (find_dependency)"
+      - "CMakeLists.txt:11 (find_package)"
+    directories:
+      source: "/Users/pasheeee/university/nirs/geant4/sim/build/CMakeFiles/CMakeScratch/TryCompile-SWjYSH"
+      binary: "/Users/pasheeee/university/nirs/geant4/sim/build/CMakeFiles/CMakeScratch/TryCompile-SWjYSH"
+    cmakeVariables:
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Geant4/Modules"
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: ""
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/pasheeee/university/nirs/geant4/sim/build/CMakeFiles/CMakeScratch/TryCompile-SWjYSH'
+        
+        Run Build Command(s): /opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_956f1/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_956f1.dir/build.make CMakeFiles/cmTC_956f1.dir/build
+        Building C object CMakeFiles/cmTC_956f1.dir/cmake_hdf5_test.c.o
+        /usr/bin/cc    -MD -MT CMakeFiles/cmTC_956f1.dir/cmake_hdf5_test.c.o -MF CMakeFiles/cmTC_956f1.dir/cmake_hdf5_test.c.o.d -o CMakeFiles/cmTC_956f1.dir/cmake_hdf5_test.c.o -c /Users/pasheeee/university/nirs/geant4/sim/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /Users/pasheeee/university/nirs/geant4/sim/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: 'hdf5.h' file not found
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        1 error generated.
+        make[1]: *** [CMakeFiles/cmTC_956f1.dir/cmake_hdf5_test.c.o] Error 1
+        make: *** [cmTC_956f1/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/FindHDF5.cmake:531 (message)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/FindHDF5.cmake:835 (_HDF5_invoke_compiler)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Geant4/Geant4Config.cmake:329 (find_dependency)"
+      - "CMakeLists.txt:11 (find_package)"
+    message: |
+      HDF5 C compiler wrapper is unable to compile a minimal HDF5 program.
+      
+      /opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin/h5cc: line 306: arm64-apple-darwin20.0.0-clang: command not found
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake:5 (find_path)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake:232 (include)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Geant4/Geant4Config.cmake:372 (find_dependency)"
+      - "CMakeLists.txt:11 (find_package)"
+    mode: "path"
+    variable: "_qt5gui_OPENGL_INCLUDE_DIR"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gl.h"
+    candidate_directories:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin/"
+      - "/opt/homebrew/Caskroom/miniforge/base/condabin/"
+      - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
+      - "/Library/TeX/texbin/"
+      - "/usr/local/munki/"
+      - "/Applications/Cursor.app/Contents/Resources/app/node_modules/@vscode/ripgrep/bin/"
+      - "/Users/pasheeee/.local/bin/"
+      - "/Users/pasheeee/.lmstudio/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/include/"
+      - "/opt/homebrew/"
+      - "/usr/local/include/"
+      - "/usr/local/"
+      - "/usr/include/"
+      - "/usr/"
+      - "/include/"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/"
+      - "/usr/X11R6/include/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/include/"
+      - "/usr/pkg/"
+      - "/opt/include/"
+      - "/opt/"
+      - "/sw/include/"
+      - "/sw/"
+      - "/opt/local/include/"
+      - "/opt/local/"
+      - "/usr/include/X11/"
+      - "/Users/pasheeee/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/Library/Frameworks/"
+      - "/Library/Frameworks/"
+      - "/Network/Library/Frameworks/"
+      - "/System/Library/Frameworks/"
+      - "/System/Library/Frameworks/OpenGL.framework/Headers/"
+    found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/"
+    search_context:
+      ENV{PATH}:
+        - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin"
+        - "/opt/homebrew/Caskroom/miniforge/base/condabin"
+        - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
+        - "/Library/TeX/texbin"
+        - "/usr/local/munki"
+        - "/Applications/Cursor.app/Contents/Resources/app/node_modules/@vscode/ripgrep/bin"
+        - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin"
+        - "/Users/pasheeee/.local/bin"
+        - "/Users/pasheeee/.lmstudio/bin"
+        - "/Users/pasheeee/.local/bin"
+        - "/Users/pasheeee/.local/bin"
+        - "/Users/pasheeee/.lmstudio/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_INCLUDE_PATH:
+        - "/usr/include/X11"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake:50 (find_library)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake:99 (_qt5gui_find_extra_libs)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake:232 (include)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/share/cmake-4.3/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/cmake/Geant4/Geant4Config.cmake:372 (find_dependency)"
+      - "CMakeLists.txt:11 (find_package)"
+    mode: "library"
+    variable: "Qt5Gui_GL_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "GL"
+    candidate_directories:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin/"
+      - "/opt/homebrew/Caskroom/miniforge/base/condabin/"
+      - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Library/TeX/texbin/"
+      - "/usr/local/munki/"
+      - "/Applications/Cursor.app/Contents/Resources/app/node_modules/@vscode/ripgrep/bin/"
+      - "/Users/pasheeee/.local/bin/"
+      - "/Users/pasheeee/.lmstudio/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/lib/"
+      - "/opt/homebrew/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/"
+      - "/opt/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/Library/Frameworks/"
+      - "/Library/Frameworks/"
+      - "/System/Library/Frameworks/"
+    searched_directories:
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin/"
+      - "/opt/homebrew/Caskroom/miniforge/base/condabin/"
+      - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Library/TeX/texbin/"
+      - "/usr/local/munki/"
+      - "/Applications/Cursor.app/Contents/Resources/app/node_modules/@vscode/ripgrep/bin/"
+      - "/Users/pasheeee/.local/bin/"
+      - "/Users/pasheeee/.lmstudio/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/lib/"
+      - "/opt/homebrew/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/lib/"
+      - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/"
+      - "/opt/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/Library/Frameworks/"
+      - "/Library/Frameworks/"
+      - "/System/Library/Frameworks/"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env/bin"
+        - "/opt/homebrew/Caskroom/miniforge/base/condabin"
+        - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
+        - "/Library/TeX/texbin"
+        - "/usr/local/munki"
+        - "/Applications/Cursor.app/Contents/Resources/app/node_modules/@vscode/ripgrep/bin"
+        - "/Users/pasheeee/.nvm/versions/node/v22.22.2/bin"
+        - "/Users/pasheeee/.local/bin"
+        - "/Users/pasheeee/.lmstudio/bin"
+        - "/Users/pasheeee/.local/bin"
+        - "/Users/pasheeee/.local/bin"
+        - "/Users/pasheeee/.lmstudio/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew/Caskroom/miniforge/base/envs/g4env"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+...

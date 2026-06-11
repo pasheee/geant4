@@ -1,0 +1,42 @@
+# vis_reflection.mac -- увидеть отражение оптических фотонов от стенок бака.
+#
+# Запускать ПОСЛЕ того, как открыт вьюер (т.е. после интерактивного запуска ./sim,
+# который уже выполнил init_vis.mac -> vis.mac и открыл OGL-окно).
+#
+# В сессии Geant4 (приглашение "Idle>") выполнить:
+#   /control/execute ../macros/vis_reflection.mac
+
+# Накапливать траектории между эвентами и хранить полные треки (включая фотоны).
+/vis/scene/endOfEventAction accumulate
+/tracking/storeTrajectory 2
+
+# Раскраска траекторий по типу частицы: оптические фотоны жёлтым, электрон красным.
+/vis/modeling/trajectories/create/drawByParticleID photonColor
+/vis/modeling/trajectories/photonColor/set opticalphoton yellow
+/vis/modeling/trajectories/photonColor/set e- red
+/vis/modeling/trajectories/photonColor/set e+ red
+/vis/modeling/trajectories/select photonColor
+
+# Показывать только первичный электрон и оптические фотоны,
+# чтобы картинку не забивали гамма/вторичные треки.
+/vis/filtering/trajectories/create/particleFilter optFilter
+/vis/filtering/trajectories/optFilter/add opticalphoton
+/vis/filtering/trajectories/optFilter/add e-
+/vis/filtering/trajectories/optFilter/active true
+
+# Источник: одиночный электрон из центра бака вдоль +X.
+# 2 МэВ даёт умеренное число черенковских фотонов -- видно отдельные треки и отскоки.
+/gen/mode mono
+/gen/particle e-
+/gen/monoEnergy 2 MeV
+/gen/isotropic false
+/gen/randomizePos false
+/gen/dir 1 0 0
+
+# Вид сверху вдоль оси Z: хорошо видно радиальные отражения от цилиндрической стенки.
+/vis/viewer/set/viewpointVector 0 0 1
+/vis/viewer/set/style surface
+/vis/viewer/zoom 1.3
+
+# Один эвент.
+/run/beamOn 1

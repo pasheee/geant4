@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  9 JUN 2026 16:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  11 JUN 2026 10:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1371,7 +1371,8 @@ Overfull \hbox (15.51193pt too wide) in paragraph at lines 304--305
 [9]
 PGFPlots: reading {data/positron_Te_hist_trig3.dat}
 
-Missing character: There is no 0 in font nullfont!
+Missing character: There is no 8 in font nullfont!
+Missing character: There is no 9 in font nullfont!
 [10]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -1394,10 +1395,9 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 341.
 
 PGFPlots: reading {data/npe_vs_Te_mean_trig3.dat}
-Missing character: There is no 0 in font nullfont!
-PGFPlots: reading {data/lifetime_hist_Cd_trig3.dat}
 Missing character: There is no 8 in font nullfont!
-Missing character: There is no 2 in font nullfont!
+Missing character: There is no 9 in font nullfont!
+PGFPlots: reading {data/lifetime_hist_Cd_trig3.dat}
 PGFPlots: reading {data/lifetime_hist_Gd_trig3.dat}
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1412,9 +1412,6 @@ Overfull \hbox (9.46355pt too wide) in paragraph at lines 405--406
 Package pgfplots info on input line 432: Using 'lua backend=false' for axis: ym
 ode=log unsupported (yet).
 PGFPlots: reading {data/npe_hist_log_Cd_trig3.dat}
-
-Missing character: There is no 6 in font nullfont!
-Missing character: There is no 3 in font nullfont!
 PGFPlots: reading {data/npe_hist_log_Gd_trig3.dat}
 
 Overfull \hbox (8.55016pt too wide) in paragraph at lines 440--441
@@ -1447,10 +1444,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: CE047EF2FD927758CF7B90782C1F7C51;8244.
  ) 
 Here is how much of TeX's memory you used:
- 38108 strings out of 467525
- 853382 string characters out of 5418982
- 1591493 words of memory out of 5000000
- 66308 multiletter control sequences out of 15000+600000
+ 38109 strings out of 467525
+ 853427 string characters out of 5418982
+ 1596822 words of memory out of 5000000
+ 66309 multiletter control sequences out of 15000+600000
  644500 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,21n,108p,1988b,2594s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1474,7 +1471,7 @@ e/2026/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2026/t
 exmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2026/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (17 pages, 386324 bytes).
+Output written on main.pdf (17 pages, 387321 bytes).
 PDF statistics:
  407 PDF objects out of 1000 (max. 8388607)
  344 compressed objects within 4 object streams

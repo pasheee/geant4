@@ -994,6 +994,8 @@ CMakeFiles/sim.dir/sim.cc.o: /Users/pasheeee/university/nirs/geant4/sim/sim.cc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Isotope.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4IsotopeVector.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Log.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.icc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.icc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSurface.hh \
@@ -3278,6 +3280,8 @@ CMakeFiles/sim.dir/source/construction.cc.o: /Users/pasheeee/university/nirs/gea
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Isotope.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4IsotopeVector.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Log.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.icc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.icc \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSurface.hh \
@@ -8192,6 +8196,8 @@ CMakeFiles/sim.dir/source/sensitive.cc.o: /Users/pasheeee/university/nirs/geant4
 
 /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.hh:
 
+/opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.hh:
+
 /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4IonisParamMat.hh:
 
 /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4ICRU90StoppingData.hh:
@@ -8309,6 +8315,8 @@ CMakeFiles/sim.dir/source/sensitive.cc.o: /Users/pasheeee/university/nirs/geant4
 /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/CLHEP/Vector/AxisAngle.icc:
 
 /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/CLHEP/Units/SystemOfUnits.h:
+
+/opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.icc:
 
 /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/CLHEP/Units/PhysicalConstants.h:
 

@@ -995,6 +995,8 @@ CMakeFiles/sim.dir/sim.cc.o
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Isotope.hh
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4IsotopeVector.hh
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Log.hh
+ /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.hh
+ /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.icc
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.hh
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.icc
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSurface.hh
@@ -3281,6 +3283,8 @@ CMakeFiles/sim.dir/source/construction.cc.o
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Isotope.hh
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4IsotopeVector.hh
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Log.hh
+ /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.hh
+ /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalBorderSurface.icc
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.hh
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSkinSurface.icc
  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4LogicalSurface.hh

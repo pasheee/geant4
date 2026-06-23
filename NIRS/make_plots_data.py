@@ -278,6 +278,81 @@ def main() -> int:
                         f.write(f"{x:.3f} {y}\n")
                 print(" -", out_hist.as_posix())
 
+    # 4b) Neutron-capture prompt gamma spectrum (per dopant).
+    # Inputs (written by RunAction when /analysis/writeCaptureGammas is on):
+    #   capture_gammas_<Dop>.txt   : "Zres Ares Egamma_MeV"  (one prompt gamma per line)
+    #   capture_summary_<Dop>.txt  : "Zres Ares nGamma sumEgamma nConvE sumEconvE"
+    # We isolate captures on the dopant nucleus (Z=48 Cd, Z=64 Gd) so the cascade is
+    # not diluted by the dominant 2.2 MeV hydrogen-capture channel.
+    Z_OF_DOPANT = {"Cd": 48, "Gd": 64}
+    capture_stats = []
+    for dopant in ["Cd", "Gd"]:
+        zdop = Z_OF_DOPANT[dopant]
+        gpath = sim_build / f"capture_gammas_{dopant}.txt"
+        spath = sim_build / f"capture_summary_{dopant}.txt"
+        if not gpath.exists():
+            continue
+
+        # Per-gamma spectrum for the dopant captures only.
+        egammas = []
+        for p in _read_columns(gpath):
+            if len(p) >= 3:
+                try:
+                    if int(p[0]) == zdop:
+                        egammas.append(float(p[2]))
+                except ValueError:
+                    pass
+        if not egammas:
+            continue
+        c, h = make_hist(egammas, vmin=0.0, vmax=9.5, nbins=95)
+        ntot = sum(h)
+        out_hist = out_dir / f"capture_gamma_spectrum_{dopant}.dat"
+        with out_hist.open("w") as f:
+            f.write("# Egamma_center_MeV  count  fraction_per_bin\n")
+            for x, y in zip(c, h):
+                f.write(f"{x:.4f} {y} {(y / ntot if ntot else 0.0):.6e}\n")
+        print(" -", out_hist.as_posix())
+
+        # Per-capture cascade summary (mean total energy, multiplicity, conv-e share).
+        n_cap = 0
+        sum_eg = 0.0
+        sum_mult = 0
+        n_with_conv = 0
+        sum_conv = 0.0
+        if spath.exists():
+            for p in _read_columns(spath):
+                if len(p) >= 6:
+                    try:
+                        if int(p[0]) != zdop:
+                            continue
+                        n_cap += 1
+                        sum_mult += int(p[2])
+                        sum_eg += float(p[3])
+                        nconv = int(p[4])
+                        if nconv > 0:
+                            n_with_conv += 1
+                        sum_conv += float(p[5])
+                    except ValueError:
+                        pass
+        if n_cap > 0:
+            capture_stats.append((
+                dopant, zdop, n_cap,
+                sum_eg / n_cap,            # <sum E_gamma> per capture (MeV)
+                sum_mult / n_cap,          # <gamma multiplicity>
+                sum(egammas) / len(egammas),  # <single gamma energy> (MeV)
+                100.0 * n_with_conv / n_cap,  # fraction of captures with conv e- (%)
+                sum_conv / n_cap,          # <conv-e energy> per capture (MeV)
+            ))
+
+    if capture_stats:
+        out_stats = out_dir / "capture_gamma_stats.dat"
+        with out_stats.open("w") as f:
+            f.write("# dopant Z Ncaptures meanSumEgamma_MeV meanMultiplicity "
+                    "meanSingleGamma_MeV fracWithConvE_percent meanConvE_MeV\n")
+            for row in capture_stats:
+                f.write("{0} {1} {2} {3:.4f} {4:.4f} {5:.4f} {6:.4f} {7:.6f}\n".format(*row))
+        print(" -", out_stats.as_posix())
+
     # 5) Neutron capture Npe histograms (linear hist + log-friendly hist + survival curve)
     import bisect
     for dopant in ["Cd", "Gd"]:

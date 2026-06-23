@@ -205,21 +205,43 @@ def main():
     plt.close(fig)
 
     # 9. Generated Optical Photons for Positron Percentiles
-    plt.figure(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(12, 5))
     colors = {'p10': 'blue', 'p50': 'green', 'p90': 'red'}
     labels = {'p10': '0.845 MeV (p10)', 'p50': '2.227 MeV (p50)', 'p90': '4.203 MeV (p90)'}
     for tag in ["p10", "p50", "p90"]:
         data = load_dat(f"photons_hist_{tag}.dat")
         if data is not None and len(data) > 0:
             width = (data[1,0]-data[0,0]) if len(data)>1 else 100
-            plt.bar(data[:, 0], data[:, 1], width=width, alpha=0.5, label=labels[tag], color=colors[tag])
-    plt.xlabel("Number of Generated Optical Photons")
-    plt.ylabel("Counts")
-    plt.title("Generated Cherenkov Photons for Monoenergetic Positrons")
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    plt.savefig(plots_dir / "photons_hist_percentiles.png", dpi=300)
-    plt.close()
+            ax.bar(data[:, 0], data[:, 1], width=width, alpha=0.5, label=labels[tag], color=colors[tag])
+    ax.set_xlabel("Number of Generated Optical Photons", fontsize=18)
+    ax.set_ylabel("Counts", fontsize=18)
+    ax.set_title("Generated Cherenkov Photons for Monoenergetic Positrons", fontsize=19)
+    ax.tick_params(axis='both', labelsize=15)
+    ax.legend(fontsize=16)
+    ax.grid(True, alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(plots_dir / "photons_hist_percentiles.png", dpi=300)
+    plt.close(fig)
+
+    # 10. Neutron-capture prompt gamma spectrum (per dopant, dopant captures only)
+    data_cd = load_dat("capture_gamma_spectrum_Cd.dat")
+    data_gd = load_dat("capture_gamma_spectrum_Gd.dat")
+    if (data_cd is not None and len(data_cd) > 0) or (data_gd is not None and len(data_gd) > 0):
+        plt.figure(figsize=(8, 6))
+        if data_cd is not None and len(data_cd) > 0:
+            plt.plot(data_cd[:, 0], data_cd[:, 2], label="Cd ($^{114}$Cd*)",
+                     drawstyle='steps-mid', color='blue', linewidth=1.2)
+        if data_gd is not None and len(data_gd) > 0:
+            plt.plot(data_gd[:, 0], data_gd[:, 2], label="Gd ($^{156,158}$Gd*)",
+                     drawstyle='steps-mid', color='red', linewidth=1.2)
+        plt.xlabel(r"Prompt capture $\gamma$ energy (MeV)")
+        plt.ylabel("Fraction of capture gammas / bin")
+        plt.yscale('log')
+        plt.title("Neutron-capture prompt gamma spectrum (Geant4 G4NDL/HP)")
+        plt.legend()
+        plt.grid(True, which='both', alpha=0.3)
+        plt.savefig(plots_dir / "capture_gamma_spectrum.png", dpi=300)
+        plt.close()
 
     print(f"All plots saved to {plots_dir}")
 

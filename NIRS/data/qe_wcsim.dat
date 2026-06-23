@@ -1,0 +1,23 @@
+# WCSim 10-inch HQE PMT quantum efficiency curve used in this repository.
+# Source values match the tabulation in sim/source/construction.cc.
+# wavelength_nm QE
+280 0.0000
+300 0.0502
+320 0.2017
+340 0.2933
+360 0.3306
+380 0.3396
+400 0.3320
+420 0.3168
+440 0.2915
+460 0.2655
+480 0.2268
+500 0.1971
+520 0.1641
+540 0.1102
+560 0.0727
+580 0.0499
+600 0.0323
+620 0.0178
+640 0.0061
+660 0.0000

@@ -13,4 +13,10 @@
 
 /analysis/neutronLifetimeFile neutron_lifetime_Cd.txt
 
+# Prompt neutron-capture gamma cascade (per-gamma spectrum + per-capture summary,
+# tagged by residual nucleus so Cd captures can be isolated from H captures).
+/analysis/writeCaptureGammas true
+/analysis/captureGammaFile capture_gammas_Cd.txt
+/analysis/captureSummaryFile capture_summary_Cd.txt
+
 /run/beamOn 100000

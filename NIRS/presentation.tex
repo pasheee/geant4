@@ -59,7 +59,9 @@
     \item разыгрывание спектра позитронов от реакции обратного бета-распада (IBD);
     \item учёт спектральных оптических свойств воды $n(\lambda)$, $L_{abs}(\lambda)$ и $QE(\lambda)$ ФЭУ;
     \item моделирование термализации и захвата тепловых нейтронов на допантах Cd и Gd;
-    \item сравнение допантов по времени до захвата $t_{cap}$ и числу фотоэлектронов $N_{pe}$ от $\gamma$-каскада.
+    \item сравнение допантов по $t_{cap}$, $N_{pe}$ и эффективности регистрации;
+    \item исследование асимметрии prompt-сигнала и чувствительности к направлению $\bar{\nu}_e$;
+    \item оценка ожидаемой скорости счёта IBD-событий на Калининской АЭС.
 \end{itemize}
 \end{frame}
 
@@ -140,28 +142,26 @@ $\gamma$-каскад на $^{157}$Gd & $\approx 8$ MeV & $\bar M_\gamma \approx
 % -------------------------------------------------------------------------
 \begin{frame}{Geant4-модель: геометрия}
 \begin{columns}[T]
-\begin{column}{0.55\textwidth}
+\begin{column}{0.48\textwidth}
 \textbf{Цилиндрическая компоновка}:
 \begin{itemize}
     \item стальной бак $R = 630$ мм, $H = 1300$ мм, отражающие стенки ($R_{refl}=0{.}9$);
     \item внешний слой воды;
     \item внутренний PMMA-сосуд $R = 590$ мм, $H = 700$ мм;
-    \item мишень — вода + допант (Cd или Gd, массовая доля $0{.}1\%$).
+    \item мишень — вода + допант (Cd или Gd, $1$~г/л).
 \end{itemize}
+
+\smallskip
+\textbf{ФЭУ}: \textbf{38} шт.\ ($19$ сверху + $19$ снизу), кольца $1{+}6{+}12$, $R_{PMT}=100$~мм.
+
+\smallskip
+\textbf{Триггер}: $N_{fired}\ge 3$; \textbf{отклик}: $N^{tot}_{pe}$, асимметрия $A$.
 \end{column}
-\begin{column}{0.45\textwidth}
-\textbf{ФЭУ}:
-\begin{itemize}
-    \item всего \textbf{38} ФЭУ;
-    \item по \textbf{19} на верхней и нижней крышках;
-    \item схема концентрических колец $1+6+12$;
-    \item радиус ФЭУ $100$ мм.
-\end{itemize}
+\begin{column}{0.52\textwidth}
+\centering
+\includegraphics[width=\textwidth]{detector.png}
 \end{column}
 \end{columns}
-
-\medskip
-\textbf{Измеряемая величина}: суммарное число фотоэлектронов $N^{tot}_{pe}$ во всех ФЭУ за событие.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -185,7 +185,7 @@ table[x index=0, y index=1] {data/positron_Te_hist_trig3.dat};
 \end{tikzpicture}
 \end{center}
 \vspace{-0.4em}
-\small Зарегистрированный спектр позитронов IBD (условие $N_{fired}\ge 3$, $76.1\%$ от $10^5$ событий). Среднее $\langle T_{e^+}\rangle \approx 2{.}72$ MeV.
+\small Зарегистрированный спектр позитронов IBD (условие $N_{fired}\ge 3$, $98.8\%$ от $10^6$ событий). Среднее $\langle T_{e^+}\rangle \approx 2{.}40$ MeV.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -206,12 +206,21 @@ table[x index=0, y index=1] {data/positron_Te_hist_trig3.dat};
     y dir=both,
     y explicit
 ]
-table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean_trig3.dat};
+table[x index=0, y index=1, y error index=2] {data/npe_vs_Te_mean_uniform_trig3.dat};
 \end{axis}
 \end{tikzpicture}
 \end{center}
 \vspace{-0.4em}
-\small $10^5$ событий IBD, условие $N_{fired}\ge 3$. Среднее по прошедшим триггер событиям: $\langle N^{tot}_{pe}\rangle \approx 23{.}4$.
+\small Моноэнергетические позитроны на равномерной сетке $T_{e^+}$ ($2\times 10^4$ событий/точка), $N_{fired}\ge 3$. Среднее по IBD-событиям: $\langle N^{tot}_{pe}\rangle \approx 106{.}6$.
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Распределения числа черенковских фотонов}
+\begin{center}
+\includegraphics[width=0.95\textwidth,keepaspectratio]{plots/photons_hist_percentiles.png}
+\end{center}
+\vspace{-0.6em}
+\scriptsize Моноэнергетические позитроны при 10-, 50- и 90-м перцентилях спектра IBD ($T_{e^+}\approx 0.85$, $2.23$, $4.20$ MeV). С ростом $T_{e^+}$ растёт число сгенерированных фотонов.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -239,7 +248,7 @@ table[x index=0, y index=1] {data/lifetime_hist_Gd_trig3.dat};
 \end{tikzpicture}
 \end{center}
 \vspace{-0.4em}
-\small $T_n=10$ keV, $10^5$ событий, условие $N_{fired}\ge 3$. Средние времена: $\langle t_{cap}^{Cd}\rangle \approx 112{.}2\,\mu$s, $\langle t_{cap}^{Gd}\rangle \approx 31{.}6\,\mu$s.
+\small $T_n=10$ keV, $10^6$ событий, условие $N_{fired}\ge 3$. Средние времена: $\langle t_{cap}^{Cd}\rangle \approx 113{.}5\,\mu$s, $\langle t_{cap}^{Gd}\rangle \approx 32{.}2\,\mu$s.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -306,36 +315,144 @@ table[x index=0, y index=1] {data/npe_survival_Gd_trig3.dat};
 \end{column}
 \end{columns}
 \vspace{0.3em}
-{\scriptsize Условие $N_{fired}\ge 3$. $\langle N_{pe}^{Cd}\rangle\approx 40{.}6$, $\langle N_{pe}^{Gd}\rangle\approx 42{.}8$. Преимущество Gd сохраняется: при $N^{tot}_{pe,thr}=50$ --- $42\%$ vs $27\%$. Причина --- большая множественность $\gamma$-каскада ($\bar M_\gamma\approx 4$--5 у Gd vs $\sim 2$--3 у Cd).\par}
+{\scriptsize $10^6$ событий, $N_{fired}\ge 3$. $\langle N_{pe}^{Cd}\rangle\approx 72{.}1$, $\langle N_{pe}^{Gd}\rangle\approx 84{.}8$. При $N^{tot}_{pe,thr}=50$: $58.8\%$ (Gd) vs $43.3\%$ (Cd). Причина --- большая множественность $\gamma$-каскада ($\bar M_\gamma\approx 4$--5 у Gd vs $\sim 2$--3 у Cd).\par}
 \end{frame}
 
 % -------------------------------------------------------------------------
-\begin{frame}{Результат 5: ожидаемая скорость счёта на Калинской АЭС}
-\small
-Реперная точка --- эксперимент iDREAM\footnote{\scriptsize Abramov et al., \textit{JINST}~\textbf{17} (2022) P09001; \textit{Phys.~Atom.~Nucl.}~\textbf{86} (2023) 1389.} (Калинская АЭС, 3-й энергоблок, ВВЭР-1000): $R^{IBD}_{iDREAM}\approx 1.5\cdot 10^{3}$~соб./сутки, $V=1$~м$^3$ Gd-LAB, $r=20$~м. При одинаковом расстоянии масштабирование сводится к $N_p$:
-
-\vspace{-0.2em}
-\begin{center}
-\scriptsize
-\begin{tabular}{lcccc}
-\toprule
-Среда & $\rho$, г/см$^3$ & $w_H$ & $n_p$, см$^{-3}$ & $V$, л \\
-\midrule
-LAB (C$_{18}$H$_{30}$), iDREAM & $0.863$ & $0.122$ & $6.33\cdot 10^{22}$ & $1000$ \\
-H$_2$O, наша установка        & $1.000$ & $0.111$ & $6.69\cdot 10^{22}$ & $765.5$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\vspace{-0.4em}
-$\dfrac{N_p^{our}}{N_p^{iDREAM}}\approx 0.81 \;\Rightarrow\; R^{IBD}_{our}\approx 1.2\cdot 10^{3}$~соб./сутки.
+\begin{frame}{Асимметрия prompt-сигнала и направление $\bar{\nu}_e$}
+Реакция IBD сохраняет угловую корреляцию (модель Vogel--Beacom): направление позитрона связано с потоком $\bar{\nu}_e$. Для детектора с двумя крышками ФЭУ вводится \textit{событийная асимметрия}:
+\begin{equation}
+    A \equiv \frac{N_{pe}^{top} - N_{pe}^{bottom}}{N_{pe}^{top} + N_{pe}^{bottom}}.
+\end{equation}
 
 \smallskip
-Эффективность регистрации coincidence prompt+delayed ($N_{fired}\ge 3$, $\varepsilon_{tot}=\varepsilon_{prompt}\cdot\varepsilon_{delayed}$):
-\begin{itemize}\setlength{\itemsep}{-1pt}
-    \item Gd: $\varepsilon_{tot}=0.76\cdot 0.74\approx 0.56\;\Rightarrow\; R^{reg}_{Gd}\approx 0.7\cdot 10^{3}$~соб./сутки;
-    \item Cd: $\varepsilon_{tot}=0.76\cdot 0.57\approx 0.43\;\Rightarrow\; R^{reg}_{Cd}\approx 0.5\cdot 10^{3}$~соб./сутки.
+Моделирование: prompt IBD без нейтрона, $\hat{\nu}\parallel\pm z$, $1.5\cdot 10^5$ событий/направление, $N_{fired}\ge 3$ ($93.8\%$, $\sim 1.4\cdot 10^5$ после триггера):
+\begin{equation}
+    \langle A\rangle_{\hat{\nu}\parallel -z} = +0.0204 \pm 0.0017,\qquad
+    \langle A\rangle_{\hat{\nu}\parallel +z} = -0.0186 \pm 0.0017.
+\end{equation}
+Различение направлений: $\Delta\langle A\rangle\approx 0.039$, значимость $\sim 17\sigma$.
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Распределение асимметрии $A$ для $\hat{\nu}\parallel\pm z$}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    nirsaxis,
+    height=0.36\textwidth,
+    ybar,
+    bar width=0.045,
+    enlarge x limits=false,
+    xlabel={$A$},
+    ylabel={Counts},
+    xmin=-1, xmax=1,
+    grid=both,
+    minor grid style={gray!15},
+    major grid style={gray!30},
+    legend pos=north west,
+    legend style={font=\scriptsize},
+    legend cell align={left},
+]
+\addplot+[ybar, fill=blue!60, fill opacity=0.45, draw=blue!80]
+table[x index=0, y index=1] {data/asym_hist_nu_minus_z_trig3.dat};
+\addlegendentry{$\hat{\nu}\parallel -z$}
+\addplot+[ybar, fill=orange!65, fill opacity=0.45, draw=orange!85]
+table[x index=0, y index=1] {data/asym_hist_nu_plus_z_trig3.dat};
+\addlegendentry{$\hat{\nu}\parallel +z$}
+\addplot+[dashed, blue!80, line width=0.9pt, forget plot]
+coordinates {(0.020,0) (0.020,6500)};
+\addplot+[dashed, orange!85, line width=0.9pt, forget plot]
+coordinates {(-0.019,0) (-0.019,6500)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\vspace{-0.4em}
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Калининская АЭС: размещение детектора iDREAM}
+\small
+Калининская АЭС (3-й энергоблок, ВВЭР-1000, $P_{th}=3$~ГВт). Детектор iDREAM размещён в помещении под реактором.
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.55\textwidth}
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{detector_reactor.png}
+\end{column}
+\begin{column}{0.43\textwidth}
+\footnotesize
+\begin{itemize}\setlength{\itemsep}{4pt}
+    \item расстояние до центра активной зоны $r\sim 20$--$30$~м; консервативно $r=20$~м;
+    \item естественная защита от космического фона $\sim 15$--$20$~м водного эквивалента;
+    \item то же место и условия, что и у детектора iDREAM.
 \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Ожидаемая скорость счёта на Калининской АЭС}
+\small
+Скорость IBD-реакций при постоянной мощности реактора:
+\begin{equation}
+    R^{IBD}=\frac{N_p}{4\pi L^2}\,\frac{P_{th}}{\langle E_f\rangle}\,\langle\sigma\rangle,\qquad N_p^{our}\approx 5.12\cdot 10^{28}.
+\end{equation}
+
+\vspace{-0.3em}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\scriptsize
+\begin{tabular}{lccc}
+\toprule
+Изотоп & $\alpha_i$ & $\sigma_i$, см$^2$ & $E_i$, МэВ \\
+\midrule
+$^{235}$U  & $0.70$ & $6.30{\cdot}10^{-43}$ & $201.9$ \\
+$^{238}$U  & $0.08$ & $9.38{\cdot}10^{-43}$ & $205.5$ \\
+$^{239}$Pu & $0.20$ & $4.33{\cdot}10^{-43}$ & $210.0$ \\
+$^{241}$Pu & $0.02$ & $6.01{\cdot}10^{-43}$ & $213.6$ \\
+\midrule
+Ср. & --- & $6.15{\cdot}10^{-43}$ & $204.0$ \\
+\bottomrule
+\end{tabular}
+\end{column}
+\begin{column}{0.52\textwidth}
+\scriptsize
+$R^{IBD}_{our}\approx 4.97\cdot 10^{3}$~реакций/сутки ($\varepsilon=1$)
+\smallskip
+
+$\varepsilon_{tot}^{Gd}=0.988\cdot 0.892\approx 0.881$
+
+$\varepsilon_{tot}^{Cd}=0.988\cdot 0.783\approx 0.774$
+\smallskip
+
+$\boxed{R^{reg}_{Gd}\approx 4.4\cdot 10^{3}~\text{соб./сутки}}$
+
+$\boxed{R^{reg}_{Cd}\approx 3.8\cdot 10^{3}~\text{соб./сутки}}$
+\smallskip
+
+Оценка оптимистична: фоны не учтены.
+\end{column}
+\end{columns}
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Время накопления статистики для направленной асимметрии}
+\small
+Для значимости $S=|\langle A\rangle|/\sigma_{\langle A\rangle}$ при $\sigma_A=0.62$, $|\langle A\rangle|\approx 0.020$:
+\begin{equation}
+    t=\frac{S^2\,\sigma_A^2}{|\langle A\rangle|^2\,R_{\mathrm{trig}}},\qquad
+    R_{\mathrm{trig}}\approx 4.2\cdot 10^{3}~\text{соб./сутки}.
+\end{equation}
+
+\medskip
+\textbf{Одно направление} (отличие от изотропного случая):
+\begin{itemize}\setlength{\itemsep}{0pt}
+    \item $3\sigma$: $t\approx 2$~сут;
+    \item $5\sigma$: $t\approx 6$~сут.
+\end{itemize}
+
+\smallskip
+Оценки --- нижние границы; фоны и конечный размер активной зоны увеличат необходимое время.
 \end{frame}
 
 % -------------------------------------------------------------------------
@@ -343,59 +460,96 @@ $\dfrac{N_p^{our}}{N_p^{iDREAM}}\approx 0.81 \;\Rightarrow\; R^{IBD}_{our}\appro
 \small
 \textbf{Итоги}:
 \begin{itemize}\setlength{\itemsep}{0pt}
-    \item реализована Geant4-модель водного черенковского детектора с prompt+delayed-компонентами IBD; учтены $n(\lambda)$, $L_{abs}(\lambda)$, $QE(\lambda)$;
-    \item prompt ($N_{fired}\ge 3$, $76\%$): $\langle N^{tot}_{pe}\rangle\approx 23$, $\langle T_{e^+}\rangle\approx 2{.}7$ MeV;
-    \item delayed: \textbf{Gd $\succ$ Cd} --- $t_{cap}$ короче ($31.6$ vs $112.2\,\mu$s), $\langle N_{pe}\rangle$ ($42.8$ vs $40.6$), $\varepsilon_{trig}$ ($74\%$ vs $57\%$);
-    \item ожидаемая скорость регистрации на Калинской АЭС: $R^{reg}_{Gd}\approx 0.7\cdot 10^3$, $R^{reg}_{Cd}\approx 0.5\cdot 10^3$ соб./сутки.
+    \item Geant4-модель водного черенковского детектора IBD; учтены $n(\lambda)$, $L_{abs}(\lambda)$, $QE(\lambda)$;
+    \item prompt ($N_{fired}\ge 3$, $98.8\%$): $\langle N^{tot}_{pe}\rangle\approx 107$, $\langle T_{e^+}\rangle\approx 2{.}4$ MeV;
+    \item delayed: \textbf{Gd $\succ$ Cd} --- $t_{cap}$ ($32.2$ vs $113.5\,\mu$s), $\langle N_{pe}\rangle$ ($84.8$ vs $72.1$), $\varepsilon_{trig}$ ($89.2\%$ vs $78.3\%$);
+    \item асимметрия $A$: чувствительность к направлению $\bar{\nu}_e$ ($\sim 17\sigma$ при $1.4\cdot 10^5$ событий);
+    \item Калининская АЭС ($r=20$~м): $R^{reg}_{Gd}\approx 4.4\cdot 10^3$, $R^{reg}_{Cd}\approx 3.8\cdot 10^3$ соб./сутки; направление --- за $2$--$6$ сут.
 \end{itemize}
 
 \smallskip
 \textbf{Дальнейшая работа}:
 \begin{itemize}\setlength{\itemsep}{0pt}
-    \item учёт углового распределения продуктов реакции IBD (формализм Vogel--Beacom);
-    \item учёт фонов
-    \item оптимизация числа и расположения ФЭУ.
+    \item учёт фонов;
+    \item оптимизация геометрии детектора.
 \end{itemize}
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Ключевые цифры}
+\small
+\textbf{Триггер во всех результатах}: $N_{fired}\ge 3$.
+\smallskip
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Prompt (быстрый сигнал IBD)}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item $\langle T_{e^+}\rangle \approx 2{.}40$~MeV;
+    \item $\langle N^{tot}_{pe}\rangle \approx 107$;
+    \item $\varepsilon_{IBD} = 98{.}8\%$.
+\end{itemize}
+\medskip
+
+\textbf{Направление $\bar{\nu}_e$ (асимметрия $A$)}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item $\Delta\langle A\rangle \approx 0{.}039$, $\sim 17\sigma$ при $1{.}4\cdot 10^5$ соб.;
+    \item направление на реактор: $\sim 2$--$6$~сут.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Delayed: Gd vs Cd}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{Gd} & \textbf{Cd} \\
+\midrule
+$\langle t_{cap}\rangle$, мкс & $32.2$ & $113.5$ \\
+$\langle N_{pe}\rangle$       & $84.8$ & $72.1$ \\
+$\varepsilon_{trig}$          & $89.2\%$ & $78.3\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+\textbf{Калининская АЭС ($r=20$~м)}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item $R^{reg}_{Gd}\approx 4{.}4\cdot 10^{3}$~соб./сутки;
+    \item $R^{reg}_{Cd}\approx 3{.}8\cdot 10^{3}$~соб./сутки.
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 % =========================================================================
 \appendix
 % =========================================================================
 
-\begin{frame}{Приложение: кривые выживания по $N_{fired}$}
+\begin{frame}{Приложение: суммарный $N_{pe}$ по спектру IBD}
 \begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    nirsaxis,
-    width=0.85\textwidth,
-    height=0.46\textwidth,
-    xlabel={$N_{fired,thr}$ (порог по числу сработавших ФЭУ)},
-    ylabel={$P(N_{fired}\ge N_{fired,thr})$},
-    xmin=0, xmax=20,
-    ymin=0, ymax=1,
-    grid=both,
-    minor grid style={gray!15},
-    major grid style={gray!30},
-    legend pos=north east,
-    legend style={font=\scriptsize},
-    legend cell align={left},
-]
-\addplot+[draw=blue!80!black, mark=none, line width=1.1pt]
-table[x index=0, y index=1] {data/nfired_survival_ibd.dat};
-\addlegendentry{IBD prompt}
-\addplot+[draw=red, mark=none, line width=1.1pt]
-table[x index=0, y index=1] {data/nfired_survival_Gd.dat};
-\addlegendentry{delayed Gd (0.1\%)}
-\addplot+[draw=teal, mark=none, line width=1.1pt]
-table[x index=0, y index=1] {data/nfired_survival_Cd.dat};
-\addlegendentry{delayed Cd (0.1\%)}
-\addplot+[draw=gray, dashed, mark=none, line width=0.8pt]
-coordinates {(3,0) (3,1)};
-\end{axis}
-\end{tikzpicture}
+\includegraphics[width=0.80\textwidth,keepaspectratio]{plots/npe_sum_vs_Te.png}
 \end{center}
-\vspace{-0.4em}
-\small Пунктир --- выбранный рабочий порог $N_{fired}=3$.
+\vspace{-0.6em}
+\footnotesize Суммарный (взвешенный по спектру IBD) световой выход $\sum N_{pe}$ в зависимости от $T_{e^+}$ (per-event IBD, $N_{fired}\ge 3$). В отличие от \emph{среднего} $\langle N_{pe}\rangle(T_{e^+})$, эта кривая показывает, где сосредоточен основной вклад регистрируемого света --- вблизи $T_{e^+}\approx 2{.}4$~MeV.
+\end{frame}
+
+% -------------------------------------------------------------------------
+\begin{frame}{Приложение: направление позитрона и нейтрона (IBD)}
+\small
+Угол $\theta$ между импульсом продукта и направлением $\hat{\nu}_e$; модель Vogel--Beacom, $10^6$ событий IBD.
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[height=0.52\textheight,keepaspectratio]{plots/ibd_cos_theta_e_appendix.png}
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[height=0.52\textheight,keepaspectratio]{plots/ibd_cos_theta_n_appendix.png}
+\end{column}
+\end{columns}
+\vspace{-0.1em}
+\small Нейтрон испускается преимущественно \emph{вперёд} ($\langle\cos\theta_n\rangle\approx 0.86$), позитрон в реакторном диапазоне слабо \emph{назад} ($\langle\cos\theta_{e^+}\rangle\approx -0.02$).
 \end{frame}
 
 \end{document}

@@ -49,8 +49,12 @@ cp sim/run_nirs/ibd_positron_spectrum.txt sim/build/ibd_positron_spectrum.txt ||
 cp sim/run_nirs/ibd_kinematics.txt sim/build/ibd_kinematics.txt || true
 cp sim/run_cd/pe_asymmetry.txt sim/build/pe_cd.txt
 cp sim/run_cd/neutron_lifetime_Cd.txt sim/build/neutron_lifetime_Cd.txt
+cp sim/run_cd/capture_gammas_Cd.txt sim/build/capture_gammas_Cd.txt || true
+cp sim/run_cd/capture_summary_Cd.txt sim/build/capture_summary_Cd.txt || true
 cp sim/run_gd/pe_asymmetry.txt sim/build/pe_gd.txt
 cp sim/run_gd/neutron_lifetime_Gd.txt sim/build/neutron_lifetime_Gd.txt
+cp sim/run_gd/capture_gammas_Gd.txt sim/build/capture_gammas_Gd.txt || true
+cp sim/run_gd/capture_summary_Gd.txt sim/build/capture_summary_Gd.txt || true
 cp sim/run_p10/photons_p10.txt sim/build/photons_p10.txt
 cp sim/run_p50/photons_p50.txt sim/build/photons_p50.txt
 cp sim/run_p90/photons_p90.txt sim/build/photons_p90.txt

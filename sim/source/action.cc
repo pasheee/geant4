@@ -5,8 +5,12 @@
 #include "G4Step.hh"
 #include "G4OpticalPhoton.hh"
 #include "G4Neutron.hh"
+#include "G4Gamma.hh"
+#include "G4Electron.hh"
 #include "G4Track.hh"
+#include "G4VProcess.hh"
 #include "G4SystemOfUnits.hh"
+#include <vector>
 #include "G4GenericMessenger.hh"
 #include "G4ios.hh"
 #include <iomanip>
@@ -20,6 +24,11 @@ RunAction::RunAction()
       fNeutronLifetimeOut(),
       fPhotonsPerEventFile("photons_per_event.txt"),
       fPhotonsPerEventOut(),
+      fWriteCaptureGammas(false),
+      fCaptureGammaFile("capture_gammas.txt"),
+      fCaptureSummaryFile("capture_summary.txt"),
+      fCaptureGammaOut(),
+      fCaptureSummaryOut(),
       fMessenger(nullptr)
 {
     // Controls for long runs: by default do NOT write cherenkov_spectrum.txt,
@@ -33,6 +42,12 @@ RunAction::RunAction()
                                 "Output filename for neutron lifetime data");
     fMessenger->DeclareProperty("photonsPerEventFile", fPhotonsPerEventFile,
                                 "Output filename for number of photons per event");
+    fMessenger->DeclareProperty("writeCaptureGammas", fWriteCaptureGammas,
+                                "If true: write neutron-capture prompt gamma spectrum and per-capture summary");
+    fMessenger->DeclareProperty("captureGammaFile", fCaptureGammaFile,
+                                "Output filename for per-gamma capture spectrum");
+    fMessenger->DeclareProperty("captureSummaryFile", fCaptureSummaryFile,
+                                "Output filename for per-capture de-excitation summary");
 }
 
 RunAction::~RunAction()
@@ -71,6 +86,17 @@ void RunAction::BeginOfRunAction(const G4Run*) {
     if (fPhotonsPerEventOut) {
         fPhotonsPerEventOut << "# event_id generated_optical_photons\n";
     }
+
+    if (fWriteCaptureGammas) {
+        fCaptureGammaOut.open(fCaptureGammaFile, std::ios::out);
+        if (fCaptureGammaOut) {
+            fCaptureGammaOut << "# Zres Ares Egamma_MeV  (one prompt capture gamma per line)\n";
+        }
+        fCaptureSummaryOut.open(fCaptureSummaryFile, std::ios::out);
+        if (fCaptureSummaryOut) {
+            fCaptureSummaryOut << "# Zres Ares nGamma sumEgamma_MeV nConvElectron sumEconvElectron_MeV\n";
+        }
+    }
 }
 
 void RunAction::EndOfRunAction(const G4Run*) {
@@ -89,9 +115,43 @@ void RunAction::EndOfRunAction(const G4Run*) {
         fPhotonsPerEventOut.flush();
         fPhotonsPerEventOut.close();
     }
+    if (fCaptureGammaOut.is_open()) {
+        fCaptureGammaOut.flush();
+        fCaptureGammaOut.close();
+    }
+    if (fCaptureSummaryOut.is_open()) {
+        fCaptureSummaryOut.flush();
+        fCaptureSummaryOut.close();
+    }
 }
 
 void RunAction::AddPhoton() { fPhotonCount++; }
+
+void RunAction::WriteCapture(G4int Zres, G4int Ares,
+                             const std::vector<G4double>& gammaEnergiesMeV,
+                             G4int nConvElectrons, G4double convElectronEnergyMeV)
+{
+    if (!fWriteCaptureGammas) return;
+
+    G4double sumEgamma = 0.0;
+    if (fCaptureGammaOut.is_open()) {
+        for (G4double e : gammaEnergiesMeV) {
+            fCaptureGammaOut << Zres << " " << Ares << " "
+                             << std::setprecision(8) << e << "\n";
+            sumEgamma += e;
+        }
+    } else {
+        for (G4double e : gammaEnergiesMeV) sumEgamma += e;
+    }
+
+    if (fCaptureSummaryOut.is_open()) {
+        fCaptureSummaryOut << Zres << " " << Ares << " "
+                           << static_cast<G4int>(gammaEnergiesMeV.size()) << " "
+                           << std::setprecision(8) << sumEgamma << " "
+                           << nConvElectrons << " "
+                           << std::setprecision(8) << convElectronEnergyMeV << "\n";
+    }
+}
 
 void RunAction::WriteCherenkovPhotonEnergyEV(G4double energyEV)
 {
@@ -162,6 +222,42 @@ void SteppingAction::UserSteppingAction(const G4Step* step) {
             // Нейтрон поглощен (захват), запишем его время жизни
             G4double lifetimeNS = track->GetGlobalTime() / ns;
             fRunAction->WriteNeutronLifetime(lifetimeNS);
+        }
+    }
+
+    // Neutron radiative-capture de-excitation tally.
+    // We inspect the secondaries produced by the nCapture process in this step:
+    //   - the residual nucleus (identifies the capture isotope: Z, A),
+    //   - prompt gamma quanta (the radiative cascade),
+    //   - internal-conversion electrons (non-gamma de-excitation channel).
+    if (fRunAction->IsCaptureGammaWritingEnabled() &&
+        track->GetDefinition() == G4Neutron::NeutronDefinition()) {
+        const G4VProcess* postProc = step->GetPostStepPoint()->GetProcessDefinedStep();
+        if (postProc && postProc->GetProcessName() == "nCapture") {
+            const auto* secs = step->GetSecondaryInCurrentStep();
+            if (secs) {
+                std::vector<G4double> gammaEnergies;
+                G4int nConvE = 0;
+                G4double convEEnergy = 0.0;
+                G4int Zres = 0, Ares = 0;
+                for (const G4Track* sec : *secs) {
+                    const G4ParticleDefinition* def = sec->GetDefinition();
+                    if (def == G4Gamma::GammaDefinition()) {
+                        gammaEnergies.push_back(sec->GetKineticEnergy() / MeV);
+                    } else if (def == G4Electron::ElectronDefinition()) {
+                        nConvE++;
+                        convEEnergy += sec->GetKineticEnergy() / MeV;
+                    } else if (def->GetParticleType() == "nucleus") {
+                        // Residual = heaviest nucleus among the products.
+                        const G4int A = def->GetAtomicMass();
+                        if (A > Ares) {
+                            Ares = A;
+                            Zres = def->GetAtomicNumber();
+                        }
+                    }
+                }
+                fRunAction->WriteCapture(Zres, Ares, gammaEnergies, nConvE, convEEnergy);
+            }
         }
     }
 }

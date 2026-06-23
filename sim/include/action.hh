@@ -7,6 +7,7 @@
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 #include <fstream>
+#include <vector>
 
 class G4GenericMessenger;
 
@@ -26,6 +27,13 @@ public:
     void WriteNeutronLifetime(G4double timeNS);
     void WritePhotonsPerEvent(G4int eventID, G4int nPhotons);
 
+    // Neutron-capture de-excitation bookkeeping (prompt gammas + conversion e-).
+    // gammaEnergiesMeV holds one entry per emitted capture gamma.
+    G4bool IsCaptureGammaWritingEnabled() const { return fWriteCaptureGammas; }
+    void WriteCapture(G4int Zres, G4int Ares,
+                      const std::vector<G4double>& gammaEnergiesMeV,
+                      G4int nConvElectrons, G4double convElectronEnergyMeV);
+
 private:
     G4int fPhotonCount;
 
@@ -39,6 +47,13 @@ private:
     
     G4String fPhotonsPerEventFile;
     std::ofstream fPhotonsPerEventOut;
+
+    // Neutron-capture gamma spectrum output (off by default).
+    G4bool fWriteCaptureGammas;
+    G4String fCaptureGammaFile;   // one row per emitted gamma:   Zres Ares Egamma_MeV
+    G4String fCaptureSummaryFile; // one row per capture: Zres Ares nGamma sumEgamma nConvE sumEconvE
+    std::ofstream fCaptureGammaOut;
+    std::ofstream fCaptureSummaryOut;
 
     G4GenericMessenger* fMessenger;
 };

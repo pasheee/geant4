@@ -13,4 +13,8 @@
 
 /analysis/neutronLifetimeFile neutron_lifetime_Gd.txt
 
+/analysis/writeCaptureGammas true
+/analysis/captureGammaFile capture_gammas_Gd.txt
+/analysis/captureSummaryFile capture_summary_Gd.txt
+
 /run/beamOn 1000000

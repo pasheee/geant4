@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  7 MAY 2026 23:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  23 JUN 2026 18:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1107,100 +1107,152 @@ Overfull \vbox (9.59497pt too high) detected at line 50
 
 ] [5
 
-] [6
-
 ]
+<detector.png, id=89, 1136.245pt x 782.925pt>
+File: detector.png Graphic file (type png)
+<use detector.png>
+Package pdftex.def Info: detector.png  used on input line 165.
+(pdftex.def)             Requested size: 224.51175pt x 154.69469pt.
+
+Overfull \vbox (5.16377pt too high) detected at line 165
+ []
+
+[6
+
+ <./detector.png>]
 PGFPlots: reading {data/positron_Te_hist_trig3.dat}
- [7
+
+Missing character: There is no 8 in font nullfont!
+Missing character: There is no 9 in font nullfont!
+
+Overfull \vbox (0.3263pt too high) detected at line 189
+ []
+
+[7
 
 ]
-PGFPlots: reading {data/npe_vs_Te_mean_trig3.dat}
+PGFPlots: reading {data/npe_vs_Te_mean_uniform_trig3.dat}
  [8
 
 ]
+<plots/photons_hist_percentiles.png, id=116, 867.24pt x 361.35pt>
+File: plots/photons_hist_percentiles.png Graphic file (type png)
+<use plots/photons_hist_percentiles.png>
+Package pdftex.def Info: plots/photons_hist_percentiles.png  used on input line 224.
+(pdftex.def)             Requested size: 410.161pt x 170.89868pt.
+ [9
+
+ <./plots/photons_hist_percentiles.png>]
 PGFPlots: reading {data/lifetime_hist_Cd_trig3.dat}
 PGFPlots: reading {data/lifetime_hist_Gd_trig3.dat}
-
-Missing character: There is no 9 in font nullfont!
-Missing character: There is no 7 in font nullfont!
-[9
+ [10
 
 ]
-Package pgfplots info on input line 310: Using 'lua backend=false' for axis: ymode=log unsupported (yet).
+Package pgfplots info on input line 319: Using 'lua backend=false' for axis: ymode=log unsupported (yet).
 PGFPlots: reading {data/npe_hist_log_Cd_trig3.dat}
-
-Missing character: There is no 9 in font nullfont!
-Missing character: There is no 8 in font nullfont!
 PGFPlots: reading {data/npe_hist_log_Gd_trig3.dat}
 
-Overfull \hbox (1.47238pt too wide) in paragraph at lines 310--310
+Overfull \hbox (1.47238pt too wide) in paragraph at lines 319--319
  [][] 
  []
 
 PGFPlots: reading {data/npe_survival_Cd_trig3.dat}
 PGFPlots: reading {data/npe_survival_Gd_trig3.dat}
 
-Overfull \hbox (5.01572pt too wide) in paragraph at lines 310--310
+Overfull \hbox (5.01572pt too wide) in paragraph at lines 319--319
  [][] 
  []
 
-[10
-
-] [11
+[11
 
 ] [12
 
 ]
+PGFPlots: reading {data/asym_hist_nu_minus_z_trig3.dat}
+PGFPlots: reading {data/asym_hist_nu_plus_z_trig3.dat}
 
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\CYRP' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyrr' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyri' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyrl' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyro' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyrzh' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyre' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyrn' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyri' on input line 364.
-
-
-Package hyperref Warning: Glyph not defined in PU encoding,
-(hyperref)                removing `\cyre' on input line 364.
-
-PGFPlots: reading {data/nfired_survival_ibd.dat}
-PGFPlots: reading {data/nfired_survival_Gd.dat}
-PGFPlots: reading {data/nfired_survival_Cd.dat}
-
-Overfull \vbox (5.34749pt too high) detected at line 399
- []
-
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 4 in font nullfont!
 [13
 
 ]
+<detector_reactor.png, id=155, 617.30624pt x 326.21875pt>
+File: detector_reactor.png Graphic file (type png)
+<use detector_reactor.png>
+Package pdftex.def Info: detector_reactor.png  used on input line 391.
+(pdftex.def)             Requested size: 237.46371pt x 125.48758pt.
+ [14
+
+ <./detector_reactor.png>] [15
+
+] [16
+
+] [17
+
+] [18
+
+]
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\CYRP' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyrr' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyri' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyrl' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyro' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyrzh' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyre' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyrn' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyri' on input line 528.
+
+
+Package hyperref Warning: Glyph not defined in PU encoding,
+(hyperref)                removing `\cyre' on input line 528.
+
+<plots/npe_sum_vs_Te.png, id=195, 867.24pt x 361.35pt>
+File: plots/npe_sum_vs_Te.png Graphic file (type png)
+<use plots/npe_sum_vs_Te.png>
+Package pdftex.def Info: plots/npe_sum_vs_Te.png  used on input line 535.
+(pdftex.def)             Requested size: 345.40117pt x 143.91989pt.
+[19
+
+ <./plots/npe_sum_vs_Te.png>]
+<plots/ibd_cos_theta_e_appendix.png, id=206, 587.5551pt x 389.0535pt>
+File: plots/ibd_cos_theta_e_appendix.png Graphic file (type png)
+<use plots/ibd_cos_theta_e_appendix.png>
+Package pdftex.def Info: plots/ibd_cos_theta_e_appendix.png  used on input line 553.
+(pdftex.def)             Requested size: 191.15038pt x 126.57048pt.
+<plots/ibd_cos_theta_n_appendix.png, id=207, 586.1097pt x 389.0535pt>
+File: plots/ibd_cos_theta_n_appendix.png Graphic file (type png)
+<use plots/ibd_cos_theta_n_appendix.png>
+Package pdftex.def Info: plots/ibd_cos_theta_n_appendix.png  used on input line 553.
+(pdftex.def)             Requested size: 190.68015pt x 126.57048pt.
+ [20
+
+ <./plots/ibd_cos_theta_e_appendix.png> <./plots/ibd_cos_theta_n_appendix.png>]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -1219,18 +1271,18 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 0C4E20B0752898142B0BC5A214FFDE7D;33.
  ) 
 Here is how much of TeX's memory you used:
- 38181 strings out of 467525
- 897713 string characters out of 5418982
- 1647294 words of memory out of 5000000
- 66343 multiletter control sequences out of 15000+600000
- 653190 words of font info for 104 fonts, out of 8000000 for 9000
+ 38262 strings out of 467525
+ 899349 string characters out of 5418982
+ 1679966 words of memory out of 5000000
+ 66404 multiletter control sequences out of 15000+600000
+ 659677 words of font info for 112 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,20n,123p,779b,2620s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsi0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsi1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0600.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0700.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1728.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb>
-Output written on presentation.pdf (13 pages, 349514 bytes).
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsi1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsi1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0600.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1728.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb>
+Output written on presentation.pdf (20 pages, 1185617 bytes).
 PDF statistics:
- 269 PDF objects out of 1000 (max. 8388607)
- 173 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 346 PDF objects out of 1000 (max. 8388607)
+ 220 compressed objects within 3 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 123 words of extra memory for PDF output out of 10000 (max. 10000000)
 

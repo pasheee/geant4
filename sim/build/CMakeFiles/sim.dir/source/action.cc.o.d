@@ -1102,6 +1102,8 @@ CMakeFiles/sim.dir/source/action.cc.o: \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4OpticalPhoton.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Neutron.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Ions.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Gamma.hh \
+  /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4Electron.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4GenericMessenger.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4AnyMethod.hh \
   /opt/homebrew/Caskroom/miniforge/base/envs/g4env/include/Geant4/G4AnyType.hh
